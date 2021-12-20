@@ -1,0 +1,112 @@
+#login-page,
+#register-page {
+    position: relative;
+    width: 70%;
+    height: auto;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgb(250, 250, 250, 0.3);
+    box-shadow: 0px 0px 32px 0px #aaa;
+}
+
+.container {
+    padding: 20px;
+}
+
+.brand-logo {
+    width: 55%;
+    background-image: url('https://www.pngall.com/wp-content/uploads/5/Blank-Comic-Boom-PNG-Pic.png');
+    background-size: 100%;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+}
+
+.brand-logo>h1 {
+    font-weight: 900;
+    font-size: 1.7rem;
+    text-align: center;
+    color: brown;
+    letter-spacing: 1px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: 18%;
+}
+
+label,
+input {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+label {
+    margin-bottom: 8px 0px;
+    font-size: 24px;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+input::placeholder {
+    color: rgba(184, 179, 179, 0.678);
+}
+
+;
+label[for="female"] {
+    margin-top: 10px;
+}
+
+input[type="nickname"],
+input[type="password"],
+input[type="number"],
+input[type="email"] {
+    background: #ecf0f3;
+    padding: 30px;
+    padding-left: 20px;
+    height: 30px;
+    margin-top: 10px;
+    font-size: 22px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #bbb, inset -6px -6px 6px #fff;
+}
+
+label[for="terms"]>input {
+    display: inline;
+}
+
+.btn.submit {
+    margin-top: 30px;
+    background: #8fa9b9;
+    height: 60px;
+    border-radius: 20px;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.5s;
+}
+
+.btn.submit:hover {
+    color: white;
+    background-color: #8fa9b9;
+}
+
+.container {
+    text-align: left;
+    margin-top: 0px;
+}
+
+.field>span {
+    position: absolute;
+    font-size: 18px;
+    bottom: 17px;
+    right: 8px;
+    text-decoration: none;
+    color: black;
+    background: rgb(235, 157, 142);
+    border-radius: 10px;
+    padding: 5px;
+}

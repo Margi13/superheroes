@@ -40,8 +40,7 @@ export const register = async(email, password) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email, password })
-    })
-    console.log(password);
+    });
     let jsonResult = await response.json();
     if (response.ok) {
         return jsonResult;

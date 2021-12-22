@@ -1,5 +1,5 @@
 import {useContext, useEffect} from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService'
 import { AuthContext } from '../../contexts/AuthContext';
 const Logout = () => {
@@ -13,7 +13,7 @@ const Logout = () => {
             navigate('/');
         });
         
-    },[])
+    },[user.accessToken, logout, navigate])
     //TODO: Modal box with info that is loading
     return null;
 }

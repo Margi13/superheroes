@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { AuthContext } from './contexts/AuthContext';
+import useLocalStorage from './hooks/useLocalStorage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Create from './components/Create';
@@ -19,7 +20,7 @@ const initialAuthState = {
   accessToken: ''
 }
 function App() {
-  const [user, setUser ] = useState(initialAuthState)
+  const [user, setUser ] = useLocalStorage('user',initialAuthState)
 
   const login = (authData) => {
     setUser(authData);

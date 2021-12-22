@@ -26,28 +26,43 @@ footer {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
-header {
-    position: relative;
-    padding: 10px;
+.logo {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 210px;
+    background-image: url('../images/cloud.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 999;
 }
 
-header h1 {
-    display: inline-block;
-    background-color: #29303c;
-    color: white;
-    margin-bottom: auto;
+.cloud-link {
+    background-image: url('../images/cloud.png');
+    background-position-x: center;
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding: 15%;
+    background-size: 70%;
+}
+
+header {
+    padding: 25px;
 }
 
 header nav {
     font-size: auto;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    position: absolute;
-    right: 0;
-    bottom: 8px;
+    display: flex;
+    justify-content: flex-end;
 }
 
-header nav>* {
-    float: left;
+#user,
+#guest,
+#all {
+    width: 20%;
 }
 
 footer {
@@ -70,10 +85,4 @@ nav a:hover {
 
 .home:hover {
     color: rgb(82, 133, 139);
-}
-
-#user,
-#guest {
-    margin: 0;
-    padding: 0;
 }

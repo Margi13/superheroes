@@ -1,0 +1,23 @@
+.error-page {
+    background-color: transparent;
+    box-shadow: 0px 0px 40px 0px;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 20px;
+    height: auto;
+    width: 85%;
+}
+
+.error-page>h1 {
+    color: #fff;
+    font-family: "Agency FB";
+    font-size: 48px;
+    font-weight: 700;
+    margin-top: 15%;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.error-page {
+    display: flex;
+}

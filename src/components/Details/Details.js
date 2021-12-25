@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthContext'
+import { useAuthContext } from '../../contexts/AuthContext'
 
 import * as superheroService from '../../services/superheroService';
 import './Details.css';
 const Details = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useContext(useAuthContext);
   const navigate = useNavigate();
   const [superhero, setSuperhero] = useState({});
   const { heroId } = useParams();

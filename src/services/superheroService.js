@@ -1,20 +1,8 @@
+import {request} from './requester'
 const baseUrl = 'http://localhost:3030/data';
 //1:30 -> Create
 //2:22 -> localStorage
-export function getAll() {
-    return fetch(`${baseUrl}/superheroes`)
-        .then(res => {
-            if(res.ok){
-                return res.json();
-            }else{
-                throw new Error('No response:', res.statusText)
-            }
-        })
-        .catch(error=>{
-            console.log(error);
-        });
-
-}
+export const getAll = () => request(`${baseUrl}/superheroes`)
 
 export function getOne(heroId) {
     console.log(heroId);

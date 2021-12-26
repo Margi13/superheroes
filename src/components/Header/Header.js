@@ -1,9 +1,8 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext'
 
 const Header = () => {
-    const { user } = useContext(useAuthContext);
+    const { user } = useAuthContext();
     let guestNavigation = (
         <div id="guest">
             <Link to="/login" href="/login" className="cloud-link">Login</Link>

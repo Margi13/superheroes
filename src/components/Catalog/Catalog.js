@@ -1,4 +1,4 @@
-import { useEffect, useState, Link } from 'react';
+import { useEffect, useState } from 'react';
 import * as superheroService from '../../services/superheroService';
 
 import './Catalog.css'

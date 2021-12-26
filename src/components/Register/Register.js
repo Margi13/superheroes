@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import {useNavigate} from 'react-router'
 import { Link } from 'react-router-dom';
 import * as authService from '../../services/authService';
@@ -6,7 +5,7 @@ import { useAuthContext } from '../../contexts/AuthContext'
 
 function Register() {
     const navigate = useNavigate();
-    const {login} = useContext(useAuthContext);
+    const {login} = useAuthContext();
     const registerSubmitHandler = (e) => {
         e.preventDefault();
 

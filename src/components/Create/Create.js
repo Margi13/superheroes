@@ -1,11 +1,10 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as supereroService from '../../services/superheroService';
 
 import { useAuthContext } from '../../contexts/AuthContext'
 const Create = () => {
 
-    const { user } = useContext(useAuthContext);
+    const { user } = useAuthContext();
     const navigate = useNavigate();
     const onHeroCreate = (e) => {
         e.preventDefault();

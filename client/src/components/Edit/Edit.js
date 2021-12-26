@@ -6,11 +6,14 @@ const Edit = () => {
     const { heroId } = useParams();
     const [errors, setErrors] = useState({ personName: null, heroName: null });
     const [superhero] = useHeroState(heroId);
+
     const heroEditSubmitHandler = (e) => {
         e.preventDefault();
+        let heroData = Object.fromEntries(new FormData(e.currentTarget));
 
-        console.log('submit');
+        supereroService.update(superhero._id, heroData)
     }
+
     const personNameChangeHandler = (e) => {
         console.log(e.target.value);
         let currentName = e.target.value;

@@ -1,8 +1,7 @@
-import { request } from './requester'
+import * as request from './requester'
 const baseUrl = 'http://localhost:3030/data';
-//1:30 -> Create
-//2:22 -> localStorage
-export const getAll = () => request(`${baseUrl}/superheroes`)
+
+export const getAll = () => request.get(`${baseUrl}/superheroes`)
 
 export function getOne(heroId) {
     return fetch(`${baseUrl}/superheroes/${heroId}`)
@@ -45,6 +44,8 @@ export const create = async (heroData, token) => {
     let result = await response.json();
     return result;
 }
+
+export const update = (heroId, heroData)=>request.put(`${baseUrl}/superheroes/${heroId}`,heroData);
 
 export const remove = (heroId, token) => {
     return fetch(`${baseUrl}/superheroes/${heroId}`, {

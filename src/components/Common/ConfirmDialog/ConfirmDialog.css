@@ -1,0 +1,10 @@
+.modal-container {
+    vertical-align: center;
+    text-align: center;
+    align-self: center;
+    background-color: gray;
+    color: white;
+    width: 20%;
+    border-radius: 20px;
+    padding: 20px;
+}

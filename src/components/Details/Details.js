@@ -1,92 +1,100 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState } from 'react';
+import useHeroState from '../../hooks/useHeroState';
+
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext'
 
 import * as superheroService from '../../services/superheroService';
+import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
 import './Details.css';
 const Details = () => {
-  const { user } = useContext(useAuthContext);
+  const { user } = useAuthContext();
   const navigate = useNavigate();
-  const [superhero, setSuperhero] = useState({});
   const { heroId } = useParams();
+  const [superhero, setSuperhero] = useHeroState(heroId);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
-  useEffect(() => {
-    superheroService.getOne(heroId)
-    .then(res=>{
-      setSuperhero(res);
-
-    });
-
-  }, [heroId]);
 
   const deleteHandler = (e) => {
     e.preventDefault();
     superheroService.remove(heroId, user.accessToken)
-    .then(res=>{
-      console.log(res)
-      navigate('/');
-    });
-  }
-  const editHandler = () => {
+      .then(res => {
+        navigate('/');
+      })
+      .finally(() => {
+        setShowDeleteDialog(false);
 
+      });
   }
+
+  const deleteClickHandler = (e) => {
+    e.preventDefault();
+    setShowDeleteDialog(true);
+  }
+
   const ownerButtons = (
     <div className="buttons">
-      <Link to={"/edit/" + superhero._id} href="/edit" className="button">Edit</Link>
-      <a href="#" className="button" onClick={deleteHandler}>Delete</a>
+      <Link to={`/edit/${superhero._id}`} href="/edit" className="button">Edit</Link>
+      <button className="button" onClick={deleteClickHandler}>Delete</button>
+    </div>
+  )
+  const likeButtonClick = () => {
+    if (superhero.likes.includes(user._id)) {
+      //TODO: add notification
+      console.log('User already liked');
+      return;
+    }
+    let likes = [...superhero.likes, user._id];
+    let updatedHero = { ...superhero, likes }
+    superheroService.like(heroId, updatedHero, user.accessToken)
+      .then(resData => {
+        console.log(resData);
+        setSuperhero((state) => ({ ...state, likes }))
+      });
+  }
+  const userButtons = (
+    <div className="buttons">
+      <button className="button" onClick={likeButtonClick}>Like</button>
     </div>
   )
   return (
-    <section className="hero-details">
-      <h1>Superhero Details</h1>
-      <div className="info-section">
+    <>
+      <ConfirmDialog
+        show={showDeleteDialog}
+        onCancel={() => setShowDeleteDialog(false)}
+        onSave={deleteHandler} />
+      <section className="hero-details">
+        <h1>Superhero Details</h1>
+        <div className="info-section">
 
-        <div className="hero-header">
-          <img className="hero-img" src={superhero.imageUrl || '../images/avatar-grooth.png'} alt="" />
-          {/* if names are equal => we write it only one time */}
-          <h1>{superhero.heroName || 'Hero name'} ({superhero.personName || 'Real name'})</h1>
-          <span className="age">{superhero.age || 5} години</span>
-          {/* <p className="superpower">{superhero.superpower || 'Superpowers'}</p> */}
-        </div>
+          <div className="hero-header">
+            <img className="hero-img" src={superhero.imageUrl || '../images/avatar-grooth.png'} alt="" />
+            {/* if names are equal => we write it only one time */}
+            <h1>{superhero.heroName || 'Hero name'} ({superhero.personName || 'Real name'})</h1>
+            <span className="age">{superhero.age || 5} години</span>
+            {/* <p className="superpower">{superhero.superpower || 'Superpowers'}</p> */}
+          </div>
 
-        <p className="text">
-          {superhero.story ||
-            `Story of superhero! Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work with an Orc to find a weapon everyone is prepared to kill for. Set in a world where fantasy creatures live side by side with humans. A human cop is forced
+          <p className="text">
+            {superhero.story ||
+              `Story of superhero! Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work with an Orc to find a weapon everyone is prepared to kill for. Set in a world where fantasy creatures live side by side with humans. A human cop is forced
           to work with an Orc to find a weapon everyone is prepared to kill for.`
-          }
-        </p>
-
-        {/* <div className="details-comments">
-          <h2>Comments:</h2>
-          <ul>
-            <li className="comment">
-              <p>Content: I rate this one quite highly.</p>
-            </li>
-            <li className="comment">
-              <p>Content: The best hero.</p>
-            </li>
-          </ul>
-          <p className="no-comment">No comments.</p>
-        </div> */}
-        {user._id && (user._id === superhero._ownerId
-          ? ownerButtons
-          : (
-            <article className="create-comment">
-              <label>Add new comment:</label>
-              <form className="form">
-                <textarea name="comment" placeholder="Comment......"></textarea>
-                <input className="btn submit" type="submit" value="Add Comment" />
-              </form>
-            </article>
-          ))
-        }
+            }
+          </p>
 
 
-      </div>
+          {user._id && (user._id === superhero._ownerId
+            ? ownerButtons
+            : userButtons
+          )}
+          <div className="likes">
+            {/* <img className="hearts" /> */}
+            <span id="total-likes">Likes: {superhero.likes?.length}</span>
+          </div>
 
-
-
-    </section>
+        </div>
+      </section>
+    </>
   );
 }
 

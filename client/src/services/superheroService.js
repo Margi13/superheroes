@@ -61,17 +61,3 @@ export const remove = (heroId, token) => {
     })
         .then(res => res.json)
 }
-
-export const like = (heroId, superhero, token) => {
-    return fetch(`${baseUrl}/superheroes/${heroId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-Authorization': token
-        },
-        body: JSON.stringify({
-            superhero
-        })
-    })
-        .then(res => res.json());
-}

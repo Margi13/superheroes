@@ -22,7 +22,7 @@ const Details = () => {
       .then((likes) => {
         setSuperhero(state => ({ ...state, likes }))
       });
-  }, [heroId])
+  }, [heroId,setSuperhero])
 
   const deleteHandler = (e) => {
     e.preventDefault();

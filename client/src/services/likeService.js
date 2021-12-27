@@ -1,5 +1,4 @@
 import * as request from './requester';
-import * as superheroService from './superheroService';
 
 const baseUrl = 'http://localhost:3030/data';
 

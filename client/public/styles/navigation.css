@@ -21,48 +21,14 @@ footer {
     color: black;
 }
 
-.home {
-    font-size: auto;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-}
-
-.logo {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 210px;
-    background-image: url('../images/cloud.png');
-    background-position: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    z-index: 999;
-}
-
 .cloud-link {
     background-image: url('../images/cloud.png');
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 90%;
     padding: 15%;
-    background-size: 70%;
-}
-
-header {
-    padding: 25px;
-}
-
-header nav {
-    font-size: auto;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    display: flex;
-    justify-content: flex-end;
-}
-
-#user,
-#guest,
-#all {
-    width: 20%;
+    text-align: center;
 }
 
 footer {
@@ -73,7 +39,7 @@ footer {
     bottom: 0;
 }
 
-nav a {
+/* nav a {
     margin: 0 0.5em;
 }
 
@@ -81,8 +47,6 @@ nav a:hover {
     cursor: pointer;
     color: rgb(82, 133, 139);
     font-weight: bolder;
-}
+} */
 
-.home:hover {
-    color: rgb(82, 133, 139);
-}
+

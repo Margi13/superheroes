@@ -1,0 +1,52 @@
+.logo-container{
+    position: relative;
+    float:left;
+    height: 175px;
+}
+.logo {
+    height: inherit;
+    z-index: 999;
+    border-radius: 45%;
+}
+
+header nav {
+    font-size: auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    display: flex;
+    justify-content: space-between;
+    height: 160px;
+}
+header nav div {
+    display: flex;
+    justify-content: end;
+    margin:0px;
+}
+nav a {
+    margin: 0 0.5em;
+}
+
+nav a:hover {
+    cursor: pointer;
+    color: rgb(82, 133, 139);
+    font-weight: bolder;
+}
+
+.home {
+    font-size: auto;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    height: 200px;
+}
+.home:hover {
+    color: rgb(82, 133, 139);
+}
+
+.all-nav{
+    padding-top: 45%;
+}
+
+.user-nav{
+    padding-top:25%;
+}
+.guest-nav{
+    padding-top:40%;
+}

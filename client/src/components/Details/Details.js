@@ -18,11 +18,11 @@ const Details = () => {
   const { addNotification } = useNotificationContext();
 
   useEffect(() => {
-    likeService.getCount(heroId)
-      .then((likeCount) => {
-        setSuperhero(state => ({ ...state, likes: likeCount }))
-      })
-  }, [])
+    likeService.getHeroLikes(heroId)
+      .then((likes) => {
+        setSuperhero(state => ({ ...state, likes }))
+      });
+  }, [heroId])
 
   const deleteHandler = (e) => {
     e.preventDefault();
@@ -47,18 +47,29 @@ const Details = () => {
       <button className="button" onClick={deleteClickHandler}>Delete</button>
     </div>
   )
-  const likeButtonClick = () => {
+  const likeButtonClick = (e) => {
+    
+    console.log(e.target.disabled)
+    if (user._id === superhero._ownerId) {
+      return;
+    }
+    if (superhero.likes.includes(user._id)) {
+      addNotification('You had already liked this hero!', typesColor.warning);
+      e.target.disabled = true;
+      return;
+    }
     likeService.like(user._id, heroId)
       .then(() => {
-        setSuperhero(state => ({ ...state, likes: state.likes + 1 }));
+        setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
         addNotification('Successfully liked this hero', typesColor.success);
-
+        e.target.disabled = true;
       });
 
   }
+  //disabled={superhero.likes.includes(user._id)}
   const userButtons = (
     <div className="buttons">
-      <button className="button" onClick={likeButtonClick}>Like</button>
+       <button className="button" onClick={likeButtonClick} >Like</button>
     </div>
   )
   return (
@@ -93,7 +104,7 @@ const Details = () => {
           )}
           <div className="likes">
             {/* <img className="hearts" /> */}
-            <span id="total-likes">Likes: {superhero.likes}</span>
+            <span id="total-likes">Likes: {superhero.likes?.length || 0}</span>
           </div>
 
         </div>

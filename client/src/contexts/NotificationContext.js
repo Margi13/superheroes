@@ -16,12 +16,11 @@ export const NotificationProvider = ({
     const addNotification = useCallback((message, typeColor = typesColor.error) => {
         setNotification({ show: true, message: message, typeColor });
     }, []);
-    const hideNotification = useCallback(()=>{
-
+    const hideNotification = useCallback(() => {
         setTimeout(() => {
             setNotification(initialState);
         }, 5000);
-    },[])
+    }, [])
     return (
         <NotificationContext.Provider value={{ notification, addNotification, hideNotification }}>
             {children}

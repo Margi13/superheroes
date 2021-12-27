@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useHeroState from '../../hooks/useHeroState';
 
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useAuthContext } from '../../contexts/AuthContext'
+import { useAuthContext } from '../../contexts/AuthContext';
+import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 
 import * as superheroService from '../../services/superheroService';
+import * as likeService from '../../services/likeService';
 import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
 import './Details.css';
 const Details = () => {
@@ -13,7 +15,14 @@ const Details = () => {
   const { heroId } = useParams();
   const [superhero, setSuperhero] = useHeroState(heroId);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const { addNotification } = useNotificationContext();
 
+  useEffect(() => {
+    likeService.getCount(heroId)
+      .then((likeCount) => {
+        setSuperhero(state => ({ ...state, likes: likeCount }))
+      })
+  }, [])
 
   const deleteHandler = (e) => {
     e.preventDefault();
@@ -39,18 +48,13 @@ const Details = () => {
     </div>
   )
   const likeButtonClick = () => {
-    if (superhero.likes.includes(user._id)) {
-      //TODO: add notification
-      console.log('User already liked');
-      return;
-    }
-    let likes = [...superhero.likes, user._id];
-    let updatedHero = { ...superhero, likes }
-    superheroService.like(heroId, updatedHero, user.accessToken)
-      .then(resData => {
-        console.log(resData);
-        setSuperhero((state) => ({ ...state, likes }))
+    likeService.like(user._id, heroId)
+      .then(() => {
+        setSuperhero(state => ({ ...state, likes: state.likes + 1 }));
+        addNotification('Successfully liked this hero', typesColor.success);
+
       });
+
   }
   const userButtons = (
     <div className="buttons">
@@ -89,7 +93,7 @@ const Details = () => {
           )}
           <div className="likes">
             {/* <img className="hearts" /> */}
-            <span id="total-likes">Likes: {superhero.likes?.length}</span>
+            <span id="total-likes">Likes: {superhero.likes}</span>
           </div>
 
         </div>

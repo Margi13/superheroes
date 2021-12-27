@@ -13,17 +13,26 @@ export const formLabelsBG = {
     'Age':'Години',
     'Image':'Скица на героя',
     'Story':'История на героя',
+    'Email': 'Имейл',
+    'Password': 'Парола',
+    'RepeatPassword': 'Повторете паролата'
 }
 
 export const buttonLabelsBG = {
     'Create': 'Създай',
+    'Delete': 'Изтрий',
+    'Like': 'Харесай',
     'Edit': 'Редактирай',
     'Cancel': 'Отказ',
+    'Details':'Детайли',
+    'Login': 'Влез',
+    'Register': 'Регистрирай се'
 }
 
 export const placeholdersBG = {
-    'PersonName': '',
-    'HeroicName': '',
-    'Image': '',
-    'Story': '',
+    'PersonName': 'Питър Паркър',
+    'HeroicName': 'Спайдърмен',
+    'Image': 'Качване на скица...',
+    'Story': 'История, суперсили, семейство...',
+    'Email': 'steve_rodgers@gmail.com',
 }

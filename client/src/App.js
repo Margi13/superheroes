@@ -16,6 +16,7 @@ import Error from './components/Error';
 import MyHeroes from './components/MyHeroes';
 import ErrorBoundary from './components/Common/ErrorBoundary';
 import Notification from './components/Common/Notification/index';
+import PrivateRoute from './components/Common/PrivateRoute/index';
 
 function App() {
 
@@ -27,19 +28,19 @@ function App() {
 
           <div id="box">
             <Header />
-            <Notification/>
+            <Notification />
             <main id="main-content">
 
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/create" element={<Create />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/logout" element={<Logout />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/catalog" element={<Catalog />} />
-                <Route path="/my-heroes" element={<MyHeroes />} />
                 <Route path="/details/:heroId" element={<Details />} />
-                <Route path="/edit/:heroId" element={<Edit />} />
+                <Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
+                <Route path="/my-heroes" element={<PrivateRoute><MyHeroes /></PrivateRoute>} />
+                <Route path="/create" element={<PrivateRoute><Create /></PrivateRoute>} />
+                <Route path="/edit/:heroId" element={<PrivateRoute><Edit /></PrivateRoute>} />
                 <Route path="/*" element={<Error />} />
               </Routes>
 

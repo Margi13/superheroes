@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
+import { NotificationProvider } from './contexts/NotificationContext'
 import { AuthProvider } from './contexts/AuthContext'
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -13,6 +14,7 @@ import Logout from './components/Logout';
 import Register from './components/Register';
 import Error from './components/Error';
 import ErrorBoundary from './components/Common/ErrorBoundary';
+import Notification from './components/Common/Notification/index';
 
 function App() {
 
@@ -20,27 +22,30 @@ function App() {
     <ErrorBoundary>
 
       <AuthProvider>
+        <NotificationProvider>
 
-        <div id="box">
-          <Header />
-          <main id="main-content">
+          <div id="box">
+            <Header />
+            <Notification/>
+            <main id="main-content">
 
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/create" element={<Create />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/logout" element={<Logout />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/catalog" element={<Catalog />} />
-              <Route path="/details/:heroId" element={<Details />} />
-              <Route path="/edit/:heroId" element={<Edit />} />
-              <Route path="/*" element={<Error />} />
-            </Routes>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/create" element={<Create />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/catalog" element={<Catalog />} />
+                <Route path="/details/:heroId" element={<Details />} />
+                <Route path="/edit/:heroId" element={<Edit />} />
+                <Route path="/*" element={<Error />} />
+              </Routes>
 
 
-          </main>
-          <Footer />
-        </div>
+            </main>
+            <Footer />
+          </div>
+        </NotificationProvider>
       </AuthProvider>
     </ErrorBoundary>
   );

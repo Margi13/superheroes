@@ -1,0 +1,23 @@
+.notification{
+    text-align: 'center';
+    border: '2px solid';
+    position: absolute;
+    top: 110px;
+    right: 50px;
+}
+.red{
+    color: red;
+    border: 2px solid red;
+}
+.blue{
+    color: blue;
+    border: 2px solid blue;
+}
+.yellow{
+    color: yellow;
+    border: 2px solid yellow;
+}
+.green{
+    color: green;
+    border: 2px solid green;
+}

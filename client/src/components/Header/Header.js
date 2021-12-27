@@ -12,6 +12,7 @@ const Header = () => {
     let userNavigation = (
         <div id="user">
             <Link to="/create" href="/create" className="cloud-link">Create</Link>
+            <Link to="/my-heroes" href="/my-heroes" className="cloud-link">My Heroes</Link>
             <Link to="/logout" href="/logout" className="cloud-link">Logout</Link>
         </div>
 

@@ -3,7 +3,7 @@ const baseUrl = 'http://localhost:3030/data';
 
 export const getAll = () => request.get(`${baseUrl}/superheroes`)
 
-export function getOne(heroId) {
+export const getOne = (heroId) => {
     return fetch(`${baseUrl}/superheroes/${heroId}`)
         .then(res => {
             if (res.ok) {
@@ -17,7 +17,7 @@ export function getOne(heroId) {
         });
 }
 
-export function getLatest() {
+export const getLatest = () => {
     return fetch(`${baseUrl}/superheroes`)
         .then(res => {
             if (res.ok) {
@@ -29,6 +29,11 @@ export function getLatest() {
         .catch(error => {
             console.log(error);
         });
+}
+
+export const getOwn = (ownerId) => {
+    const query = encodeURIComponent(`_ownerId="${ownerId}"`);
+    return request.get(`${baseUrl}/superheroes?where=${query}`);
 }
 
 export const create = async (heroData, token) => {
@@ -45,7 +50,7 @@ export const create = async (heroData, token) => {
     return result;
 }
 
-export const update = (heroId, heroData)=>request.put(`${baseUrl}/superheroes/${heroId}`,heroData);
+export const update = (heroId, heroData) => request.put(`${baseUrl}/superheroes/${heroId}`, heroData);
 
 export const remove = (heroId, token) => {
     return fetch(`${baseUrl}/superheroes/${heroId}`, {
@@ -68,5 +73,5 @@ export const like = (heroId, superhero, token) => {
             superhero
         })
     })
-    .then(res => res.json());
+        .then(res => res.json());
 }

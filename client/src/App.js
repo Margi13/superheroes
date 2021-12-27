@@ -13,6 +13,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Register from './components/Register';
 import Error from './components/Error';
+import MyHeroes from './components/MyHeroes';
 import ErrorBoundary from './components/Common/ErrorBoundary';
 import Notification from './components/Common/Notification/index';
 
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/catalog" element={<Catalog />} />
+                <Route path="/my-heroes" element={<MyHeroes />} />
                 <Route path="/details/:heroId" element={<Details />} />
                 <Route path="/edit/:heroId" element={<Edit />} />
                 <Route path="/*" element={<Error />} />

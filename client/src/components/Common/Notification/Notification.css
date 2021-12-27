@@ -4,20 +4,25 @@
     position: absolute;
     top: 110px;
     right: 50px;
+    background-color: whitesmoke;
 }
-.red{
+.danger{
     color: red;
     border: 2px solid red;
+    background-color: lightcoral;
 }
-.blue{
+.info{
     color: blue;
     border: 2px solid blue;
+    background-color: lightblue;
 }
-.yellow{
+.warning{
     color: yellow;
     border: 2px solid yellow;
+    background-color: lightyellow;
 }
-.green{
+.success{
     color: green;
     border: 2px solid green;
+    background-color: lightgreen;
 }

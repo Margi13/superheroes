@@ -1,8 +1,13 @@
-import {useNotificationContext} from '../../../contexts/NotificationContext';
+import { useEffect } from 'react';
+import { useNotificationContext } from '../../../contexts/NotificationContext';
 import './Notification.css';
 const Notification = () => {
-    const {notification} = useNotificationContext();
-    if(!notification.show){
+    const { notification, hideNotification } = useNotificationContext();
+
+    useEffect(()=>{
+        hideNotification();
+    })
+    if (!notification.show) {
         return null;
     }
     return (

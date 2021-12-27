@@ -7,7 +7,8 @@ export const titles = {
     'Likes': 'Харесвания',
     'MyHeroes': 'Всички мои герои',
     'Login':'Вход',
-    'Register':'Нов профил'
+    'Register':'Нов профил',
+    'Welcome': 'Добре дошли'
 
 }
 

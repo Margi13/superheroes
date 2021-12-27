@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import './LatestHeroCard.css';
+import {buttonLabelsBG} from '../../../common/labelsConstatnsBG'
 
 const LatestHeroCard = ({
     hero
@@ -24,7 +25,7 @@ const LatestHeroCard = ({
                 </div>
                 <h3>{hero.personName}</h3>
                 <div className="data-buttons">
-                    <Link to={"/details/" + hero._id} href="/details" className="btn details-btn">Details</Link>
+                    <Link to={"/details/" + hero._id} href="/details" className="btn details-btn">{buttonLabelsBG.Details}</Link>
                 </div>
             </div>
         </div>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import * as superheroService from '../../services/superheroService';
 
-import './Catalog.css'
+import {titles,alertMessages} from '../../common/messagesConstantsBG'
 import HeroCard from './HeroCard';
+import './Catalog.css';
 const Catalog = () => {
     const [superheroes, setSuperheroes] = useState([]);
 
@@ -17,13 +18,13 @@ const Catalog = () => {
     }, []);
     const noHeroesElement = (
         <div>
-            <p className="no-articles">No superheroes yet...</p>
+            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
         </div>
     );
     
     return (
         <section className="catalog-page">
-            <h1>All Superheroes</h1>
+            <h1>{titles.AllSuperheroes}</h1>
 
             {superheroes.length > 0
                 ? superheroes.map(x => <HeroCard key={x._id} hero={x} />)

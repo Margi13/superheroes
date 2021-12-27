@@ -8,6 +8,9 @@ import { typesColor, useNotificationContext } from '../../contexts/NotificationC
 import * as superheroService from '../../services/superheroService';
 import * as likeService from '../../services/likeService';
 import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
+
+import { buttonLabelsBG, formLabelsBG } from '../../common/labelsConstatnsBG';
+import { alertMessages,titles } from '../../common/messagesConstantsBG';
 import './Details.css';
 const Details = () => {
   const { user } = useAuthContext();
@@ -22,7 +25,7 @@ const Details = () => {
       .then((likes) => {
         setSuperhero(state => ({ ...state, likes }))
       });
-  }, [heroId,setSuperhero])
+  }, [heroId, setSuperhero])
 
   const deleteHandler = (e) => {
     e.preventDefault();
@@ -41,35 +44,36 @@ const Details = () => {
     setShowDeleteDialog(true);
   }
 
-  const ownerButtons = (
-    <div className="buttons">
-      <Link to={`/edit/${superhero._id}`} href="/edit" className="button">Edit</Link>
-      <button className="button" onClick={deleteClickHandler}>Delete</button>
-    </div>
-  )
   const likeButtonClick = (e) => {
-    
+
     console.log(e.target.disabled)
     if (user._id === superhero._ownerId) {
       return;
     }
     if (superhero.likes.includes(user._id)) {
-      addNotification('You had already liked this hero!', typesColor.warning);
+      addNotification(alertMessages.LikesSuccess, typesColor.warning);
       e.target.disabled = true;
       return;
     }
     likeService.like(user._id, heroId)
       .then(() => {
         setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
-        addNotification('Successfully liked this hero', typesColor.success);
+        addNotification(alertMessages.LikesDuplicate, typesColor.success);
         e.target.disabled = true;
       });
 
   }
+
+  const ownerButtons = (
+    <div className="buttons">
+      <Link to={`/edit/${superhero._id}`} href="/edit" className="button">{buttonLabelsBG.Edit}</Link>
+      <button className="button" onClick={deleteClickHandler}>{buttonLabelsBG.Delete}</button>
+    </div>
+  )
   //disabled={superhero.likes.includes(user._id)}
   const userButtons = (
     <div className="buttons">
-       <button className="button" onClick={likeButtonClick} >Like</button>
+      <button className="button" onClick={likeButtonClick} >Like</button>
     </div>
   )
   return (
@@ -79,14 +83,14 @@ const Details = () => {
         onCancel={() => setShowDeleteDialog(false)}
         onSave={deleteHandler} />
       <section className="hero-details">
-        <h1>Superhero Details</h1>
+        <h1>{titles.Details}</h1>
         <div className="info-section">
 
           <div className="hero-header">
             <img className="hero-img" src={superhero.imageUrl || '../images/avatar-grooth.png'} alt="" />
             {/* if names are equal => we write it only one time */}
             <h1>{superhero.heroName || 'Hero name'} ({superhero.personName || 'Real name'})</h1>
-            <span className="age">{superhero.age || 5} години</span>
+            <span className="age">{superhero.age || 5} {formLabelsBG.Age.toLocaleLowerCase()}</span>
             {/* <p className="superpower">{superhero.superpower || 'Superpowers'}</p> */}
           </div>
 
@@ -104,7 +108,7 @@ const Details = () => {
           )}
           <div className="likes">
             {/* <img className="hearts" /> */}
-            <span id="total-likes">Likes: {superhero.likes?.length || 0}</span>
+            <span id="total-likes">{titles.Likes}: {superhero.likes?.length || 0}</span>
           </div>
 
         </div>

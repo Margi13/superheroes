@@ -1,7 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import * as supereroService from '../../services/superheroService';
 
-import { useAuthContext } from '../../contexts/AuthContext'
+import { useAuthContext } from '../../contexts/AuthContext';
+import {formLabelsBG,buttonLabelsBG,placeholdersBG} from '../../common/labelsConstatnsBG';
+import {titles} from '../../common/messagesConstantsBG';
 const Create = () => {
 
     const { user } = useAuthContext();
@@ -24,22 +26,22 @@ const Create = () => {
             <form id="create" method="POST" onSubmit={onHeroCreate}>
                 <div className="container">
 
-                    <h1>Create Superhero</h1>
-                    <label htmlFor="personName">Name of person:</label>
-                    <input type="text" id="person-name" name="personName" placeholder="Enter birth name..." />
+                    <h1>{titles.Create}</h1>
+                    <label htmlFor="personName">{formLabelsBG.PersonName}:</label>
+                    <input type="text" id="person-name" name="personName" placeholder={placeholdersBG.PersonName} />
 
-                    <label htmlFor="heroName">Heroic name:</label>
-                    <input type="text" id="hero-name" name="heroName" placeholder="Enter made-up name..." />
+                    <label htmlFor="heroName">{formLabelsBG.HeroicName}:</label>
+                    <input type="text" id="hero-name" name="heroName" placeholder={placeholdersBG.HeroicName} />
 
-                    <label htmlFor="age">Age:</label>
+                    <label htmlFor="age">{formLabelsBG.Age}:</label>
                     <input type="number" id="age" name="age" min="1" placeholder="20" />
 
-                    <label htmlFor="imageUrl">Drawing:</label>
-                    <input type="text" id="imageUrl" name="imageUrl" placeholder="Upload a photo..." />
+                    <label htmlFor="imageUrl">{formLabelsBG.Image}:</label>
+                    <input type="text" id="imageUrl" name="imageUrl" placeholder={placeholdersBG.Image}/>
 
-                    <label htmlFor="story">Hero story:</label>
-                    <textarea name="story" id="story" placeholder="History, superpowers, family..."></textarea>
-                    <input className="btn submit" type="submit" value="Create" />
+                    <label htmlFor="story">{formLabelsBG.Story}:</label>
+                    <textarea name="story" id="story" placeholder={placeholdersBG.Story}></textarea>
+                    <input className="btn submit" type="submit" value={buttonLabelsBG.Create} />
                 </div>
             </form>
         </section>

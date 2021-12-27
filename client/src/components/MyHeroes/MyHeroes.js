@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import {useAuthContext} from '../../contexts/AuthContext';
 import * as superheroService from '../../services/superheroService';
 
-import './MyHeroes.css'
+
+import { alertMessages,titles } from '../../common/messagesConstantsBG';
 import HeroCard from './HeroCard';
+import './MyHeroes.css'
 const MyHeroes = () => {
     const [superheroes, setSuperheroes] = useState([]);
     const {user} = useAuthContext();
@@ -18,13 +20,13 @@ const MyHeroes = () => {
     }, [user._id]);
     const noHeroesElement = (
         <div>
-            <p className="no-articles">No superheroes yet...</p>
+            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
         </div>
     );
     
     return (
         <section className="my-pets-page">
-            <h1>My Superheroes</h1>
+            <h1>{titles.MyHeroes}</h1>
 
             {superheroes.length > 0
                 ? superheroes.map(x => <HeroCard key={x._id} hero={x} />)

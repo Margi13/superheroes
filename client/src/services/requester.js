@@ -51,7 +51,7 @@ async function responseHandler(res) {
     try {
         let jsonData = await res.json();
         if (res.ok) {
-            return Object.values(jsonData);
+            return jsonData;
         } else {
             throw jsonData;
         }

@@ -12,7 +12,7 @@ const initialAuthState = {
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useLocalStorage('user', initialAuthState)
     const login = (authData) => {
-        setUser(authData);
+        setUser({_id: authData._id, email: authData.email, accessToken: authData.accessToken});
     }
 
     const logout = () => {

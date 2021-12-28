@@ -1,13 +1,29 @@
-export const request = async (method, url, data) => {
+export const request = async (method, url, data, needAuth) => {
     let promise = null;
     if (method === 'GET') {
-        promise = fetch(url);
-    } else {
+        if (needAuth) {
+            promise = fetch(url, {
+                headers: {
+                    'X-Authorization': getToken()
+                },
+            });
+        } else {
+            promise = fetch(url);
+        }
+    } else if (needAuth) {
         promise = fetch(url, {
             method,
             headers: {
                 'Content-Type': 'application/json',
                 'X-Authorization': getToken()
+            },
+            body: JSON.stringify(data)
+        })
+    } else {
+        promise = fetch(url, {
+            method,
+            headers: {
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         })
@@ -29,11 +45,18 @@ function getToken() {
     }
 }
 async function responseHandler(res) {
-    let jsonData = await res.json();
-    if (res.ok) {
-        return Object.values(jsonData);
-    } else {
-        throw jsonData;
+    if (res.status !== 200) {
+        return res;
+    }
+    try {
+        let jsonData = await res.json();
+        if (res.ok) {
+            return Object.values(jsonData);
+        } else {
+            throw jsonData;
+        }
+    } catch (error) {
+        throw new Error(error.message);
     }
 }
 

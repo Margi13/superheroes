@@ -1,3 +1,5 @@
+import * as request from "./requester";
+
 const baseUrl = 'http://localhost:3030';
 export const login = async(email, password) => {
     let response = await fetch(`${baseUrl}/users/login`, {
@@ -17,13 +19,7 @@ export const login = async(email, password) => {
     }
 }
 
-export const logout = (token) => {
-    return fetch(`${baseUrl}/users/logout`, {
-        headers: {
-            'X-Authorization': token
-        }
-    });
-}
+export const logout = (token) => request.get(`${baseUrl}/users/logout`, null, true);
 
 export const isAuthenticated = () => {
 

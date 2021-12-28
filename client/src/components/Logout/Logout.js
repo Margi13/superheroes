@@ -11,6 +11,9 @@ const Logout = () => {
         .then(()=>{
             logout()
             navigate('/');
+        })
+        .catch(error=>{
+            console.log(error);
         });
         
     },[user.accessToken, logout, navigate])

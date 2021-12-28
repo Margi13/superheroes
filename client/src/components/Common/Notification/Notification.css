@@ -5,6 +5,9 @@
     top: 160px;
     right: 50px;
     padding: 30px;
+    max-width: 30%;
+    z-index: 10;
+    text-align: center;
 }
 .danger{
     color: red;

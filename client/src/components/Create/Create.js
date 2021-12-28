@@ -18,8 +18,15 @@ const Create = () => {
         e.preventDefault();
 
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
+        
+        if (heroData.personName==='' || heroData.heroName==='' || heroData.kind==='' || heroData.age==='' || heroData.image==='' || heroData.story==='') {
+            const errorMessage = `${alertMessages.CreateDenied} ${alertMessages.EnteredNoData}`;
+            addNotification(errorMessage, typesColor.error);
+            return;
+        }
         if (errors.personName || errors.heroName || errors.kind || errors.age || errors.image || errors.story) {
-            addNotification(alertMessages.CreateDenied, typesColor.error);
+            const errorMessage = `${alertMessages.CreateDenied} ${alertMessages.EnterInvalidData}`;
+            addNotification(errorMessage, typesColor.error);
             return;
         }
         supereroService.create(heroData)
@@ -39,28 +46,28 @@ const Create = () => {
 
                     <h1>{titles.Create}</h1>
                     <label htmlFor="personName">{formLabelsBG.PersonName}:</label>
-                    <input type="text" id="person-name" name="personName" placeholder={placeholdersBG.PersonName} onBlur={handlers.personNameChangeHandler} style={{ color: errors.personName ? 'red' : 'inherit' }} />
-                    <span style={{ display: errors.personName ? 'inline' : 'hidden', color: errors.personName ? 'red' : 'inherit' }}>{errors.personName}</span>
+                    <input type="text" id="person-name" name="personName" placeholder={placeholdersBG.PersonName} onBlur={handlers.personNameChangeHandler} className={errors.personName ? 'error' : 'no-error'} />
+                    <span className={ errors.personName ? 'show error' : 'hide no-error'}>{errors.personName}</span>
 
                     <label htmlFor="heroName">{formLabelsBG.HeroicName}:</label>
-                    <input type="text" id="hero-name" name="heroName" placeholder={placeholdersBG.HeroicName} onBlur={handlers.heroNameChangeHandler} style={{ color: errors.heroName ? 'red' : 'inherit' }} />
-                    <span style={{ display: errors.heroName ? 'inline' : 'hidden', color: errors.heroName ? 'red' : 'inherit' }}>{errors.heroName}</span>
+                    <input type="text" id="hero-name" name="heroName" placeholder={placeholdersBG.HeroicName} onBlur={handlers.heroNameChangeHandler} className={errors.heroName ? 'error' : 'no-error'} />
+                    <span className={ errors.heroName ? 'show error' : 'hide no-error' }>{errors.heroName}</span>
 
                     <label htmlFor="kind">{formLabelsBG.Kind}:</label>
-                    <input type="text" id="kind" name="kind" placeholder={placeholdersBG.Kind} onBlur={handlers.kindChangeHandler} style={{ color: errors.kind ? 'red' : 'inherit' }} />
-                    <span style={{ display: errors.kind ? 'inline' : 'hidden', color: errors.kind ? 'red' : 'inherit' }}>{errors.kind}</span>
+                    <input type="text" id="kind" name="kind" placeholder={placeholdersBG.Kind} onBlur={handlers.kindChangeHandler} className={errors.kind ? 'error' : 'no-error'} />
+                    <span className={ errors.kind ? 'show error' : 'hide no-error' }>{errors.kind}</span>
 
                     <label htmlFor="age">{formLabelsBG.Age}:</label>
-                    <input type="number" id="age" name="age" min="1" placeholder="20" onBlur={handlers.ageChangeHandler} style={{ color: errors.age ? 'red' : 'inherit' }} />
-                    <span style={{ display: errors.age ? 'inline' : 'hidden', color: errors.age ? 'red' : 'inherit' }}>{errors.age}</span>
+                    <input type="number" id="age" name="age" min="1" placeholder="20" onBlur={handlers.ageChangeHandler} className={errors.age ? 'error' : 'no-error'} />
+                    <span className={ errors.age ? 'show error' : 'hide no-error'}>{errors.age}</span>
 
                     <label htmlFor="imageUrl">{formLabelsBG.Image}:</label>
-                    <input type="text" id="imageUrl" name="imageUrl" placeholder={placeholdersBG.Image} onBlur={handlers.imageChangeHandler} style={{ color: errors.imageUrl ? 'red' : 'inherit' }} />
-                    <span style={{ display: errors.image ? 'inline' : 'hidden', color: errors.image ? 'red' : 'inherit' }}>{errors.image}</span>
+                    <input type="text" id="imageUrl" name="imageUrl" placeholder={placeholdersBG.Image} onBlur={handlers.imageChangeHandler} className={errors.image ? 'error' : 'no-error'} />
+                    <span className={ errors.image ? 'show error' : 'hide no-error'}>{errors.image}</span>
 
                     <label htmlFor="story">{formLabelsBG.Story}:</label>
-                    <textarea name="story" id="story" placeholder={placeholdersBG.Story} onBlur={handlers.storyChangeHandler} style={{ color: errors.story ? 'red' : 'inherit' }} />
-                    <span style={{ display: errors.story ? 'inline' : 'hidden', color: errors.story ? 'red' : 'inherit' }}>{errors.story}</span>
+                    <textarea name="story" id="story" placeholder={placeholdersBG.Story} onBlur={handlers.storyChangeHandler} className={errors.story ? 'error' : 'no-error'}/>
+                    <span className={ errors.story ? 'show error' : 'hide no-error'}>{errors.story}</span>
 
                     <input className="btn submit" type="submit" value={buttonLabelsBG.Create} />
                 </div>

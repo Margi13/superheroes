@@ -29,7 +29,9 @@ export const alertMessages = {
     'CreateDenied': 'Възникна проблем със създаването на нов герой!',
     'DeleteSuccess': 'Успешно изтрихте този герой!',
     'DeleteDenied': 'Възникна проблем с изтриването на героя!',
-    'DeleteConfirm': 'Сигурни ли сте, че искате да изтриете този герой?'
+    'DeleteConfirm': 'Сигурни ли сте, че искате да изтриете този герой?',
+    'EnterInvalidData': 'Моля въведете валидни данни!',
+    'EnteredNoData': 'Моля попълнете формата!'
 }
 
 export const validationMessages = {

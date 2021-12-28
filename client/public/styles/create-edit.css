@@ -48,3 +48,16 @@ textarea {
     letter-spacing: 1px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+.show{
+    display: inline;
+}
+.hide{
+    display: hidden;
+}
+.error{
+    color: red;
+}
+.no-error{
+    color: inherit;
+}

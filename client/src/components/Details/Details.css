@@ -2,7 +2,7 @@
     position: relative;
     display: block;
     width: 980px;
-    margin: 90px auto;
+    margin: auto;
     overflow: hidden;
     border-radius: 10px;
     transition: all 0.4s;
@@ -41,27 +41,23 @@
     font-weight: 400;
 }
 
-.hero_header>h4 {
-    color: #555;
-    font-size: 23px;
-    font-weight: 400;
-}
-
-.age {
+.age,
+.kind{
     display: inline-block;
     margin-top: 15px;
-    color: #555;
     padding: 7px;
     border-radius: 5px;
-    background-color: #b4b6ee;
-    border: 1px solid rgba(218, 181, 181, 0.829);
 }
-
-.superpower {
-    display: inline-block;
-    color: #959595;
-    font-size: 19px;
-    margin-left: 10px;
+.age {
+    
+    color: #f5f5f5;
+    background-color: rgba(26, 114, 247, 0.7);
+    border: 1px solid rgba(255, 82, 82, 0.7);
+}
+.kind{
+    color:#555;
+    background-color: rgba(255, 82, 82, 0.7);
+    border: 1px solid rgba(26, 114, 247, 0.7);
 }
 
 .hero-img {
@@ -80,47 +76,34 @@
     height: 50%;
 }
 
-.hero-summary {
-    margin-top: 15px;
-    padding: 60px;
-    height: 50%;
-}
-
 .text {
     font-size: 25px;
     color: #545454;
 }
 
-
-/* .movie_social {
-    height: 10%;
-    padding-left: 15px;
-    padding-bottom: 20px;
-}
-
-.movie_social {
-    font-size: 1.6rem;
-    padding-top: 20px;
-    text-align: center;
-} */
-
 .buttons {
-    height: 10%;
     text-align: right;
-    padding-right: 15px;
-    padding-bottom: 40px;
+    padding-right: 50px;
+    padding-bottom: 50px;
 }
 
 .button {
-    height: 15%;
-    background-color: #54557b;
+    background-color: rgba(26, 114, 247, 0.7);
     padding: 14px;
     margin-top: auto;
     font-size: 21px;
+    border-radius: 5px;
     color: rgb(255, 255, 255);
+    cursor: pointer;
 }
 
 .button:hover {
-    background-color: #6f5d9c;
+    background-color: rgba(255, 82, 82, 0.7);
     color: white;
+}
+
+.likes{
+    text-align: right;
+    margin-right: 75px;
+    font-size: 18px;
 }

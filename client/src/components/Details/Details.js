@@ -38,11 +38,9 @@ const Details = () => {
       .catch(error => {
         addNotification(alertMessages.DeleteDenied, typesColor.error);
         console.log(error);
-      })
-      .finally(() => {
-        setShowDeleteDialog(false);
-
       });
+    setShowDeleteDialog(false);
+
   }
 
   const deleteClickHandler = (e) => {
@@ -78,15 +76,11 @@ const Details = () => {
   //disabled={superhero.likes.includes(user._id)}
   const userButtons = (
     <div className="buttons">
-      <button className="button" onClick={likeButtonClick}>Like</button>
+      <button className="button" onClick={likeButtonClick}>{buttonLabelsBG.Like}</button>
     </div>
   )
   return (
     <>
-      <ConfirmDialog
-        show={showDeleteDialog}
-        onCancel={() => setShowDeleteDialog(false)}
-        onSave={deleteHandler} />
       <section className="hero-details">
         <h1>{titles.Details}</h1>
         <div className="info-section">
@@ -99,22 +93,27 @@ const Details = () => {
               : <h1>{superhero.heroName} ({superhero.personName})</h1>
             }
             <span className="age">{superhero.age} {formLabelsBG.Age.toLocaleLowerCase()}</span>
+            <span className="kind">{superhero.kind || 'Човек'}</span>
           </div>
 
           <p className="text">
             {superhero.story}
           </p>
 
-
-          {user._id && (user._id === superhero._ownerId
-            ? ownerButtons
-            : userButtons
-          )}
           <div className="likes">
             {/* <img className="hearts" /> */}
             <span id="total-likes">{titles.Likes}: {superhero.likes?.length || 0}</span>
           </div>
 
+          {user._id && (user._id === superhero._ownerId
+            ? ownerButtons
+            : userButtons
+          )}
+
+          <ConfirmDialog
+            show={showDeleteDialog}
+            onCancel={() => setShowDeleteDialog(false)}
+            onSave={deleteHandler} />
         </div>
       </section>
     </>

@@ -1,3 +1,4 @@
+import { getHeroLikes } from './likeService';
 import * as request from './requester';
 const baseUrl = 'http://localhost:3030/data';
 
@@ -5,19 +6,23 @@ export const getAll = () => request.get(`${baseUrl}/superheroes`)
 
 export const getOne = (heroId) => request.get(`${baseUrl}/superheroes/${heroId}`);
 
-export const getTopThree = () => {
-    // request.get(`${baseUrl}/superheroes`);
-    return fetch(`${baseUrl}/superheroes`)
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            } else {
-                throw new Error('No response:', res.statusText)
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        });
+export const getTopThree = async() => {
+    try{
+        const result = [];
+        const data = await getAll();
+        
+        for (const hero of data) {
+            const likes = await getHeroLikes(hero._id);
+            result.push({...hero, likes: likes.length});
+        }
+        
+        result.sort((a,b)=> b.likes - a.likes);
+        return result.slice(0,3);
+    }
+    catch(error){
+        throw new Error(error);
+    }
+
 }
 
 export const getOwn = (ownerId) => {
@@ -25,7 +30,7 @@ export const getOwn = (ownerId) => {
     return request.get(`${baseUrl}/superheroes?where=${query}`);
 }
 
-export const create = async (heroData) => request.post(`${baseUrl}/superheroes`, { ...heroData }, true);
+export const create = (heroData) => request.post(`${baseUrl}/superheroes`, { ...heroData }, true);
 
 export const update = (heroId, heroData) => request.put(`${baseUrl}/superheroes/${heroId}`, heroData, true);
 

@@ -51,3 +51,9 @@
     font-size: 84px;
     font-family: "Agency FB";
 }
+
+.top-cards{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}

@@ -31,22 +31,5 @@ footer {
     text-align: center;
 }
 
-footer {
-    padding: 0.5em;
-    width: 100%;
-    position: absolute;
-    left: 0;
-    bottom: 0;
-}
-
-/* nav a {
-    margin: 0 0.5em;
-}
-
-nav a:hover {
-    cursor: pointer;
-    color: rgb(82, 133, 139);
-    font-weight: bolder;
-} */
 
 

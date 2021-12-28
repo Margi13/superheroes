@@ -1,52 +1,60 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import * as supereroService from '../../services/superheroService';
 import useHeroState from '../../hooks/useHeroState';
-import {formLabelsBG,buttonLabelsBG} from '../../common/labelsConstatnsBG'
-import {titles} from '../../common/messagesConstantsBG'
+import { formLabelsBG, buttonLabelsBG } from '../../common/labelsConstatnsBG';
+import { titles, alertMessages } from '../../common/messagesConstantsBG';
+import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
+import { ChangeHandlers } from './EditHelper';
 const Edit = () => {
     const { heroId } = useParams();
-    const [errors, setErrors] = useState({ personName: null, heroName: null });
+    const navigate = useNavigate();
+    const [errors, setErrors] = useState({ personName: null, heroName: null, age: null, image: null, story: null });
     const [superhero] = useHeroState(heroId);
+    const { addNotification } = useNotificationContext();
+    const handlers = ChangeHandlers(setErrors);
 
     const heroEditSubmitHandler = (e) => {
         e.preventDefault();
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
-
-        supereroService.update(superhero._id, heroData)
-    }
-
-    const personNameChangeHandler = (e) => {
-        console.log(e.target.value);
-        let currentName = e.target.value;
-        if (currentName.length < 3 || currentName.length > 20) {
-            setErrors(state => ({ ...state, personName: 'Name should be between 3 and 10 characters long' }));
+        if (errors.personName || errors.heroName || errors.age || errors.image || errors.story) {
+            return;
         }
-        else {
-            setErrors(state => ({ ...state, personName: null }));
+        try {
+            supereroService.update(superhero._id, heroData);
+            addNotification(alertMessages.EditSuccess, typesColor.success);
+            navigate(`/details/${heroId}`)
 
+        } catch (error) {
+            addNotification(alertMessages.EditDenied, typesColor.error);
+            console.log(error);
         }
     }
+
     return (
         <section id="edit-page" className="auth">
             <form id="edit" method="POST" onSubmit={heroEditSubmitHandler}>
                 <div className="container">
                     <h1>{titles.Edit}</h1>
                     <label htmlFor="personName">{formLabelsBG.PersonName}:</label>
-                    <input type="text" id="person-name" name="personName" defaultValue={superhero.personName} onBlur={personNameChangeHandler} style={{ color: errors.personName ? 'red' : 'green' }} />
-                    <span style={{ display: errors.personName ? 'inline' : 'hidden' }}>{errors.personName}</span>
+                    <input type="text" id="person-name" name="personName" defaultValue={superhero.personName} onBlur={handlers.personNameChangeHandler} style={{ color: errors.personName ? 'red' : 'inherit' }} />
+                    <span style={{ display: errors.personName ? 'inline' : 'hidden', color: errors.personName ? 'red' : 'inherit' }}>{errors.personName}</span>
 
                     <label htmlFor="heroName">{formLabelsBG.HeroicName}:</label>
-                    <input type="text" id="hero-name" name="heroName" defaultValue={superhero.heroName} style={{ color: errors.heroName ? 'red' : 'green' }} />
+                    <input type="text" id="hero-name" name="heroName" defaultValue={superhero.heroName} onBlur={handlers.heroNameChangeHandler} style={{ color: errors.heroName ? 'red' : 'inherit' }} />
+                    <span style={{ display: errors.heroName ? 'inline' : 'hidden', color: errors.heroName ? 'red' : 'inherit' }}>{errors.heroName}</span>
 
                     <label htmlFor="age">{formLabelsBG.Age}:</label>
-                    <input type="number" id="age" name="age" min="1" defaultValue={superhero.age} style={{ color: errors.age ? 'red' : 'green' }} />
+                    <input type="number" id="age" name="age" min="1" defaultValue={superhero.age} onBlur={handlers.ageChangeHandler} style={{ color: errors.age ? 'red' : 'inherit' }} />
+                    <span style={{ display: errors.age ? 'inline' : 'hidden', color: errors.age ? 'red' : 'inherit' }}>{errors.age}</span>
 
                     <label htmlFor="imageUrl">{formLabelsBG.Image}:</label>
-                    <input type="text" id="imageUrl" name="imageUrl" defaultValue={superhero.imageUrl} style={{ color: errors.imageUrl ? 'red' : 'green' }} />
+                    <input type="text" id="imageUrl" name="imageUrl" defaultValue={superhero.imageUrl} onBlur={handlers.imageChangeHandler} style={{ color: errors.imageUrl ? 'red' : 'inherit' }} />
+                    <span style={{ display: errors.image ? 'inline' : 'hidden', color: errors.image ? 'red' : 'inherit' }}>{errors.image}</span>
 
                     <label htmlFor="story">{formLabelsBG.Story}:</label>
-                    <textarea name="story" id="story" defaultValue={superhero.story} style={{ color: errors.story ? 'red' : 'green' }} />
+                    <textarea name="story" id="story" defaultValue={superhero.story} onBlur={handlers.storyChangeHandler} style={{ color: errors.story ? 'red' : 'inherit' }} />
+                    <span style={{ display: errors.story ? 'inline' : 'hidden', color: errors.story ? 'red' : 'inherit' }}>{errors.story}</span>
 
                     <input className="btn submit" type="submit" value={buttonLabelsBG.Edit} />
 

@@ -4,7 +4,9 @@ export const ChangeHandlers = (setErrors) => {
     const personNameChangeHandler = (e) => {
         console.log('validation');
         let currentName = e.target.value;
-        if (currentName.length < 3 || currentName.length > 20) {
+        if (currentName === '') {
+            setErrors(state => ({ ...state, personName: validationMessages.requiredMessage }));
+        } else if (currentName.length < 3 || currentName.length > 30) {
             setErrors(state => ({ ...state, personName: validationMessages.PersonNameLength }));
         } else {
             setErrors(state => ({ ...state, personName: null }));
@@ -14,8 +16,8 @@ export const ChangeHandlers = (setErrors) => {
     const heroNameChangeHandler = (e) => {
         let currentName = e.target.value;
         if (currentName === '') {
-            setErrors(state => ({ ...state, story: validationMessages.requiredMessage }));
-        } else if (currentName.length < 3 || currentName.length > 20) {
+            setErrors(state => ({ ...state, heroName: validationMessages.requiredMessage }));
+        } else if (currentName.length < 3 || currentName.length > 30) {
             setErrors(state => ({ ...state, heroName: validationMessages.HeroNameLength }));
         } else {
             setErrors(state => ({ ...state, heroName: null }));
@@ -23,13 +25,13 @@ export const ChangeHandlers = (setErrors) => {
         }
     }
     const kindChangeHandler = (e) => {
-        let currentName = e.target.value;
-        if (currentName === '') {
-            setErrors(state => ({ ...state, story: validationMessages.requiredMessage}));
-        } else if (currentName.length < 3 || currentName.length > 20) {
-            setErrors(state => ({ ...state, heroName: validationMessages.HeroNameLength }));
+        let currentKind = e.target.value;
+        if (currentKind === '') {
+            setErrors(state => ({ ...state, kind: validationMessages.requiredMessage }));
+        } else if (currentKind.length < 2 || currentKind.length > 20) {
+            setErrors(state => ({ ...state, kind: validationMessages.KindLength }));
         } else {
-            setErrors(state => ({ ...state, heroName: null }));
+            setErrors(state => ({ ...state, kind: null }));
 
         }
     }

@@ -5,30 +5,35 @@ import useHeroState from '../../hooks/useHeroState';
 import { formLabelsBG, buttonLabelsBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
-import { ChangeHandlers } from './EditHelper';
+import { ChangeHandlers } from '../Common/ValidationHelper';
+
+const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }
+
 const Edit = () => {
     const { heroId } = useParams();
     const navigate = useNavigate();
-    const [errors, setErrors] = useState({ personName: null, heroName: null, age: null, image: null, story: null });
+    const [errors, setErrors] = useState(initialErrorState);
     const [superhero] = useHeroState(heroId);
     const { addNotification } = useNotificationContext();
     const handlers = ChangeHandlers(setErrors);
 
     const heroEditSubmitHandler = (e) => {
         e.preventDefault();
+
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
-        if (errors.personName || errors.heroName || errors.age || errors.image || errors.story) {
+        if (errors.personName || errors.heroName || errors.kind || errors.age || errors.image || errors.story) {
             return;
         }
-        try {
-            supereroService.update(superhero._id, heroData);
-            addNotification(alertMessages.EditSuccess, typesColor.success);
-            navigate(`/details/${heroId}`)
 
-        } catch (error) {
-            addNotification(alertMessages.EditDenied, typesColor.error);
-            console.log(error);
-        }
+        supereroService.update(superhero._id, heroData)
+            .then(() => {
+                addNotification(alertMessages.EditSuccess, typesColor.success);
+                navigate(`/details/${heroId}`)
+            })
+            .catch(error => {
+                addNotification(alertMessages.EditDenied, typesColor.error);
+                console.log(error);
+            })
     }
 
     return (

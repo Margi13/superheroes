@@ -1,4 +1,6 @@
 import './ConfirmDialog.css';
+import { alertMessages } from '../../../common/messagesConstantsBG'
+import { buttonLabelsBG } from '../../../common/labelsConstatnsBG'
 const ConfirmDialog = ({
     show,
     onCancel,
@@ -8,10 +10,12 @@ const ConfirmDialog = ({
         <>
             {show
                 ? (
-                    <section className="modal-container">
-                        <div> Do you want to delete this?</div>
-                        <button onClick={onSave}>Yes</button>
-                        <button onClick={onCancel}>Cancel</button>
+                    <section className="confirm-container warning">
+                        <div>{alertMessages.DeleteConfirm}</div>
+                        <div>
+                            <button className="success" onClick={onSave}>{buttonLabelsBG.Confirm}</button>
+                            <button className="danger" onClick={onCancel}>{buttonLabelsBG.Cancel}</button>
+                        </div>
                     </section>
                 )
                 : ''}

@@ -1,10 +1,13 @@
-.modal-container {
-    vertical-align: center;
-    text-align: center;
-    align-self: center;
-    background-color: gray;
-    color: white;
-    width: 20%;
+.confirm-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items:center;
+    flex-wrap: wrap;
+    width: 70%;
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
+    z-index: 10;
+}
+.confirm-container div>button{
+    cursor: pointer;
 }

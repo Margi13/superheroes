@@ -8,8 +8,9 @@ export const navigationTitlesBG = {
 }
 
 export const formLabelsBG = {
-    'PersonName':'Рождено име',
-    'HeroicName':'Име на супергероя',
+    'PersonName':'Име',
+    'HeroicName':'Псевдоним',
+    'Kind':'Раса',
     'Age':'Години',
     'Image':'Скица на героя',
     'Story':'История на героя',
@@ -33,6 +34,7 @@ export const placeholdersBG = {
     'PersonName': 'Питър Паркър',
     'HeroicName': 'Спайдърмен',
     'Image': 'Качване на скица...',
+    'Kind': 'Човек',
     'Story': 'История, суперсили, семейство...',
     'Email': 'steve_rodgers@gmail.com',
 }

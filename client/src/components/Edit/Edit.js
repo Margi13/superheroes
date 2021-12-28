@@ -44,6 +44,10 @@ const Edit = () => {
                     <input type="text" id="hero-name" name="heroName" defaultValue={superhero.heroName} onBlur={handlers.heroNameChangeHandler} style={{ color: errors.heroName ? 'red' : 'inherit' }} />
                     <span style={{ display: errors.heroName ? 'inline' : 'hidden', color: errors.heroName ? 'red' : 'inherit' }}>{errors.heroName}</span>
 
+                    <label htmlFor="kind">{formLabelsBG.Kind}:</label>
+                    <input type="text" id="kind" name="kind" defaultValue={superhero.kind} onBlur={handlers.kindChangeHandler} style={{ color: errors.kind ? 'red' : 'inherit' }} />
+                    <span style={{ display: errors.kind ? 'inline' : 'hidden', color: errors.kind ? 'red' : 'inherit' }}>{errors.kind}</span>
+
                     <label htmlFor="age">{formLabelsBG.Age}:</label>
                     <input type="number" id="age" name="age" min="1" defaultValue={superhero.age} onBlur={handlers.ageChangeHandler} style={{ color: errors.age ? 'red' : 'inherit' }} />
                     <span style={{ display: errors.age ? 'inline' : 'hidden', color: errors.age ? 'red' : 'inherit' }}>{errors.age}</span>

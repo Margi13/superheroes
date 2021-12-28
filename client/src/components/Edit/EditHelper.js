@@ -14,7 +14,18 @@ export const ChangeHandlers = (setErrors) => {
     const heroNameChangeHandler = (e) => {
         let currentName = e.target.value;
         if (currentName === '') {
-            setErrors(state => ({ ...state, story: validationMessages.HeroNameRequired }));
+            setErrors(state => ({ ...state, story: validationMessages.requiredMessage }));
+        } else if (currentName.length < 3 || currentName.length > 20) {
+            setErrors(state => ({ ...state, heroName: validationMessages.HeroNameLength }));
+        } else {
+            setErrors(state => ({ ...state, heroName: null }));
+
+        }
+    }
+    const kindChangeHandler = (e) => {
+        let currentName = e.target.value;
+        if (currentName === '') {
+            setErrors(state => ({ ...state, story: validationMessages.requiredMessage}));
         } else if (currentName.length < 3 || currentName.length > 20) {
             setErrors(state => ({ ...state, heroName: validationMessages.HeroNameLength }));
         } else {
@@ -34,7 +45,7 @@ export const ChangeHandlers = (setErrors) => {
     const storyChangeHandler = (e) => {
         let currentNameStory = e.target.value;
         if (currentNameStory === '') {
-            setErrors(state => ({ ...state, story: validationMessages.StoryRequired }));
+            setErrors(state => ({ ...state, story: validationMessages.requiredMessage }));
         } else if (currentNameStory.length < 10 || currentNameStory.length > 500) {
             setErrors(state => ({ ...state, story: validationMessages.StoryRange }));
         } else if (currentNameStory === 'some regex') {
@@ -47,7 +58,7 @@ export const ChangeHandlers = (setErrors) => {
     const imageChangeHandler = (e) => {
         let currentImage = e.target.value;
         if (currentImage === '') {
-            setErrors(state => ({ ...state, image: validationMessages.ImageRequired }));
+            setErrors(state => ({ ...state, image: validationMessages.requiredMessage }));
         } else {
             setErrors(state => ({ ...state, image: null }));
 
@@ -57,6 +68,7 @@ export const ChangeHandlers = (setErrors) => {
     return {
         personNameChangeHandler,
         heroNameChangeHandler,
+        kindChangeHandler,
         ageChangeHandler,
         storyChangeHandler,
         imageChangeHandler

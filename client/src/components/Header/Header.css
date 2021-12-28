@@ -18,7 +18,7 @@ header nav {
 }
 header nav div {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin:0px;
 }
 nav a {

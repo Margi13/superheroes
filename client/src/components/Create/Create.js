@@ -36,6 +36,9 @@ const Create = () => {
                     <label htmlFor="heroName">{formLabelsBG.HeroicName}:</label>
                     <input type="text" id="hero-name" name="heroName" placeholder={placeholdersBG.HeroicName} />
 
+                    <label htmlFor="kind">{formLabelsBG.Kind}:</label>
+                    <input type="text" id="kind" name="kind" placeholder={placeholdersBG.Kind} />
+
                     <label htmlFor="age">{formLabelsBG.Age}:</label>
                     <input type="number" id="age" name="age" min="1" placeholder="20" />
 

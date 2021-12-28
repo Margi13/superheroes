@@ -25,6 +25,7 @@ export const buttonLabelsBG = {
     'Like': 'Харесай',
     'Edit': 'Редактирай',
     'Cancel': 'Отказ',
+    'Confirm': 'Потвърди',
     'Details':'Детайли',
     'Login': 'Влез',
     'Register': 'Регистрирай се'

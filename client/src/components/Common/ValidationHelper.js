@@ -27,7 +27,7 @@ export const ChangeHandlers = (setErrors) => {
         let currentKind = e.target.value;
         if (currentKind === '') {
             setErrors(state => ({ ...state, kind: validationMessages.requiredMessage }));
-        } else if (currentKind.length < 2 || currentKind.length > 20) {
+        } else if (currentKind.length < 2 || currentKind.length > 15) {
             setErrors(state => ({ ...state, kind: validationMessages.KindLength }));
         } else {
             setErrors(state => ({ ...state, kind: null }));
@@ -47,10 +47,8 @@ export const ChangeHandlers = (setErrors) => {
         let currentNameStory = e.target.value;
         if (currentNameStory === '') {
             setErrors(state => ({ ...state, story: validationMessages.requiredMessage }));
-        } else if (currentNameStory.length < 10 || currentNameStory.length > 500) {
+        } else if (currentNameStory.length < 10) {
             setErrors(state => ({ ...state, story: validationMessages.StoryRange }));
-        } else if (currentNameStory === 'some regex') {
-            setErrors(state => ({ ...state, story: validationMessages.StorySymbols }));
         } else {
             setErrors(state => ({ ...state, story: null }));
 

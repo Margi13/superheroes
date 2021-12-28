@@ -5,8 +5,6 @@
 }
 .logo {
     height: inherit;
-    z-index: 999;
-    border-radius: 45%;
 }
 
 header nav {

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import './Home.css'
-import LatestHeroCard from './LatestHeroCard';
+import TopHeroCard from './TopHeroCard';
 
 import * as superheroService from '../../services/superheroService';
-import {titles, alertMessages} from '../../common/messagesConstantsBG';
+import { titles, alertMessages } from '../../common/messagesConstantsBG';
 const Home = () => {
     const [superheroes, setSuperheroes] = useState();
 
@@ -30,10 +30,12 @@ const Home = () => {
 
             <div className="home-page">
                 <h1>{titles.TopHeroes}</h1>
-                {superheroes
-                    ? superheroes.map(x => <LatestHeroCard key={x._id} hero={x} />)
-                    : noHeroesElement
-                }
+                <div className="top-cards">
+                    {superheroes
+                        ? superheroes.map(x => <TopHeroCard key={x._id} hero={x} />)
+                        : noHeroesElement
+                    }
+                </div>
             </div>
 
         </section>

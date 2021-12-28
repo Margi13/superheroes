@@ -24,7 +24,6 @@ const Logout = () => {
         });
         
     },[user.accessToken, logout, navigate, addNotification])
-    //TODO: Modal box with info that is loading
     return null;
 }
 

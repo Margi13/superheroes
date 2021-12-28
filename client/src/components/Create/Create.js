@@ -5,7 +5,7 @@ import * as supereroService from '../../services/superheroService';
 import { formLabelsBG, buttonLabelsBG, placeholdersBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
-import { ChangeHandlers } from '../Common/ValidationHelper';
+import { ChangeHandlers } from '../Common/Validation/HeroValidationHelper';
 const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }
 
 const Create = () => {
@@ -20,13 +20,11 @@ const Create = () => {
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
         
         if (heroData.personName==='' || heroData.heroName==='' || heroData.kind==='' || heroData.age==='' || heroData.image==='' || heroData.story==='') {
-            const errorMessage = `${alertMessages.CreateDenied} ${alertMessages.EnteredNoData}`;
-            addNotification(errorMessage, typesColor.error);
+            addNotification(alertMessages.EnteredNoData, typesColor.error);
             return;
         }
         if (errors.personName || errors.heroName || errors.kind || errors.age || errors.image || errors.story) {
-            const errorMessage = `${alertMessages.CreateDenied} ${alertMessages.EnterInvalidData}`;
-            addNotification(errorMessage, typesColor.error);
+            addNotification(alertMessages.EnteredInvalidData, typesColor.error);
             return;
         }
         supereroService.create(heroData)

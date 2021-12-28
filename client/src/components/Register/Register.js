@@ -1,17 +1,35 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom';
 import * as authService from '../../services/authService';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { formLabelsBG, buttonLabelsBG, placeholdersBG } from '../../common/labelsConstatnsBG';
-import { titles, alertMessages } from '../../common/messagesConstantsBG';
+import { titles, alertMessages, validationMessages } from '../../common/messagesConstantsBG';
+import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
+import { ChangeHandlers } from '../Common/Validation/UserValidationHelper';
+const initialErrorState = { email: null, password: null, rePassword: null }
 
 function Register() {
     const navigate = useNavigate();
     const { login } = useAuthContext();
+    const { addNotification } = useNotificationContext();
+    const [errors, setErrors] = useState(initialErrorState);
+    const handlers = ChangeHandlers(setErrors);
+
     const registerSubmitHandler = (e) => {
         e.preventDefault();
 
         let { email, password, rePassword } = Object.fromEntries(new FormData(e.currentTarget));
+
+        if (email === '' || password === '' || rePassword === '') {
+            addNotification(alertMessages.EnteredNoData, typesColor.error);
+            return;
+        }
+        if (errors.email || errors.password || errors.rePassword) {
+            addNotification(alertMessages.EnteredInvalidData, typesColor.error);
+            return;
+        }
+
         if (password === rePassword) {
 
             authService.register(email, password)
@@ -20,7 +38,7 @@ function Register() {
                     navigate('/');
                 });
         } else {
-            console.log('password missmatch')
+            addNotification(validationMessages.PasswordMissmatch, typesColor.error);
         }
     }
     return (
@@ -32,10 +50,17 @@ function Register() {
                 <div className="container">
 
                     <label htmlFor="email">{formLabelsBG.Email}:</label>
-                    <input type="email" id="email" name="email" placeholder={placeholdersBG.Email} />
+                    <input type="email" id="email" name="email" 
+                    placeholder={placeholdersBG.Email}
+                        onBlur={handlers.emailChangeHandler}
+                        className={errors.email ? 'error' : 'no-error'} />
+                    <span className={errors.email ? 'show error' : 'hide no-error'}>{errors.email}</span>
 
                     <label htmlFor="pass">{formLabelsBG.Password}:</label>
-                    <input type="password" name="password" id="register-password" />
+                    <input type="password" name="password" id="register-password"
+                        onBlur={handlers.passwordChangeHandler}
+                        className={errors.password ? 'error' : 'no-error'} />
+                    <span className={errors.password ? 'show error' : 'hide no-error'}>{errors.password}</span>
 
                     <label htmlFor="con-pass">{formLabelsBG.RepeatPassword}:</label>
                     <input type="password" name="rePassword" id="rePassword" />

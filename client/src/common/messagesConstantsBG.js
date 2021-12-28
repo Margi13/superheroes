@@ -19,6 +19,8 @@ export const alertMessages = {
     'LikesDuplicate': 'Вече сте харесали този герой!',
     'LoginSuccess': 'Успешно влязохте в профила си!',
     'LoginDenied': 'Възникна проблем с влизането!',
+    'RegisterSuccess': 'Успешно се регистрирахте в профила си!',
+    'RegisterDenied': 'Възникна проблем с регистрацията!',
     'LogoutSuccess': 'Успешно излязохте от профила си!',
     'LogoutDenied': 'Възникна проблем с излизането от профила!',
     'NoProfileMessage': 'Нямате профил? Просто натиснете тук',
@@ -30,17 +32,18 @@ export const alertMessages = {
     'DeleteSuccess': 'Успешно изтрихте този герой!',
     'DeleteDenied': 'Възникна проблем с изтриването на героя!',
     'DeleteConfirm': 'Сигурни ли сте, че искате да изтриете този герой?',
-    'EnterInvalidData': 'Моля въведете валидни данни!',
+    'EnteredInvalidData': 'Моля въведете валидни данни!',
     'EnteredNoData': 'Моля попълнете формата!'
 }
 
 export const validationMessages = {
-    'EmailRegex': 'Имейлът трябва да бъде във формат example@gmail.com',
+    'EmailRegex': 'Имейлът не е валиден',
     'PasswordLength': 'Паролата трябва да е между 6 и 20 символа',
     'PasswordSymbols': 'Паролата трябва да се състои само от латински букви и цифри',
+    'PasswordMissmatch': 'Паролите не съвпадат',
 
     'PersonNameLength': 'Рожденото име трябва да е между 3 и 30 символа',
-    'HeroNameLength': 'Героичното име трябва да е между 3 и 30 символа',
+    'HeroNameLength': 'Псевдонимът трябва да е между 3 и 30 символа',
     'KindLength': 'Расата трябва да е между 2 и 15 символа',
     'AgeRange': 'Годините трябва да са положително число',
     'StoryRange': 'Историята трябва да бъде поне 10',

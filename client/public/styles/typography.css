@@ -51,14 +51,15 @@ a {
     color: inherit;
 }
 
-blockquote {
-    font-style: italic;
-    margin: 0.5em;
+.show{
+    display: inline;
 }
-
-blockquote>cite {
-    display: block;
-    text-align: right;
-    margin: 0.5em 2em;
-    font-weight: bold;
+.hide{
+    display: hidden;
+}
+.error{
+    color: red;
+}
+.no-error{
+    color: inherit;
 }

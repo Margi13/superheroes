@@ -1,4 +1,4 @@
-import { validationMessages } from '../../common/messagesConstantsBG';
+import { validationMessages } from '../../../common/messagesConstantsBG';
 export const ChangeHandlers = (setErrors) => {
 
     const personNameChangeHandler = (e) => {

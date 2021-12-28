@@ -5,12 +5,4 @@ export const login = async(email, password) => request.post(`${baseUrl}/users/lo
 
 export const logout = () => request.get(`${baseUrl}/users/logout`, null, true);
 
-export const isAuthenticated = () => {
-
-}
-
-export const getUser = () => {
-
-}
-
 export const register = async(email, password) => request.post(`${baseUrl}/users/register`, {email, password}, false)

@@ -60,7 +60,7 @@ const Details = () => {
       e.target.disabled = true;
       return;
     }
-    likeService.like(user._id, heroId)
+    likeService.like(heroId)
       .then(() => {
         setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
         addNotification(alertMessages.LikesSuccess, typesColor.success);
@@ -78,7 +78,7 @@ const Details = () => {
   //disabled={superhero.likes.includes(user._id)}
   const userButtons = (
     <div className="buttons">
-      <button className="button" onClick={likeButtonClick} >Like</button>
+      <button className="button" onClick={likeButtonClick}>Like</button>
     </div>
   )
   return (
@@ -94,16 +94,15 @@ const Details = () => {
           <div className="hero-header">
             <img className="hero-img" src={superhero.imageUrl || '../images/avatar-grooth.png'} alt="" />
             {/* if names are equal => we write it only one time */}
-            <h1>{superhero.heroName || 'Hero name'} ({superhero.personName || 'Real name'})</h1>
-            <span className="age">{superhero.age || 5} {formLabelsBG.Age.toLocaleLowerCase()}</span>
-            {/* <p className="superpower">{superhero.superpower || 'Superpowers'}</p> */}
+            {superhero.heroName === superhero.personName
+              ? <h1>{superhero.heroName}</h1>
+              : <h1>{superhero.heroName} ({superhero.personName})</h1>
+            }
+            <span className="age">{superhero.age} {formLabelsBG.Age.toLocaleLowerCase()}</span>
           </div>
 
           <p className="text">
-            {superhero.story ||
-              `Story of superhero! Set in a world where fantasy creatures live side by side with humans. A human cop is forced to work with an Orc to find a weapon everyone is prepared to kill for. Set in a world where fantasy creatures live side by side with humans. A human cop is forced
-          to work with an Orc to find a weapon everyone is prepared to kill for.`
-            }
+            {superhero.story}
           </p>
 
 

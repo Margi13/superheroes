@@ -2,14 +2,14 @@
     text-align: 'center';
     border: '2px solid';
     position: absolute;
-    top: 110px;
+    top: 160px;
     right: 50px;
-    background-color: whitesmoke;
+    padding: 30px;
 }
 .danger{
     color: red;
     border: 2px solid red;
-    background-color: lightcoral;
+    background-color: lightpink;
 }
 .info{
     color: blue;

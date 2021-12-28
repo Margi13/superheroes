@@ -2,7 +2,6 @@ import { validationMessages } from '../../common/messagesConstantsBG';
 export const ChangeHandlers = (setErrors) => {
 
     const personNameChangeHandler = (e) => {
-        console.log('validation');
         let currentName = e.target.value;
         if (currentName === '') {
             setErrors(state => ({ ...state, personName: validationMessages.requiredMessage }));

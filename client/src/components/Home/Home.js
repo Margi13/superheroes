@@ -8,7 +8,7 @@ const Home = () => {
     const [superheroes, setSuperheroes] = useState();
 
     useEffect(() => {
-        superheroService.getLatest()
+        superheroService.getTopThree()
             .then(hero => {
                 setSuperheroes(hero);
             });

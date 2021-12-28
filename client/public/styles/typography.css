@@ -34,7 +34,13 @@ ul {
 li {
     list-style-position: inside;
 }
-
+i{
+    font-size: 55px;
+    margin: auto 5px;
+}
+hr{
+    width: 100%;
+}
 button {
     font-weight: bold;
     padding: 0.2em;

@@ -19,10 +19,12 @@ const Login = () => {
         authService.login(email, password)
             .then((authData) => {
                 login(authData);
-                addNotification('You logged in successfully', typesColor.success)
+                addNotification(alertMessages.LoginSuccess, typesColor.success);
                 navigate('/')
             })
             .catch(error => {
+                addNotification(alertMessages.LoginDenied, typesColor.error);
+
                 console.log(error);
             });
 

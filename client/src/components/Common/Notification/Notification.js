@@ -12,8 +12,7 @@ const Notification = () => {
     }
     return (
         <div className={`notification ${notification.typeColor}`}>
-            <h1>Notification box</h1>
-            <p>{notification.message}</p>
+            <h3>{notification.message}</h3>
         </div>
     );
 }

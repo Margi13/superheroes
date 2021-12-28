@@ -10,7 +10,8 @@ import * as likeService from '../../services/likeService';
 import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
 
 import { buttonLabelsBG, formLabelsBG } from '../../common/labelsConstatnsBG';
-import { alertMessages,titles } from '../../common/messagesConstantsBG';
+import { alertMessages, titles } from '../../common/messagesConstantsBG';
+
 import './Details.css';
 const Details = () => {
   const { user } = useAuthContext();
@@ -29,9 +30,14 @@ const Details = () => {
 
   const deleteHandler = (e) => {
     e.preventDefault();
-    superheroService.remove(heroId, user.accessToken)
+    superheroService.remove(heroId)
       .then(res => {
+        addNotification(alertMessages.DeleteSuccess, typesColor.success);
         navigate('/');
+      })
+      .catch(error => {
+        addNotification(alertMessages.DeleteDenied, typesColor.error);
+        console.log(error);
       })
       .finally(() => {
         setShowDeleteDialog(false);
@@ -46,19 +52,18 @@ const Details = () => {
 
   const likeButtonClick = (e) => {
 
-    console.log(e.target.disabled)
     if (user._id === superhero._ownerId) {
       return;
     }
     if (superhero.likes.includes(user._id)) {
-      addNotification(alertMessages.LikesSuccess, typesColor.warning);
+      addNotification(alertMessages.LikesDuplicate, typesColor.warning);
       e.target.disabled = true;
       return;
     }
     likeService.like(user._id, heroId)
       .then(() => {
         setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
-        addNotification(alertMessages.LikesDuplicate, typesColor.success);
+        addNotification(alertMessages.LikesSuccess, typesColor.success);
         e.target.disabled = true;
       });
 

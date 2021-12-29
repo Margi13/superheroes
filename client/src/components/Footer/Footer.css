@@ -2,10 +2,10 @@ footer {
     padding: 0.5em;
     width: 100%;
     margin-bottom: 0;
-    color: whitesmoke;
+    color: rgb(104, 85, 85);
     font-size: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20%;
+    margin-top: 0;
 }

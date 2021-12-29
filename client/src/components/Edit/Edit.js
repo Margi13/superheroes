@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useHeroState from '../../hooks/useHeroState';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
-import { useAuthContext } from '../../contexts/AuthContext';
 import * as supereroService from '../../services/superheroService';
 import { formLabelsBG, buttonLabelsBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
@@ -20,16 +19,9 @@ const Edit = () => {
     const [image, setImage] = useState({ image: null, url: '' });
     const [superhero] = useHeroState(heroId);
     
-    const { user } = useAuthContext();
     const { addNotification } = useNotificationContext();
 
     const handlers = ChangeHandlers(setErrors, setImage);
-
-    // if (user._id !== superhero._ownerId) {
-    //     console.log(user._id);
-    //     console.log(superhero._ownerId);
-    //     return <Navigate to="/"/>
-    // }
 
     const heroEditSubmitHandler = (e) => {
         e.preventDefault();

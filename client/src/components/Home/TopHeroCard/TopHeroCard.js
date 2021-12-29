@@ -19,7 +19,7 @@ const TopHeroCard = ({
             <div className="image-wrap">
                 <img src={imageUrl} alt="" />
             </div>
-            <h3>{hero.personName}</h3>
+            <h1>{hero.personName}</h1>
             <div className="data-buttons">
                 <Link to={"/details/" + hero._id} href="/details" className="btn details-btn">{buttonLabelsBG.Details}</Link>
             </div>

@@ -15,5 +15,5 @@ Every try to route to page which url is wrong you'll be navigated to Error Page.
 
 On the bottom of the page are my profiles in LinkdIn and GitHub.
 
-#Server
+# Server
 The server part is from softuni-practice-server, so on every restart of server, data is lost.

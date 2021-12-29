@@ -1,6 +1,15 @@
 import { validationMessages } from '../../../common/messagesConstantsBG';
-export const ChangeHandlers = (setErrors) => {
-
+export const ChangeHandlers = (setErrors, setImage) => {
+    const imageHandler = (e) => {
+        
+        if (e.target.files[0]) {
+            console.log(e.target.files[0])
+            const img = e.target.files[0]
+            setImage(() => ({ img }));
+        }else{
+            setErrors(state => ({ ...state, image: validationMessages.requiredMessage }))
+        }
+    }
     const personNameChangeHandler = (e) => {
         let currentName = e.target.value;
         if (currentName === '') {
@@ -54,15 +63,6 @@ export const ChangeHandlers = (setErrors) => {
 
         }
     }
-    const imageChangeHandler = (e) => {
-        let currentImage = e.target.value;
-        if (currentImage === '') {
-            setErrors(state => ({ ...state, image: validationMessages.requiredMessage }));
-        } else {
-            setErrors(state => ({ ...state, image: null }));
-
-        }
-    }
 
     return {
         personNameChangeHandler,
@@ -70,6 +70,6 @@ export const ChangeHandlers = (setErrors) => {
         kindChangeHandler,
         ageChangeHandler,
         storyChangeHandler,
-        imageChangeHandler
+        imageHandler
     }
 }

@@ -2,6 +2,9 @@ import { storage } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage';
 
 export const handleImageUpload = (image) => {
+    if(!image){
+        throw new Error('There was no image uploaded!');
+    }
     const storageRef = ref(storage, `images/${image.name}`);
 
     const uploadTask = uploadBytesResumable(storageRef, image, { contentType: 'images/jpeg' });

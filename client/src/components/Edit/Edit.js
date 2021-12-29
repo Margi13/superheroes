@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import useHeroState from '../../hooks/useHeroState';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -7,6 +7,7 @@ import * as supereroService from '../../services/superheroService';
 import { formLabelsBG, buttonLabelsBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
 import { ChangeHandlers } from '../Common/Validation/HeroValidationHelper';
+import * as imageService from '../../services/imageService';
 
 const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }
 
@@ -16,19 +17,23 @@ const Edit = () => {
     const { heroId } = useParams();
 
     const [errors, setErrors] = useState(initialErrorState);
+    const [image, setImage] = useState({ image: null, url: '' });
     const [superhero] = useHeroState(heroId);
     
     const { user } = useAuthContext();
     const { addNotification } = useNotificationContext();
 
-    const handlers = ChangeHandlers(setErrors);
-    
-    if (user._id !== superhero._ownerId) {
-        return <Navigate to="/"/>
-    }
+    const handlers = ChangeHandlers(setErrors, setImage);
+
+    // if (user._id !== superhero._ownerId) {
+    //     console.log(user._id);
+    //     console.log(superhero._ownerId);
+    //     return <Navigate to="/"/>
+    // }
+
     const heroEditSubmitHandler = (e) => {
         e.preventDefault();
-
+        
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
         if (heroData.personName === '' || heroData.heroName === '' || heroData.kind === '' || heroData.age === '' || heroData.image === '' || heroData.story === '') {
             addNotification(alertMessages.EnteredNoData, typesColor.error);
@@ -39,8 +44,11 @@ const Edit = () => {
             return;
         }
 
+        heroData.imageUrl = image.img?.name;
+
         supereroService.update(superhero._id, heroData)
             .then(() => {
+                imageService.handleImageUpload(image.img);
                 addNotification(alertMessages.EditSuccess, typesColor.success);
                 navigate(`/details/${heroId}`)
             })
@@ -84,9 +92,8 @@ const Edit = () => {
                     <span className={errors.age ? 'show error' : 'hide no-error'}>{errors.age}</span>
 
                     <label htmlFor="imageUrl">{formLabelsBG.Image}:</label>
-                    <input type="text" id="imageUrl" name="imageUrl"
-                        defaultValue={superhero.imageUrl}
-                        onBlur={handlers.imageChangeHandler}
+                    <input type="file" id="imageUrl" name="imageUrl"
+                        onChange={handlers.imageHandler}
                         className={errors.imageUrl ? 'error' : 'no-error'} />
                     <span className={errors.image ? 'show error' : 'hide no-error'}>{errors.image}</span>
 

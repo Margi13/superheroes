@@ -9,12 +9,9 @@ const useHeroState = (heroId) => {
             .then(res => {
                 setSuperhero(res);
 
-            })
-            .catch(error=>{
-                throw new Error(error);
             });
 
-    }, [heroId]);
+    }, [heroId,setSuperhero]);
 
     return [
         superhero,

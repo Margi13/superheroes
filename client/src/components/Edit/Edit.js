@@ -1,22 +1,31 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import * as supereroService from '../../services/superheroService';
+import { useParams, useNavigate, Navigate } from 'react-router-dom';
 import useHeroState from '../../hooks/useHeroState';
+import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
+import { useAuthContext } from '../../contexts/AuthContext';
+import * as supereroService from '../../services/superheroService';
 import { formLabelsBG, buttonLabelsBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
-import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 import { ChangeHandlers } from '../Common/Validation/HeroValidationHelper';
 
 const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }
 
 const Edit = () => {
-    const { heroId } = useParams();
+    
     const navigate = useNavigate();
+    const { heroId } = useParams();
+
     const [errors, setErrors] = useState(initialErrorState);
     const [superhero] = useHeroState(heroId);
+    
+    const { user } = useAuthContext();
     const { addNotification } = useNotificationContext();
-    const handlers = ChangeHandlers(setErrors);
 
+    const handlers = ChangeHandlers(setErrors);
+    
+    if (user._id !== superhero._ownerId) {
+        return <Navigate to="/"/>
+    }
     const heroEditSubmitHandler = (e) => {
         e.preventDefault();
 

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router'
+import { useNavigate, Navigate } from 'react-router'
 import { Link } from 'react-router-dom';
 import * as authService from '../../services/authService';
 import { useAuthContext } from '../../contexts/AuthContext';
@@ -7,15 +7,18 @@ import { formLabelsBG, buttonLabelsBG, placeholdersBG } from '../../common/label
 import { titles, alertMessages, validationMessages } from '../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 import { ChangeHandlers } from '../Common/Validation/UserValidationHelper';
-const initialErrorState = { email: null, password: null, rePassword: null }
+
+const initialErrorState = { email: null, password: null, rePassword: null };
 
 function Register() {
     const navigate = useNavigate();
-    const { login } = useAuthContext();
+    const { login, isAuth} = useAuthContext();
     const { addNotification } = useNotificationContext();
     const [errors, setErrors] = useState(initialErrorState);
     const handlers = ChangeHandlers(setErrors);
-
+    if(isAuth){
+        return <Navigate to="/"/>
+    }
     const registerSubmitHandler = (e) => {
         e.preventDefault();
 
@@ -68,7 +71,7 @@ function Register() {
                     <input className="btn submit" type="submit" value={buttonLabelsBG.Register} />
 
                     <p className="field">
-                        <span>{alertMessages.HasProfileMessage}: <Link to="/login" href="/login">Icon</Link></span>
+                        <span>{alertMessages.HasProfileMessage}: <Link to="/login" href="/login"><i className="fas fa-sign-in-alt"></i></Link></span>
                     </p>
                 </div>
             </form>

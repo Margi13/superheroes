@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import useHeroState from '../../hooks/useHeroState';
+import { Link, useNavigate, useParams, Navigate } from 'react-router-dom';
 
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import useHeroState from '../../hooks/useHeroState';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 
 import * as superheroService from '../../services/superheroService';
 import * as likeService from '../../services/likeService';
-import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
 
+import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
 import { buttonLabelsBG, formLabelsBG } from '../../common/labelsConstatnsBG';
 import { alertMessages, titles } from '../../common/messagesConstantsBG';
 
@@ -30,6 +30,9 @@ const Details = () => {
 
   const deleteHandler = (e) => {
     e.preventDefault();
+    if (user._id !== superhero._ownerId) {
+      return;
+    }
     superheroService.remove(heroId)
       .then(res => {
         addNotification(alertMessages.DeleteSuccess, typesColor.success);
@@ -45,6 +48,9 @@ const Details = () => {
 
   const deleteClickHandler = (e) => {
     e.preventDefault();
+    if (user._id !== superhero._ownerId) {
+      return <Navigate to="/"/>
+    }
     setShowDeleteDialog(true);
   }
 
@@ -63,6 +69,10 @@ const Details = () => {
         setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
         addNotification(alertMessages.LikesSuccess, typesColor.success);
         e.target.disabled = true;
+      })
+      .catch(error=>{
+        addNotification(alertMessages.LikesDenied, typesColor.success);
+        console.log(error);
       });
 
   }

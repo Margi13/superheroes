@@ -6,20 +6,25 @@ export const getAll = () => request.get(`${baseUrl}/superheroes`)
 
 export const getOne = (heroId) => request.get(`${baseUrl}/superheroes/${heroId}`);
 
-export const getTopThree = async() => {
-    try{
+export const getTopThree = async () => {
+    try {
         const result = [];
         const data = await getAll();
-        
-        for (const hero of data) {
-            const likes = await getHeroLikes(hero._id);
-            result.push({...hero, likes: likes.length});
+
+        if (data) {
+
+            for (const hero of data) {
+                const likes = await getHeroLikes(hero._id);
+                result.push({ ...hero, likes: likes.length });
+            }
+
+            result.sort((a, b) => b.likes - a.likes);
+            return result.slice(0, 3);
+        }else{
+            return [];
         }
-        
-        result.sort((a,b)=> b.likes - a.likes);
-        return result.slice(0,3);
     }
-    catch(error){
+    catch (error) {
         throw new Error(error);
     }
 

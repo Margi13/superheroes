@@ -4,15 +4,20 @@ import TopHeroCard from './TopHeroCard';
 
 import * as superheroService from '../../services/superheroService';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
+import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 const Home = () => {
     const [superheroes, setSuperheroes] = useState();
+    const { addNotification } = useNotificationContext();
 
     useEffect(() => {
         superheroService.getTopThree()
             .then(hero => {
                 setSuperheroes(hero);
+            })
+            .catch(error => {
+                addNotification(alertMessages.SomethingWentWrong, typesColor.error)
             });
-    }, []);
+    }, [addNotification]);
 
     const noHeroesElement = (
         <div>

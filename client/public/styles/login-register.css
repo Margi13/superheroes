@@ -57,6 +57,7 @@ input::placeholder {
 }
 
 input[type="password"],
+input[type="number"],
 input[type="email"] {
     background: #ecf0f3;
     padding: 30px;
@@ -100,4 +101,8 @@ input[type="email"] {
     background: rgb(235, 157, 142);
     border-radius: 10px;
     padding: 5px;
+}
+
+.field i {
+    font-size: 18px;
 }

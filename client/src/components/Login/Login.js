@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
 
 import { useAuthContext } from '../../contexts/AuthContext'
@@ -6,9 +6,13 @@ import { typesColor, useNotificationContext } from '../../contexts/NotificationC
 import {formLabelsBG,buttonLabelsBG,placeholdersBG} from '../../common/labelsConstatnsBG';
 import {titles, alertMessages} from '../../common/messagesConstantsBG';
 const Login = () => {
-    const { login } = useAuthContext();
+    const { login, isAuth } = useAuthContext();
     const {addNotification} = useNotificationContext();
     const navigate = useNavigate();
+    
+    if(isAuth){
+        return <Navigate to="/"/>
+    }
 
     const onLoginHandler = (e) => {
         e.preventDefault();
@@ -45,7 +49,7 @@ const Login = () => {
                     <input type="password" id="login-password" name="password" />
                     <input type="submit" className="btn submit" value={buttonLabelsBG.Login} />
                     <p className="field">
-                        <span>{alertMessages.NoProfileMessage}:<Link to="/register" href="/register">Icon</Link></span>
+                        <span>{alertMessages.NoProfileMessage}:<Link to="/register" href="/register"><i className="fas fa-user-plus"></i></Link></span>
                     </p>
                 </div>
             </form>

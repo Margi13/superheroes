@@ -16,6 +16,7 @@ export const alertMessages = {
     'NoSuperheroes': 'Все още няма създадени герои...',
     'SomethingWentWrong': 'Нещо се обърка...',
     'LikesSuccess': 'Успешно харесахте този герой!',
+    'LikesDenied': 'Възникна проблем с харесването на героя!',
     'LikesDuplicate': 'Вече сте харесали този герой!',
     'LoginSuccess': 'Успешно влязохте в профила си!',
     'LoginDenied': 'Възникна проблем с влизането!',

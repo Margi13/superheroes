@@ -20,7 +20,7 @@ export const getTopThree = async () => {
 
             result.sort((a, b) => b.likes - a.likes);
             return result.slice(0, 3);
-        }else{
+        } else {
             return [];
         }
     }

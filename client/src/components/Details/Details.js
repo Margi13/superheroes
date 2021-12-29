@@ -1,27 +1,24 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams, Navigate } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import useHeroState from '../../hooks/useHeroState';
 import { useAuthContext } from '../../contexts/AuthContext';
-import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 
-import * as superheroService from '../../services/superheroService';
 import * as likeService from '../../services/likeService';
 import * as imageService from '../../services/imageService';
 
 import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
 import { buttonLabelsBG, formLabelsBG } from '../../common/labelsConstatnsBG';
-import { alertMessages, titles } from '../../common/messagesConstantsBG';
-
+import { titles } from '../../common/messagesConstantsBG';
+import { DetailsHelper } from './DetailsHelper';
 import './Details.css';
 const Details = () => {
   const { user } = useAuthContext();
-  const navigate = useNavigate();
   const { heroId } = useParams();
   const [superhero, setSuperhero] = useHeroState(heroId);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-  const { addNotification } = useNotificationContext();
   const [imageUrl, setImageUrl] = useState('');
+  const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog);
 
   useEffect(() => {
     imageService.getImageFromFirebase(superhero.imageUrl)
@@ -41,68 +38,16 @@ const Details = () => {
       });
   }, [heroId, setSuperhero, superhero.imageUrl, setImageUrl])
 
-  const deleteHandler = (e) => {
-    e.preventDefault();
-    if (user._id !== superhero._ownerId) {
-      return;
-    }
-    superheroService.remove(heroId)
-      .then(res => {
-        imageService.deleteImageFromFirebase(superhero.imageUrl)
-          .then(res => {
-            addNotification(alertMessages.DeleteSuccess, typesColor.success);
-            navigate('/');
-          });
-      })
-      .catch(error => {
-        addNotification(alertMessages.DeleteDenied, typesColor.error);
-        console.log(error);
-      });
-    setShowDeleteDialog(false);
-
-  }
-
-  const deleteClickHandler = (e) => {
-    e.preventDefault();
-    if (user._id !== superhero._ownerId) {
-      return <Navigate to="/" />
-    }
-    setShowDeleteDialog(true);
-  }
-
-  const likeButtonClick = (e) => {
-
-    if (user._id === superhero._ownerId) {
-      return;
-    }
-    if (superhero.likes.includes(user._id)) {
-      addNotification(alertMessages.LikesDuplicate, typesColor.warning);
-      e.target.disabled = true;
-      return;
-    }
-    likeService.like(heroId)
-      .then(() => {
-        setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
-        addNotification(alertMessages.LikesSuccess, typesColor.success);
-        e.target.disabled = true;
-      })
-      .catch(error => {
-        addNotification(alertMessages.LikesDenied, typesColor.success);
-        console.log(error);
-      });
-
-  }
-
   const ownerButtons = (
     <div className="buttons">
       <Link to={`/edit/${superhero._id}`} href="/edit" className="button">{buttonLabelsBG.Edit}</Link>
-      <button className="button" onClick={deleteClickHandler}>{buttonLabelsBG.Delete}</button>
+      <button className="button" onClick={helper.deleteClickHandler}>{buttonLabelsBG.Delete}</button>
     </div>
   )
   //disabled={superhero.likes.includes(user._id)}
   const userButtons = (
     <div className="buttons">
-      <button className="button" onClick={likeButtonClick}>{buttonLabelsBG.Like}</button>
+      <button className="button" onClick={helper.likeButtonClick}>{buttonLabelsBG.Like}</button>
     </div>
   )
   return (
@@ -139,7 +84,7 @@ const Details = () => {
           <ConfirmDialog
             show={showDeleteDialog}
             onCancel={() => setShowDeleteDialog(false)}
-            onSave={deleteHandler} />
+            onSave={helper.deleteHandler} />
         </div>
       </section>
     </>

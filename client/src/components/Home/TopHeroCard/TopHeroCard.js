@@ -1,15 +1,23 @@
 import { Link } from 'react-router-dom';
 import './TopHeroCard.css';
 import { buttonLabelsBG } from '../../../common/labelsConstatnsBG'
-
-const LatestHeroCard = ({
+import { useEffect, useState } from 'react';
+import * as imageService from '../../../services/imageService';
+const TopHeroCard = ({
     hero
 }) => {
+    const [imageUrl, setImageUrl ] = useState();
+    useEffect(()=>{
+        imageService.getImageFromFirebase(hero.imageUrl)
+        .then(url=>{
+            setImageUrl(url);
+        });
+    },[hero.imageUrl])
     return (
         <div className="hero-card">
             <h3>{hero.heroName}</h3>
             <div className="image-wrap">
-                <img src={hero.imageUrl} alt="" />
+                <img src={imageUrl} alt="" />
             </div>
             <h3>{hero.personName}</h3>
             <div className="data-buttons">
@@ -19,4 +27,4 @@ const LatestHeroCard = ({
     );
 }
 
-export default LatestHeroCard;
+export default TopHeroCard;

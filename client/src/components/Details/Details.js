@@ -7,6 +7,7 @@ import { typesColor, useNotificationContext } from '../../contexts/NotificationC
 
 import * as superheroService from '../../services/superheroService';
 import * as likeService from '../../services/likeService';
+import * as imageService from '../../services/imageService';
 
 import ConfirmDialog from '../Common/ConfirmDialog/ConfirmDialog';
 import { buttonLabelsBG, formLabelsBG } from '../../common/labelsConstatnsBG';
@@ -20,13 +21,25 @@ const Details = () => {
   const [superhero, setSuperhero] = useHeroState(heroId);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const { addNotification } = useNotificationContext();
+  const [imageUrl, setImageUrl] = useState('');
 
   useEffect(() => {
+    imageService.getImageFromFirebase(superhero.imageUrl)
+      .then(url => {
+        setImageUrl(url);
+      })
+      .catch(error => {
+        console.log(error);
+      });
     likeService.getHeroLikes(heroId)
       .then((likes) => {
         setSuperhero(state => ({ ...state, likes }))
+
+      })
+      .catch(error => {
+        console.log(error);
       });
-  }, [heroId, setSuperhero])
+  }, [heroId, setSuperhero, superhero.imageUrl, setImageUrl])
 
   const deleteHandler = (e) => {
     e.preventDefault();
@@ -35,8 +48,11 @@ const Details = () => {
     }
     superheroService.remove(heroId)
       .then(res => {
-        addNotification(alertMessages.DeleteSuccess, typesColor.success);
-        navigate('/');
+        imageService.deleteImageFromFirebase(superhero.imageUrl)
+          .then(res => {
+            addNotification(alertMessages.DeleteSuccess, typesColor.success);
+            navigate('/');
+          });
       })
       .catch(error => {
         addNotification(alertMessages.DeleteDenied, typesColor.error);
@@ -49,7 +65,7 @@ const Details = () => {
   const deleteClickHandler = (e) => {
     e.preventDefault();
     if (user._id !== superhero._ownerId) {
-      return <Navigate to="/"/>
+      return <Navigate to="/" />
     }
     setShowDeleteDialog(true);
   }
@@ -70,7 +86,7 @@ const Details = () => {
         addNotification(alertMessages.LikesSuccess, typesColor.success);
         e.target.disabled = true;
       })
-      .catch(error=>{
+      .catch(error => {
         addNotification(alertMessages.LikesDenied, typesColor.success);
         console.log(error);
       });
@@ -96,7 +112,7 @@ const Details = () => {
         <div className="info-section">
 
           <div className="hero-header">
-            <img className="hero-img" src={superhero.imageUrl || '../images/avatar-grooth.png'} alt="" />
+            <img className="hero-img" src={imageUrl || '../images/avatar-grooth.png'} alt="" />
             {/* if names are equal => we write it only one time */}
             {superhero.heroName === superhero.personName
               ? <h1>{superhero.heroName}</h1>

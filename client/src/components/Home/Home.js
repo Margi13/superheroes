@@ -11,14 +11,15 @@ const Home = () => {
 
     useEffect(() => {
         superheroService.getTopThree()
-            .then(hero => {
-                setSuperheroes(hero);
+            .then(topHeroes => {
+                
+                setSuperheroes(topHeroes);
             })
             .catch(error => {
-                addNotification(alertMessages.SomethingWentWrong, typesColor.error)
+                addNotification(alertMessages.SomethingWentWrong, typesColor.error);
+                console.log(error);
             });
     }, [addNotification]);
-
     const noHeroesElement = (
         <div>
             <p className="no-articles">{alertMessages.NoSuperheroes}</p>

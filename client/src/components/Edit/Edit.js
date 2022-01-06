@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router';
+import { useParams } from 'react-router-dom';
 import useHeroState from '../../hooks/useHeroState';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 import * as supereroService from '../../services/superheroService';
@@ -7,25 +8,30 @@ import { formLabelsBG, buttonLabelsBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
 import { ChangeHandlers } from '../Common/Validation/HeroValidationHelper';
 import * as imageService from '../../services/imageService';
+import { useAuthContext } from '../../contexts/AuthContext';
 
 const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }
 
 const Edit = () => {
-    
+
     const navigate = useNavigate();
     const { heroId } = useParams();
-
+    const { user } = useAuthContext();
+    const { addNotification } = useNotificationContext();
+    
+    const [superhero] = useHeroState(heroId);
     const [errors, setErrors] = useState(initialErrorState);
     const [image, setImage] = useState({ image: null, url: '' });
-    const [superhero] = useHeroState(heroId);
     
-    const { addNotification } = useNotificationContext();
+    if (superhero._ownerId && user._id !== superhero._ownerId) {
+        return <Navigate to="/"/>
+    }
 
     const handlers = ChangeHandlers(setErrors, setImage);
 
     const heroEditSubmitHandler = (e) => {
         e.preventDefault();
-        
+
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
         if (heroData.personName === '' || heroData.heroName === '' || heroData.kind === '' || heroData.age === '' || heroData.image === '' || heroData.story === '') {
             addNotification(alertMessages.EnteredNoData, typesColor.error);

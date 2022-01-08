@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-const AUTH_COOKIE_NAME = "cookie"
 const JWT_SECRET = 'SECRETTOKEN';
 exports.auth = function (req, res, next) {
     let token = req.headers['X-Authorization'];

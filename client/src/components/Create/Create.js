@@ -29,8 +29,8 @@ const Create = () => {
         e.preventDefault();
 
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
-
-        if (heroData.personName === '' || heroData.heroName === '' || heroData.kind === '' || heroData.age === '' || heroData.image === '' || heroData.story === '') {
+        heroData.age = Number(heroData.age);
+        if (heroData.personName === '' || heroData.heroName === '' || heroData.kind === '' || !heroData.age || heroData.image === '' || heroData.story === '') {
             addNotification(alertMessages.EnteredNoData, typesColor.error);
             return;
         }

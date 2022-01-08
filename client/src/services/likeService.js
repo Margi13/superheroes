@@ -1,6 +1,6 @@
 import * as request from './requester';
 
-const baseUrl = 'http://localhost:3030/data';
+const baseUrl = 'http://localhost:5000/data';
 
 export const like = (heroId) => request.post(`${baseUrl}/likes`, { heroId }, true);
 export const getHeroLikes = (heroId) => {

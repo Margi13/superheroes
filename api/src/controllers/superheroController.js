@@ -31,7 +31,24 @@ router.get('/:superheroId', async (req, res) => {
             message: error.message
         })
     }
-})
+});
+router.put('/:superheroId', async (req, res) => {
+    try {
+        let superheroId = req.params.superheroId;
+        let superheroData = req.body;
+        let superhero = await superheroService.update(superheroId,superheroData);
+        if (superhero) {
+            res.json({ok: true});
+        } else {
+            res.json({ok: false});
+        }
+    } catch (error) {
+        res.json({
+            type: 'error',
+            message: error.message
+        })
+    }
+});
 router.post('/', async (req, res) => {
     const superheroData = req.body;
     const ownerId = req.user._id;

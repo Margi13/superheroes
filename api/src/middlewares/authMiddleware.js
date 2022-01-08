@@ -7,7 +7,6 @@ exports.auth = (req, res, next) => {
         let decodedToken = jwt.verify(token, JWT_SECRET)
         if (decodedToken) {
             req.user = decodedToken;
-            res.locals.user = decodedToken;
             next();
         } else {
             res.status(401).json('You are not authorized')

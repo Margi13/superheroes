@@ -1,22 +1,23 @@
 const router = require('express').Router();
-const superheroService = require('../services/superheroService')
+const superheroService = require('../services/superheroService');
+
 router.get('/', async (req, res) => {
-    try{
+    try {
         let superheroes = await superheroService.getAll();
         if (superheroes) {
             res.json(superheroes);
         } else {
             res.json([]);
         }
-    }catch(error){
+    } catch (error) {
         res.json({
             type: 'error',
             message: error.message
         })
     }
 });
-router.get('/:superheroId', async (req, res)=>{
-    try{
+router.get('/:superheroId', async (req, res) => {
+    try {
         let superheroId = req.params.superheroId;
         let superhero = await superheroService.getOne(superheroId);
         if (superhero) {
@@ -24,7 +25,7 @@ router.get('/:superheroId', async (req, res)=>{
         } else {
             res.json({});
         }
-    }catch(error){
+    } catch (error) {
         res.json({
             type: 'error',
             message: error.message
@@ -33,6 +34,7 @@ router.get('/:superheroId', async (req, res)=>{
 })
 router.post('/', async (req, res) => {
     const superheroData = req.body;
+    const ownerId = req.user._id;
     //TODO: 
     //Find if there is superhero with given heroic name and throw error if there is
     //Find if there is superhero with given real name and throw error if there is
@@ -43,7 +45,7 @@ router.post('/', async (req, res) => {
     //Maybe saving in firebase has to be in server?
     //FE - Animation while waiting images from firebase.
     try {
-        let superhero = await superheroService.create(superheroData);
+        let superhero = await superheroService.create({ ...superheroData, _ownerId: ownerId });
         if (superhero) {
             res.json({ ok: true });
         } else {

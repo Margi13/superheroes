@@ -7,7 +7,11 @@ const superheroShema = new mongoose.Schema({
     age: Number,
     imageUrl: String,
     story: String,
-    likes: Array
+    likes: Array,
+    _ownerId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 const Superhero = mongoose.model('Superhero', superheroShema);

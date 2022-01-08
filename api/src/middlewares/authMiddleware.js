@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 const JWT_SECRET = 'SECRETTOKEN';
-exports.auth = function (req, res, next) {
-    let token = req.headers['X-Authorization'];
+exports.auth = (req, res, next) => {
+    let token = req.headers['x-authorization'];
     if (token) {
         let decodedToken = jwt.verify(token, JWT_SECRET)
         if (decodedToken) {

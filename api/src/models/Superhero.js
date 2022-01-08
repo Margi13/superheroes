@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 
 const superheroShema = new mongoose.Schema({
-    
-        personName: String,
-        heroName: String,
-        kind: String,
-        age: Number,
-        imageUrl: String,
-        story: String
-      
+    personName: String,
+    heroName: String,
+    kind: String,
+    age: Number,
+    imageUrl: String,
+    story: String,
+    likes: Array
 });
 
 const Superhero = mongoose.model('Superhero', superheroShema);

@@ -14,6 +14,22 @@ router.get('/', async (req, res) => {
             message: error.message
         })
     }
+});
+router.get('/:superheroId', async (req, res)=>{
+    try{
+        let superheroId = req.params.superheroId;
+        let superhero = await superheroService.getOne(superheroId);
+        if (superhero) {
+            res.json(superhero);
+        } else {
+            res.json({});
+        }
+    }catch(error){
+        res.json({
+            type: 'error',
+            message: error.message
+        })
+    }
 })
 router.post('/', async (req, res) => {
     const superheroData = req.body;

@@ -9,9 +9,9 @@ const Login = () => {
     const { login, isAuth } = useAuthContext();
     const {addNotification} = useNotificationContext();
     const navigate = useNavigate();
-    if(isAuth){
-        return <Navigate to="/"/>
-    }
+    // if(isAuth){
+    //     return <Navigate to="/"/>
+    // }
     
     const onLoginHandler = (e) => {
         e.preventDefault();

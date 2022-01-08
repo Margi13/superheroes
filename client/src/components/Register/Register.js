@@ -16,9 +16,9 @@ function Register() {
     const { addNotification } = useNotificationContext();
     const [errors, setErrors] = useState(initialErrorState);
     const handlers = ChangeHandlers(setErrors);
-    if(isAuth){
-        return <Navigate to="/"/>
-    }
+    // if(isAuth){
+    //     return <Navigate to="/"/>
+    // }
     const registerSubmitHandler = (e) => {
         e.preventDefault();
 

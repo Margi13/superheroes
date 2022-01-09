@@ -8,6 +8,7 @@ const superheroShema = new mongoose.Schema({
     imageUrl: String,
     story: String,
     likes: Array,
+    status: Number,
     _ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'

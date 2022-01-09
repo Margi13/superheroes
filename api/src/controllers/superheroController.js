@@ -3,7 +3,7 @@ const superheroService = require('../services/superheroService');
 
 router.get('/', async (req, res) => {
     try {
-        let superheroes = await superheroService.getAll();
+        let superheroes = await superheroService.getAllApproved();
         if (superheroes) {
             res.json(superheroes);
         } else {
@@ -36,6 +36,7 @@ router.put('/:superheroId', async (req, res) => {
     try {
         let superheroId = req.params.superheroId;
         let superheroData = req.body;
+        superhero.status = 0;
         let superhero = await superheroService.update(superheroId,superheroData);
         if (superhero) {
             res.json({ok: true});
@@ -62,7 +63,7 @@ router.post('/', async (req, res) => {
     //Maybe saving in firebase has to be in server?
     //FE - Animation while waiting images from firebase.
     try {
-        let superhero = await superheroService.create({ ...superheroData, _ownerId: ownerId });
+        let superhero = await superheroService.create({ ...superheroData,status: 0, _ownerId: ownerId });
         if (superhero) {
             res.json({ ok: true });
         } else {
@@ -75,5 +76,5 @@ router.post('/', async (req, res) => {
         })
     }
 
-})
+});
 module.exports = router;

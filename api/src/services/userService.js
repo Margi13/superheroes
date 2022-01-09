@@ -7,7 +7,9 @@ const ADMIN_PASSWORD = 'admin';
 
 exports.createAdmin = async () => {
     const roleId = roleService.getRoleIdByName(roleService.ADMIN_ROLE);
-    const result = await User.create({ ADMIN_EMAIL, ADMIN_PASSWORD, roleId });
+    const adminEmail = this.ADMIN_EMAIL;
+    const adminPass = this.ADMIN_PASSWORD;
+    const result = await User.create({ adminEmail, adminPass, roleId });
     if (result) {
         return result;
     } else {
@@ -27,6 +29,6 @@ exports.login = async ({ email, password }) => {
 
         return { user, token };
     } else {
-        throw new Error('No such user')
+        throw new Error('No such user');
     }
 }

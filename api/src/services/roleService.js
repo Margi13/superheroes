@@ -1,12 +1,14 @@
 const Role = require('../models/Role');
 
-exports.ADMIN_ROLE = 'admin';
-exports.USER_ROLE = 'user';
+exports.ADMIN_ROLE_NAME = 'admin';
+exports.USER_ROLE_NAME = 'user';
 
 exports.createRoles = async () => {
     try {
-        const adminRole = await Role.create({ ADMIN_ROLE });
-        const userRole = await Role.create({ USER_ROLE });
+        const adminRoleName = this.ADMIN_ROLE_NAME;
+        const userRoleName = this.USER_ROLE_NAME;
+        const adminRole = await Role.create({ adminRoleName });
+        const userRole = await Role.create({ userRoleName });
         if (adminRole && userRole) {
             return { ok: true };
         } else {

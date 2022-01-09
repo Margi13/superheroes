@@ -2,7 +2,7 @@ const Superhero = require('../models/Superhero')
 
 exports.getAllApproved = () => Superhero.find(f => f.status === 1);
 exports.getAllPending = () => Superhero.find(f => f.status === 0);
-exports.getAllNotApproved = () => Superhero.find(f => f.status === -1);
+exports.getAllDeclined = () => Superhero.find(f => f.status === -1);
 
 exports.getOwn = (ownerId) => Superhero.find(f => f._ownerId === ownerId);
 exports.getOne = (superheroId) => Superhero.findById(superheroId);

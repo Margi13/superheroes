@@ -10,9 +10,9 @@ import { ChangeHandlers } from '../Common/Validation/UserValidationHelper';
 
 const initialErrorState = { email: null, password: null, rePassword: null };
 
-function Register() {
+const Register = () => {
     const navigate = useNavigate();
-    const { login, isAuth} = useAuthContext();
+    const { login, isAuth } = useAuthContext();
     const { addNotification } = useNotificationContext();
     const [errors, setErrors] = useState(initialErrorState);
     const handlers = ChangeHandlers(setErrors);
@@ -53,8 +53,8 @@ function Register() {
                 <div className="container">
 
                     <label htmlFor="email">{formLabelsBG.Email}:</label>
-                    <input type="email" id="email" name="email" 
-                    placeholder={placeholdersBG.Email}
+                    <input type="email" id="email" name="email"
+                        placeholder={placeholdersBG.Email}
                         onBlur={handlers.emailChangeHandler}
                         className={errors.email ? 'error' : 'no-error'} />
                     <span className={errors.email ? 'show error' : 'hide no-error'}>{errors.email}</span>

@@ -14,6 +14,7 @@ import Logout from './components/Logout';
 import Register from './components/Register';
 import Error from './components/Error';
 import MyHeroes from './components/MyHeroes';
+import Pending from './components/Pending';
 import ErrorBoundary from './components/Common/ErrorBoundary';
 import Notification from './components/Common/Notification/index';
 import PrivateRoute from './components/Common/PrivateRoute/index';
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/my-heroes" element={<PrivateRoute><MyHeroes /></PrivateRoute>} />
                 <Route path="/create" element={<PrivateRoute><Create /></PrivateRoute>} />
                 <Route path="/edit/:heroId" element={<PrivateRoute><Edit /></PrivateRoute>} />
+                <Route path="/admin/pending" element={<PrivateRoute><Pending /></PrivateRoute>} />
                 <Route path="/*" element={<Error />} />
               </Routes>
 

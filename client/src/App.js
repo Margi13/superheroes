@@ -43,6 +43,7 @@ function App() {
                 <Route path="/create" element={<PrivateRoute><Create /></PrivateRoute>} />
                 <Route path="/edit/:heroId" element={<PrivateRoute><Edit /></PrivateRoute>} />
                 <Route path="/admin/pending" element={<PrivateRoute><Pending /></PrivateRoute>} />
+                <Route path="/admin/pending/:heroId" element={<PrivateRoute><Pending /></PrivateRoute>} />
                 <Route path="/*" element={<Error />} />
               </Routes>
 

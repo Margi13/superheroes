@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const userShema = new mongoose.Schema({
     email: String,
     password: String,
-    role: {
+    _roleId: {
         type: mongoose.Types.ObjectId,
-        ref: 'User'
+        ref: 'Role'
     }
 });
 

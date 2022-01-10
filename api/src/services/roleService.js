@@ -1,15 +1,16 @@
 const Role = require('../models/Role');
 
-exports.ADMIN_ROLE_NAME = 'admin';
-exports.USER_ROLE_NAME = 'user';
+exports.ADMIN_ROLE_NAME = 'ADMIN';
+exports.USER_ROLE_NAME = 'USER';
 
 exports.createRoles = async () => {
     try {
-        const adminRoleName = this.ADMIN_ROLE_NAME;
-        const userRoleName = this.USER_ROLE_NAME;
-        const adminRole = await Role.create({ adminRoleName });
-        const userRole = await Role.create({ userRoleName });
-        if (adminRole && userRole) {
+        const adminRole = {roleName: this.ADMIN_ROLE_NAME};
+        const userRole = {roleName: this.USER_ROLE_NAME};
+        
+        const adminRoleResult = await Role.create(adminRole);
+        const userRoleResult = await Role.create(userRole);
+        if (adminRoleResult && userRoleResult) {
             return { ok: true };
         } else {
             throw new Error('Cannot create admin and user roles')
@@ -19,4 +20,4 @@ exports.createRoles = async () => {
     }
 }
 
-exports.getRoleIdByName = (roleName) => Role.findOne(r => r.roleName === roleName);
+exports.getRoleIdByName = (adminRoleName) => Role.findOne({roleName: adminRoleName});

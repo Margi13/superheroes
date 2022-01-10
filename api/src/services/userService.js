@@ -2,24 +2,20 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const roleService = require('./roleService');
 
-const ADMIN_EMAIL = 'admin@abv.bg';
-const ADMIN_PASSWORD = 'admin';
-
-exports.createAdmin = async () => {
-    const roleId = roleService.getRoleIdByName(roleService.ADMIN_ROLE);
-    const adminEmail = this.ADMIN_EMAIL;
-    const adminPass = this.ADMIN_PASSWORD;
-    const result = await User.create({ adminEmail, adminPass, roleId });
+exports.createAdmin = async (adminEmail, adminPass) => {
+    const role = await roleService.getRoleIdByName('ADMIN');
+    const admin = { email: adminEmail, password: adminPass, _roleId: role._id }
+    const result = await User.create(admin);
     if (result) {
         return result;
     } else {
-        throw new Error('Cannot register admin user')
+        throw new Error('Cannot register admin user');
     }
 };
 
 exports.register = async ({ email, password }) => {
-    const roleId = roleService.getRoleIdByName(roleService.USER_ROLE);
-    return await User.create({ email, password, roleId });
+    const role = roleService.getRoleIdByName(roleService.USER_ROLE);
+    return await User.create({ email, password, _roleId: role._id });
 };
 
 exports.login = async ({ email, password }) => {

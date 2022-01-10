@@ -1,8 +1,9 @@
-.logo-container{
+.logo-container {
     position: relative;
-    float:left;
+    float: left;
     height: 175px;
 }
+
 .logo {
     height: inherit;
 }
@@ -14,11 +15,13 @@ header nav {
     justify-content: space-between;
     height: 160px;
 }
+
 header nav div {
     display: flex;
     justify-content: flex-end;
-    margin:0px;
+    margin: 0px;
 }
+
 nav a {
     margin: 0 0.5em;
 }
@@ -34,17 +37,20 @@ nav a:hover {
     font-family: Georgia, 'Times New Roman', Times, serif;
     height: 200px;
 }
+
 .home:hover {
     color: rgb(82, 133, 139);
 }
 
-.all-nav{
+.all-nav {
     padding-top: 45%;
 }
 
-.user-nav{
-    padding-top:25%;
+.user-nav {
+    padding-top: 25%;
 }
-.guest-nav{
-    padding-top:40%;
+
+.guest-nav,
+.admin-nav {
+    padding-top: 40%;
 }

@@ -5,6 +5,7 @@ export const navigationTitlesBG = {
     'Login':'Вход',
     'Register':'Регистрация',
     'Logout':'Изход',
+    'Pending': 'Преглед'
 }
 
 export const formLabelsBG = {
@@ -28,7 +29,9 @@ export const buttonLabelsBG = {
     'Confirm': 'Потвърди',
     'Details':'Детайли',
     'Login': 'Влез',
-    'Register': 'Регистрирай се'
+    'Register': 'Регистрирай се',
+    'Approve': 'Одобри',
+    'Decline': 'Откажи'
 }
 
 export const placeholdersBG = {

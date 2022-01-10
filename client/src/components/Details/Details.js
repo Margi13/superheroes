@@ -82,6 +82,7 @@ const Details = () => {
           )}
 
           <ConfirmDialog
+            textMessage="DeleteConfirm"
             show={showDeleteDialog}
             onCancel={() => setShowDeleteDialog(false)}
             onSave={helper.deleteHandler} />

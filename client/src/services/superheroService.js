@@ -2,7 +2,7 @@ import { getHeroLikes } from './likeService';
 import * as request from './requester';
 const baseUrl = 'http://localhost:5000/data/superheroes';
 
-export const getAll = () => request.get(`${baseUrl}`)
+export const getAll = () => request.get(`${baseUrl}`);
 
 export const getOne = (heroId) => request.get(`${baseUrl}/${heroId}`);
 
@@ -10,8 +10,7 @@ export const getTopThree = async () => {
     try {
         const result = [];
         const data = await getAll();
-
-        if (data) {
+        if (!data.type) {
 
             for (const hero of data) {
                 const likes = await getHeroLikes(hero._id);

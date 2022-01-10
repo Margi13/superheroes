@@ -25,7 +25,7 @@ const MyHeroes = () => {
     );
     
     return (
-        <section className="my-pets-page">
+        <section className="my-heroes-page">
             <h1>{titles.MyHeroes}</h1>
 
             {superheroes.length > 0

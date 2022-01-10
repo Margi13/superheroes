@@ -33,7 +33,6 @@ export const DetailsHelper = (user, superhero,setSuperhero,setShowDeleteDialog)=
   }
 
   const deleteClickHandler = (e) => {
-    e.preventDefault();
     if (user._id !== superhero._ownerId) {
       return <Navigate to="/" />
     }

@@ -35,7 +35,7 @@ const Pending = () => {
                 }
             });
 
-    }, []);
+    }, [user._id, navigate]);
     const noHeroesElement = (
         <div>
             <p className="no-articles">{alertMessages.NoSuperheroes}</p>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { buttonLabelsBG, formLabelsBG } from '../../../common/labelsConstatnsBG';
-import { useAuthContext } from '../../../contexts/AuthContext';
 import * as imageService from '../../../services/imageService';
 import * as adminService from '../../../services/adminService';
 

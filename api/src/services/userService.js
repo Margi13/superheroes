@@ -14,7 +14,7 @@ exports.createAdmin = async (adminEmail, adminPass) => {
 };
 
 exports.register = async ({ email, password }) => {
-    const role = roleService.getRoleIdByName(roleService.USER_ROLE);
+    const role = roleService.getRoleIdByName('USER');
     return await User.create({ email, password, _roleId: role._id });
 };
 

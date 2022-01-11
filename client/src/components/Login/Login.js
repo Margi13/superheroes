@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import * as authService from '../../services/authService';
 
 import { useAuthContext } from '../../contexts/AuthContext'
@@ -9,9 +9,9 @@ const Login = () => {
     const { login, isAuth } = useAuthContext();
     const {addNotification} = useNotificationContext();
     const navigate = useNavigate();
-    // if(isAuth){
-    //     return <Navigate to="/"/>
-    // }
+    if(isAuth){
+        return <Navigate to="/"/>
+    }
     
     const onLoginHandler = (e) => {
         e.preventDefault();

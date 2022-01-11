@@ -7,10 +7,10 @@ import { useNavigate, Navigate } from 'react-router-dom';
 
 import { typesColor } from '../../contexts/NotificationContext';
 
-export const DetailsHelper = (user, superhero,setSuperhero,setShowDeleteDialog)=>{
+export const DetailsHelper = (user, superhero, setSuperhero, setShowDeleteDialog) => {
   const { addNotification } = useNotificationContext();
   const navigate = useNavigate();
-    
+
   const deleteHandler = (e) => {
     e.preventDefault();
     if (user._id !== superhero._ownerId) {
@@ -49,8 +49,14 @@ export const DetailsHelper = (user, superhero,setSuperhero,setShowDeleteDialog)=
       e.target.disabled = true;
       return;
     }
-    likeService.like(superhero._id)
-      .then(() => {
+    likeService.like(superhero._id, user._id)
+      .then((result) => {
+        if(!result.ok){
+          throw new Error('Cannot like this hero. Try again later.')
+        }
+        if (result.type === 'error') {
+          throw new Error(result.message);
+        }
         setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
         addNotification(alertMessages.LikesSuccess, typesColor.success);
         e.target.disabled = true;

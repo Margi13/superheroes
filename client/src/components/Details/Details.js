@@ -44,7 +44,6 @@ const Details = () => {
       <button className="button" onClick={helper.deleteClickHandler}>{buttonLabelsBG.Delete}</button>
     </div>
   )
-  //disabled={superhero.likes.includes(user._id)}
   const userButtons = (
     <div className="buttons">
       <button className="button" onClick={helper.likeButtonClick}>{buttonLabelsBG.Like}</button>

@@ -3,7 +3,13 @@ const superheroService = require('../services/superheroService');
 
 router.get('/', async (req, res) => {
     try {
-        let superheroes = await superheroService.getAllApproved();
+        let superheroes = null;
+        if (req.query.where) {
+            let ownerId = req.query.where.split('=')[1].slice(1, -1);
+            superheroes = await superheroService.getOwn(ownerId);
+        } else {
+            superheroes = await superheroService.getAllApproved();
+        }
         if (superheroes) {
             res.json(superheroes);
         } else {
@@ -16,6 +22,7 @@ router.get('/', async (req, res) => {
         })
     }
 });
+
 router.get('/:superheroId', async (req, res) => {
     try {
         let superheroId = req.params.superheroId;
@@ -36,12 +43,28 @@ router.put('/:superheroId', async (req, res) => {
     try {
         let superheroId = req.params.superheroId;
         let superheroData = req.body;
-        superhero.status = 0;
-        let superhero = await superheroService.update(superheroId,superheroData);
+        superheroData.status = 0;
+        let superhero = await superheroService.update(superheroId, superheroData);
         if (superhero) {
-            res.json({ok: true});
+            res.json({ ok: true });
         } else {
-            res.json({ok: false});
+            res.json({ ok: false });
+        }
+    } catch (error) {
+        res.json({
+            type: 'error',
+            message: error.message
+        })
+    }
+});
+router.delete('/:superheroId', async (req, res) => {
+    try {
+        let superheroId = req.params.superheroId;
+        let result = await superheroService.delete(superheroId);
+        if (result) {
+            res.json({ ok: true });
+        } else {
+            res.json({ ok: false });
         }
     } catch (error) {
         res.json({

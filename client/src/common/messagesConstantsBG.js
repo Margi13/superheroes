@@ -35,7 +35,10 @@ export const alertMessages = {
     'DeleteDenied': 'Възникна проблем с изтриването на героя!',
     'DeleteConfirm': 'Сигурни ли сте, че искате да изтриете този герой?',
     'EnteredInvalidData': 'Моля въведете валидни данни!',
-    'EnteredNoData': 'Моля попълнете формата!'
+    'EnteredNoData': 'Моля попълнете формата!',
+    'Pending': 'Чака преглед...',
+    'Approved': 'Одобрен!',
+    'Declined': 'Изисква се редакция!'
 }
 
 export const validationMessages = {

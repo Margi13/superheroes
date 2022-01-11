@@ -15,5 +15,8 @@ Every try to route to page which url is wrong you'll be navigated to Error Page.
 
 On the bottom of the page are my profiles in LinkdIn and GitHub.
 
-# Server
+# Server - old server
 The server part is from softuni-practice-server, so on every restart of server, data is lost.
+
+# Api - current server
+This is custom made server with nodejs and mongobd. Currently the client wokrs with this server!

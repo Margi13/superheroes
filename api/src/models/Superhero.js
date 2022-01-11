@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const superheroShema = new mongoose.Schema({
+const superheroSchema = new mongoose.Schema({
     personName: String,
     heroName: String,
     kind: String,
@@ -15,6 +15,6 @@ const superheroShema = new mongoose.Schema({
     }
 });
 
-const Superhero = mongoose.model('Superhero', superheroShema);
+const Superhero = mongoose.model('Superhero', superheroSchema);
 
 module.exports = Superhero

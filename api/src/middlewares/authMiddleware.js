@@ -16,17 +16,17 @@ exports.auth = (req, res, next) => {
     }
 }
 
-// exports.isAuth = function (req, res, next){
-//     if(req.user){
-//         next();
-//     }else{
-//         res.status(401).json('You are not authorized');
-//     }
-// }
-// exports.isGuest = function (req, res, next){
-//     if(!req.user){
-//         next();
-//     }else{
-//         res.status(401).json('You are already authorized');
-//     }
-// }
+exports.isAuth = function (req, res, next){
+    if(req.user.email){
+        next();
+    }else{
+        res.status(401).json('You are not authorized');
+    }
+}
+exports.isGuest = function (req, res, next){
+    if(!req.user.email){
+        next();
+    }else{
+        res.status(401).json('You are already authorized');
+    }
+}

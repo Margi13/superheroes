@@ -5,11 +5,9 @@ const superheroService = require('../services/likeService');
 router.get('/', async (req, res) => {
     const toGet = req.query.select;
     const superheroId = req.query.where.split('=')[1].slice(1,-1);
-    console.log(superheroId);
     try {
         const result = await likeService.getLikesByHeroId(superheroId);
         if (result) {
-            console.log(result[0][toGet]);
             res.json(result);
         } else {
             res.json([]);

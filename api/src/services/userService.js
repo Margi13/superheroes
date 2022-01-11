@@ -14,17 +14,23 @@ exports.createAdmin = async (adminEmail, adminPass) => {
 };
 
 exports.register = async ({ email, password }) => {
-    const role = roleService.getRoleIdByName('USER');
-    return await User.create({ email, password, _roleId: role._id });
+    const role = await roleService.getRoleIdByName('USER');
+    const user = { email: email, password: password, _roleId: role._id }
+    return await User.create(user);
 };
 
 exports.login = async ({ email, password }) => {
     let user = await User.findOne({ email });
     if (user) {
-        let token = jwt.sign({ _id: user._id, email: user.email }, 'SECRETTOKEN');
+        let isValid = await user.validatePassword(password);
+        if (isValid) {
+            let token = jwt.sign({ _id: user._id, email: user.email }, 'SECRETTOKEN');
+            return { user, token };
+        } else {
+            throw new Error('Invalid username or password!');
+        }
 
-        return { user, token };
     } else {
-        throw new Error('No such user');
+        throw new Error('Invalid username or password!');
     }
 }

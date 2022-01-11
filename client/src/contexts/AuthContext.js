@@ -18,9 +18,9 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(initialAuthState)
     }
-    const isAuth = user?.accessToken !== '' ? true : false;
+    const isAuth = user?.accessToken ? true : false;
 
-    const isGuest = user?.accessToken === '' ? true : false;
+    const isGuest = user?.accessToken ? true : false;
     return (
         <AuthContext.Provider value={{ user, login, logout, isAuth, isGuest }}>
             {children}

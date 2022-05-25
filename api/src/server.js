@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const routes = require('./routes');
 const { auth } = require('./middlewares/authMiddleware');
-// const { initializeData } = require('./initialize');
+const { initializeData } = require('./initialize');
 
 const app = express();
 mongoose.connect('mongodb://localhost:27017/superheroes')
@@ -27,4 +27,4 @@ app.use(routes);
 
 app.listen(5000, () => console.log('App is running on port 5000'));
 
-// initializeData(); 
+initializeData(); 

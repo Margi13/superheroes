@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const SALT_ROUNDS = require('../utils/constants');
+const { SALT_ROUNDS } = require('../utils/constants');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -24,12 +24,13 @@ userSchema.pre('save', function (next) {
             this.password = hash;
 
             return next();
-        });
+        })
+        .catch((error) => { throw error });
 });
 
 userSchema.method('validatePassword', function (password) {
     return bcrypt.compare(password, this.password)
-
+        .catch((error) => { throw error });
 });
 const User = mongoose.model('User', userSchema);
 

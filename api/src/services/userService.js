@@ -1,11 +1,11 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const roleService = require('./roleService');
-const { ADMIN_ROLE_NAME, USER_ROLE_NAME, JWT_SECRET } = require('../utils/constants');
+const { ADMIN_ROLE_NAME, USER_ROLE_NAME, JWT_SECRET, ADMIN_EMAIL, ADMIN_PASSWORD } = require('../utils/constants');
 
-exports.createAdmin = async (adminEmail, adminPass) => {
+exports.createAdmin = async () => {
     const role = await roleService.getRoleIdByName(ADMIN_ROLE_NAME);
-    const admin = { email: adminEmail, password: adminPass, _roleId: role._id }
+    const admin = { email: ADMIN_EMAIL, password: ADMIN_PASSWORD, _roleId: role._id };
     const result = await User.create(admin);
     if (result) {
         return result;

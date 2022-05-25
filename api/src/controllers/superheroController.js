@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { isAuth } = require('../middlewares/authMiddleware');
 const superheroService = require('../services/superheroService');
 
 router.get('/', async (req, res) => {
@@ -41,6 +42,7 @@ router.get('/:superheroId', async (req, res) => {
 });
 router.put('/:superheroId', async (req, res) => {
     try {
+        isAuth();
         let superheroId = req.params.superheroId;
         let superheroData = req.body;
         superheroData.status = 0;
@@ -59,6 +61,7 @@ router.put('/:superheroId', async (req, res) => {
 });
 router.delete('/:superheroId', async (req, res) => {
     try {
+        isAuth();
         let superheroId = req.params.superheroId;
         let result = await superheroService.delete(superheroId);
         if (result) {
@@ -74,6 +77,7 @@ router.delete('/:superheroId', async (req, res) => {
     }
 });
 router.post('/', async (req, res) => {
+    isAuth();
     const superheroData = req.body;
     superheroData.status = 0;
     let ownerId;

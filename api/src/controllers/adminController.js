@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const isAdmin = require('../middlewares/authMiddleware');
+const { isAdmin } = require('../middlewares/authMiddleware');
 const adminService = require('../services/adminService');
 const roleService = require('../services/roleService');
 const superheroService = require('../services/superheroService');
@@ -46,7 +46,6 @@ router.put('/approve/:superheroId', async (req, res) => {
         if (superhero) {
             superhero.status = 1;
             const approved = await adminService.approve(superheroId, superhero);
-            console.log(approved);
             if (approved) res.json({ ok: true });
             else throw new Error('Cannot approve this superhero!');
         }

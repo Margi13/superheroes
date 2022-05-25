@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { isAuth } = require('../middlewares/authMiddleware');
 const likeService = require('../services/likeService');
 
 router.get('/', async (req, res) => {
@@ -18,6 +19,7 @@ router.get('/', async (req, res) => {
     }
 });
 router.post('/', async (req, res) => {
+    isAuth();
     const superheroId = req.body.heroId;
     const ownerId = req.body.ownerId;
     const newLike = { _ownerId: ownerId, _superheroId: superheroId };

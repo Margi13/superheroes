@@ -1,8 +1,7 @@
 const roleService = require('./services/roleService');
 const userService = require('./services/userService');
+const { ADMIN_EMAIL, ADMIN_PASSWORD } = require('../utils/constants');
 
-const ADMIN_EMAIL = 'admin@abv.bg';
-const ADMIN_PASSWORD = 'admin';
 exports.initializeData = async () => {
     try {
         const roles = await roleService.createRoles();

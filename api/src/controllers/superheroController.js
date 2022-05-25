@@ -76,7 +76,15 @@ router.delete('/:superheroId', async (req, res) => {
 router.post('/', async (req, res) => {
     const superheroData = req.body;
     superheroData.status = 0;
-    const ownerId = req.user._id;
+    let ownerId;
+    if (req.user) {
+        ownerId = req.user._id;
+    } else {
+        res.json({
+            type: "error",
+            message: "User is not found!"
+        })
+    }
     //TODO: 
     //Find if there is superhero with given heroic name and throw error if there is
     //Find if there is superhero with given real name and throw error if there is

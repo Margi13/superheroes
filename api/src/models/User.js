@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = require('../utils/constants');
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -11,7 +10,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        minLength:[4, 'The password should be at least 4 characters long'],
+        minLength: [4, 'The password should be at least 4 characters long'],
         required: true
     },
     _roleId: {

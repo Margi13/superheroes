@@ -1,9 +1,10 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const roleService = require('./roleService');
+const { ADMIN_ROLE_NAME, USER_ROLE_NAME, JWT_SECRET } = require('../utils/constants');
 
 exports.createAdmin = async (adminEmail, adminPass) => {
-    const role = await roleService.getRoleIdByName('ADMIN');
+    const role = await roleService.getRoleIdByName(ADMIN_ROLE_NAME);
     const admin = { email: adminEmail, password: adminPass, _roleId: role._id }
     const result = await User.create(admin);
     if (result) {
@@ -14,7 +15,7 @@ exports.createAdmin = async (adminEmail, adminPass) => {
 };
 
 exports.register = async ({ email, password }) => {
-    const role = await roleService.getRoleIdByName('USER');
+    const role = await roleService.getRoleIdByName(USER_ROLE_NAME);
     const user = { email: email, password: password, _roleId: role._id }
     return await User.create(user);
 };
@@ -24,7 +25,7 @@ exports.login = async ({ email, password }) => {
     if (user) {
         let isValid = await user.validatePassword(password);
         if (isValid) {
-            let token = jwt.sign({ _id: user._id, email: user.email }, 'SECRETTOKEN');
+            let token = jwt.sign({ _id: user._id, email: user.email }, JWT_SECRET);
             return { user, token };
         } else {
             throw new Error('Invalid username or password!');

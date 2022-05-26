@@ -5,9 +5,8 @@ const roleService = require('../services/roleService');
 const superheroService = require('../services/superheroService');
 const { ADMIN_ROLE_NAME } = require('../utils/constants');
 
-router.get('/', async (req, res) => {
+router.get('/', isAdmin, async (req, res) => {
     try {
-        isAdmin();
         const role = await roleService.getRoleIdByName(ADMIN_ROLE_NAME);
         const admin = await adminService.getAdmin(role._id);
         if (admin) {
@@ -22,9 +21,8 @@ router.get('/', async (req, res) => {
         });
     }
 });
-router.get('/pending', async (req, res) => {
+router.get('/pending', isAdmin, async (req, res) => {
     try {
-        isAdmin();
         const superheroes = await superheroService.getAllPending();
         if (superheroes) {
             res.json(superheroes);
@@ -38,9 +36,8 @@ router.get('/pending', async (req, res) => {
         });
     }
 });
-router.put('/approve/:superheroId', async (req, res) => {
+router.put('/approve/:superheroId', isAdmin, async (req, res) => {
     try {
-        isAdmin();
         const superheroId = req.params.superheroId;
         const superhero = await superheroService.getOne(superheroId);
         if (superhero) {
@@ -57,9 +54,8 @@ router.put('/approve/:superheroId', async (req, res) => {
         });
     }
 });
-router.put('/decline/:superheroId', async (req, res) => {
+router.put('/decline/:superheroId', isAdmin, async (req, res) => {
     try {
-        isAdmin();
         const superheroId = req.params.superheroId;
         const superhero = await superheroService.getOne(superheroId);
         if (superhero) {

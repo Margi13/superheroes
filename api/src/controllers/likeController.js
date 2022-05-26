@@ -18,8 +18,7 @@ router.get('/', async (req, res) => {
         })
     }
 });
-router.post('/', async (req, res) => {
-    isAuth();
+router.post('/', isAuth, async (req, res) => {
     const superheroId = req.body.heroId;
     const ownerId = req.body.ownerId;
     const newLike = { _ownerId: ownerId, _superheroId: superheroId };

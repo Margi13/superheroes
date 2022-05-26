@@ -39,8 +39,8 @@ router.get('/:comicsId', async (req, res) => {
         })
     }
 });
-router.put('/:comicsId', async (req, res) => {
-    isAuth();
+router.put('/:comicsId', isAuth, async (req, res) => {
+    // isAuth();
     try {
         let comicsId = req.params.comicsId;
         let comicsData = req.body;
@@ -58,8 +58,7 @@ router.put('/:comicsId', async (req, res) => {
         })
     }
 });
-router.delete('/:comicsId', async (req, res) => {
-    isAuth();
+router.delete('/:comicsId', isAuth, async (req, res) => {
     try {
         let comicsId = req.params.comicsId;
         let result = await comicsService.delete(comicsId);
@@ -75,8 +74,7 @@ router.delete('/:comicsId', async (req, res) => {
         })
     }
 });
-router.post('/', async (req, res) => {
-    isAuth();
+router.post('/', isAuth, async (req, res) => {
     const comicsData = req.body;
     comicsData.status = 0;
     let ownerId;
@@ -88,7 +86,7 @@ router.post('/', async (req, res) => {
             message: "User is not found!"
         })
     }
-    //TODO: 
+    //TODO:
     //Find if there is comics with given title and throw error if there is
     //Find in FE if image extension is .png, .jpg, .jpeg and throw error if not
     //Rename images in FE with comicsTitle.stepOrder.*
@@ -109,7 +107,6 @@ router.post('/', async (req, res) => {
             message: error.message
         })
     }
-
 });
 
 module.exports = router;

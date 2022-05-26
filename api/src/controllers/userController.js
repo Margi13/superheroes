@@ -2,8 +2,7 @@ const router = require('express').Router();
 const { isGuest, isAuth } = require('../middlewares/authMiddleware');
 const userService = require('../services/userService');
 
-router.post('/register', async (req, res) => {
-    isGuest();
+router.post('/register', isGuest, async (req, res) => {
     let { email, password } = req.body;
     try {
         let user = await userService.register({ email, password });
@@ -22,8 +21,7 @@ router.post('/register', async (req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
-    isGuest();
+router.post('/login', isGuest, async (req, res) => {
     let { email, password } = req.body;
     try {
         let { user, token } = await userService.login({ email, password });
@@ -41,8 +39,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/logout', (req, res) => {
-    isAuth();
+router.get('/logout', isAuth, (req, res) => {
     res.json({ ok: true });
 })
 module.exports = router;

@@ -8,15 +8,10 @@ const useHeroState = (heroId) => {
         superheroService.getOne(heroId)
             .then(res => {
                 setSuperhero(res);
-
             });
+    }, [heroId, setSuperhero]);
 
-    }, [heroId,setSuperhero]);
-
-    return [
-        superhero,
-        setSuperhero
-    ]
+    return [superhero, setSuperhero]
 }
 
 export default useHeroState;

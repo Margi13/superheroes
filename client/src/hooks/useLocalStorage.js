@@ -2,7 +2,6 @@ import { useState } from 'react'
 const useLocalStorage = (key, initialValue) => {
     const [state, setState] = useState(() => {
         try {
-
             let item = localStorage.getItem(key);
             return item
                 ? JSON.parse(item)
@@ -14,16 +13,15 @@ const useLocalStorage = (key, initialValue) => {
     });
     const setItem = (value) => {
         //TODO add support for functions
-        try{
+        try {
             localStorage.setItem(key, JSON.stringify(value));
             setState(value)
-        }catch(error){
+        } catch (error) {
             console.log(error);
         }
     }
 
-
-    return [state, setItem]
+    return [ state, setItem ]
 }
 
 export default useLocalStorage;

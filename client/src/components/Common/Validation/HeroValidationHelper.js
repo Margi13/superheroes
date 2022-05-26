@@ -1,12 +1,12 @@
 import { validationMessages } from '../../../common/messagesConstantsBG';
 export const ChangeHandlers = (setErrors, setImage) => {
     const imageHandler = (e) => {
-        
+
         if (e.target.files[0]) {
             console.log(e.target.files[0])
             const img = e.target.files[0]
             setImage(() => ({ img }));
-        }else{
+        } else {
             setErrors(state => ({ ...state, image: validationMessages.requiredMessage }))
         }
     }

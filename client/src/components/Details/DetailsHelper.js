@@ -51,7 +51,7 @@ export const DetailsHelper = (user, superhero, setSuperhero, setShowDeleteDialog
     }
     likeService.like(superhero._id, user._id)
       .then((result) => {
-        if(!result.ok){
+        if (!result.ok) {
           throw new Error('Cannot like this hero. Try again later.')
         }
         if (result.type === 'error') {

@@ -1,5 +1,6 @@
 export const titles = {
     'AllSuperheroes': 'Всички създадени герои',
+    'AllComics': 'Всички създадени комикси',
     'TopHeroes': 'Най-харесвани',
     'Create': 'Създаване на герой',
     'Edit': 'Редактиране на герой',
@@ -15,6 +16,7 @@ export const titles = {
 
 export const alertMessages = {
     'NoSuperheroes': 'Все още няма създадени герои...',
+    'NoComics': 'Все още няма създадени комикси...',
     'SomethingWentWrong': 'Нещо се обърка...',
     'LikesSuccess': 'Успешно харесахте този герой!',
     'LikesDenied': 'Възникна проблем с харесването на героя!',

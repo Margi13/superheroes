@@ -1,5 +1,6 @@
 export const navigationTitlesBG = {
     'AllHeroes': 'Всички герои',
+    'AllComics': 'Всички комикси',
     'Create': 'Създай',
     'MyHeroes': 'Моите герои',
     'Login':'Вход',

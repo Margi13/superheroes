@@ -11,74 +11,22 @@
 .catalog-page>h1 {
     color: #fff;
     font-family: "Agency FB";
-    font-size: 48px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 600;
     margin-top: 10px;
     text-transform: uppercase;
     text-align: center;
 }
 
-.heroes-container {
+.no-articles {
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    font-size: 36px;
+    font-family: "Agency FB";
+}
+
+.card-rows {
     display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.hero {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    justify-content: space-around;
-    margin: 10px;
-    overflow: hidden;
-    width: 45%;
-    min-width: 400px;
-    height: auto;
-    min-height: 210px;
-}
-
-.hero-info {
-    padding: 30px;
-    position: relative;
-    width: 100%;
-}
-
-.hero-info>img {
-    margin-top: -10px;
-    border-radius: 50%;
-    height: 140px;
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    float: right;
-    padding: 5px;
-    width: 140px;
-}
-
-.hero-info>h6 {
-    font-size: 20px;
-    font-weight: 750;
-    color: #161618;
-}
-
-.hero-info>h2 {
-    font-size: 20px;
-    font-weight: 750;
-    color: #161618;
-}
-
-.details-button {
-    background-color: #2A265F;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    color: #fff;
-    font-size: 20px;
-    position: absolute;
-    bottom: 30px;
-    text-align: left;
-    letter-spacing: 1px;
-    padding: 10px;
-    margin-top: auto;
-    margin-left: 20px;
+    justify-content: space-evenly;
 }

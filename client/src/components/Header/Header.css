@@ -23,7 +23,7 @@ header nav div {
 }
 
 nav a {
-    margin: 0 0.5em;
+    margin: 5px 0;
 }
 
 nav a:hover {
@@ -43,7 +43,7 @@ nav a:hover {
 }
 
 .all-nav {
-    padding-top: 45%;
+    padding-top: 20%;
 }
 
 .user-nav {

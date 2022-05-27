@@ -52,7 +52,8 @@ const Header = () => {
 
             <nav>
                 <div id="all" className="nav-container">
-                    <Link to="/catalog" href="/catalog" className="cloud-link all-nav">{navigationTitlesBG.AllHeroes}</Link>
+                    <Link to="/catalog/heroes" href="/catalog/heroes" className="cloud-link all-nav">{navigationTitlesBG.AllHeroes}</Link>
+                    <Link to="/catalog/comics" href="/catalog/comics" className="cloud-link all-nav">{navigationTitlesBG.AllComics}</Link>
                 </div>
                 {isAdmin
                     ? adminNavigation

@@ -22,7 +22,7 @@ const HeroCard = ({
             </div>
             <h3>{hero.personName}</h3>
             <div className="card-data-buttons">
-                <Link to={"/details/" + hero._id} href="/details" className="btn card-details-btn">{buttonLabelsBG.Details}</Link>
+                <Link to={"/details/heroes/" + hero._id} href="/details/heroes" className="btn card-details-btn">{buttonLabelsBG.Details}</Link>
             </div>
         </div>
     );

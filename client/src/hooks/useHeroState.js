@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
 import * as superheroService from '../services/superheroService';
 
-const useHeroState = (heroId) => {
+const useHeroState = (id) => {
     const [superhero, setSuperhero] = useState({});
 
     useEffect(() => {
-        superheroService.getOne(heroId)
+        superheroService.getOne(id)
             .then(res => {
                 setSuperhero(res);
             });
-    }, [heroId, setSuperhero]);
+    }, [id, setSuperhero]);
 
     return [superhero, setSuperhero]
 }

@@ -15,7 +15,7 @@ const ComicsCard = ({
     }, [comics.imagesUrl, setImageUrl])
     return (
         <div className="comics-card card">
-            <Link to={"/details/" + comics._id} href="/details" className="btn card-details-btn">
+            <Link to={"/details/comics/" + comics._id} href="/details/comics" className="btn card-details-btn">
             <div className="card-image-wrap">
                 <img src={imageUrl} alt="" />
             

@@ -37,7 +37,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/catalog/*" element={<Catalog />} />
-                <Route path="/details/:heroId" element={<Details />} />
+                <Route path="/details/*" element={<Details />} />
                 <Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
                 <Route path="/my-heroes" element={<PrivateRoute><MyHeroes /></PrivateRoute>} />
                 <Route path="/create" element={<PrivateRoute><Create /></PrivateRoute>} />

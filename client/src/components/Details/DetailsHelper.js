@@ -8,68 +8,68 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { typesColor } from '../../contexts/NotificationContext';
 
 export const DetailsHelper = (user, superhero, setSuperhero, setShowDeleteDialog) => {
-  const { addNotification } = useNotificationContext();
-  const navigate = useNavigate();
+	const { addNotification } = useNotificationContext();
+	const navigate = useNavigate();
 
-  const deleteHandler = (e) => {
-    e.preventDefault();
-    if (user._id !== superhero._ownerId) {
-      return;
-    }
-    superheroService.remove(superhero._id)
-      .then(res => {
-        imageService.deleteImageFromFirebase(superhero.imageUrl)
-          .then(res => {
-            addNotification(alertMessages.DeleteSuccess, typesColor.success);
-            navigate('/');
-          });
-      })
-      .catch(error => {
-        addNotification(alertMessages.DeleteDenied, typesColor.error);
-        console.log(error);
-      });
-    setShowDeleteDialog(false);
+	const deleteHandler = (e) => {
+		e.preventDefault();
+		if (user._id !== superhero._ownerId) {
+			return;
+		}
+		superheroService.remove(superhero._id)
+			.then(res => {
+				imageService.deleteImageFromFirebase(superhero.imageUrl)
+					.then(res => {
+						addNotification(alertMessages.DeleteSuccess, typesColor.success);
+						navigate('/');
+					});
+			})
+			.catch(error => {
+				addNotification(alertMessages.DeleteDenied, typesColor.error);
+				console.log(error);
+			});
+		setShowDeleteDialog(false);
 
-  }
+	}
 
-  const deleteClickHandler = (e) => {
-    if (user._id !== superhero._ownerId) {
-      return <Navigate to="/" />
-    }
-    setShowDeleteDialog(true);
-  }
+	const deleteClickHandler = (e) => {
+		if (user._id !== superhero._ownerId) {
+			return <Navigate to="/" />
+		}
+		setShowDeleteDialog(true);
+	}
 
-  const likeButtonClick = (e) => {
+	const likeButtonClick = (e) => {
 
-    if (user._id === superhero._ownerId) {
-      return;
-    }
-    if (superhero.likes.includes(user._id)) {
-      addNotification(alertMessages.LikesDuplicate, typesColor.warning);
-      e.target.disabled = true;
-      return;
-    }
-    likeService.like(superhero._id, user._id)
-      .then((result) => {
-        if (!result.ok) {
-          throw new Error('Cannot like this hero. Try again later.')
-        }
-        if (result.type === 'error') {
-          throw new Error(result.message);
-        }
-        setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
-        addNotification(alertMessages.LikesSuccess, typesColor.success);
-        e.target.disabled = true;
-      })
-      .catch(error => {
-        addNotification(alertMessages.LikesDenied, typesColor.success);
-        console.log(error);
-      });
+		if (user._id === superhero._ownerId) {
+			return;
+		}
+		if (superhero.likes.includes(user._id)) {
+			addNotification(alertMessages.LikesDuplicate, typesColor.warning);
+			e.target.disabled = true;
+			return;
+		}
+		likeService.like(superhero._id, user._id)
+			.then((result) => {
+				if (!result.ok) {
+					throw new Error('Cannot like this hero. Try again later.')
+				}
+				if (result.type === 'error') {
+					throw new Error(result.message);
+				}
+				setSuperhero(state => ({ ...state, likes: [...state.likes, user._id] }));
+				addNotification(alertMessages.LikesSuccess, typesColor.success);
+				e.target.disabled = true;
+			})
+			.catch(error => {
+				addNotification(alertMessages.LikesDenied, typesColor.success);
+				console.log(error);
+			});
 
-  }
-  return {
-    deleteHandler,
-    deleteClickHandler,
-    likeButtonClick
-  }
+	}
+	return {
+		deleteHandler,
+		deleteClickHandler,
+		likeButtonClick
+	}
 }

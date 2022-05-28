@@ -13,80 +13,80 @@ import { titles } from '../../../common/messagesConstantsBG';
 import { DetailsHelper } from '../DetailsHelper';
 import '../Details.css';
 const HeroDetails = () => {
-    const { user } = useAuthContext();
-    const { id } = useParams();
-    const [superhero, setSuperhero] = useHeroState(id);
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-    const [imageUrl, setImageUrl] = useState('');
-    const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog);
+	const { user } = useAuthContext();
+	const { id } = useParams();
+	const [superhero, setSuperhero] = useHeroState(id);
+	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+	const [imageUrl, setImageUrl] = useState('');
+	const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog);
 
-    useEffect(() => {
-        imageService.getImageFromFirebase(superhero.imageUrl)
-            .then(url => {
-                setImageUrl(url);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-        likeService.getHeroLikes(id)
-            .then((likes) => {
-                setSuperhero(state => ({ ...state, likes }))
+	useEffect(() => {
+		imageService.getImageFromFirebase(superhero.imageUrl)
+			.then(url => {
+				setImageUrl(url);
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		likeService.getHeroLikes(id)
+			.then((likes) => {
+				setSuperhero(state => ({ ...state, likes }))
 
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, [id, setSuperhero, superhero.imageUrl, setImageUrl])
+			})
+			.catch(error => {
+				console.log(error);
+			});
+	}, [id, setSuperhero, superhero.imageUrl, setImageUrl])
 
-    const ownerButtons = (
-        <div className="buttons">
-            <Link to={`/edit/hero/${superhero._id}`} href="/edit/hero" className="button">{buttonLabelsBG.Edit}</Link>
-            <button className="button" onClick={helper.deleteClickHandler}>{buttonLabelsBG.Delete}</button>
-        </div>
-    )
-    const userButtons = (
-        <div className="buttons">
-            <button className="button" onClick={helper.likeButtonClick}>{buttonLabelsBG.Like}</button>
-        </div>
-    )
-    return (
-        <section className="hero-details">
-            <h1>{titles.Details}</h1>
-            <div className="info-section">
+	const ownerButtons = (
+		<div className="buttons">
+			<Link to={`/edit/hero/${superhero._id}`} href="/edit/hero" className="button">{buttonLabelsBG.Edit}</Link>
+			<button className="button" onClick={helper.deleteClickHandler}>{buttonLabelsBG.Delete}</button>
+		</div>
+	)
+	const userButtons = (
+		<div className="buttons">
+			<button className="button" onClick={helper.likeButtonClick}>{buttonLabelsBG.Like}</button>
+		</div>
+	)
+	return (
+		<section className="hero-details">
+			<h1>{titles.Details}</h1>
+			<div className="info-section">
 
-                <div className="hero-header">
-                    <img className="hero-img" src={imageUrl || '../images/avatar-grooth.png'} alt="" />
-                    {/* if names are equal => we write it only one time */}
-                    {superhero.heroName === superhero.personName
-                        ? <h1>{superhero.heroName}</h1>
-                        : <h1>{superhero.heroName} ({superhero.personName})</h1>
-                    }
-                    <span className="age">{superhero.age} {formLabelsBG.Age.toLocaleLowerCase()}</span>
-                    <span className="kind">{superhero.kind || 'Човек'}</span>
-                </div>
+				<div className="hero-header">
+					<img className="hero-img" src={imageUrl || '../images/avatar-grooth.png'} alt="" />
+					{/* if names are equal => we write it only one time */}
+					{superhero.heroName === superhero.personName
+						? <h1>{superhero.heroName}</h1>
+						: <h1>{superhero.heroName} ({superhero.personName})</h1>
+					}
+					<span className="age">{superhero.age} {formLabelsBG.Age.toLocaleLowerCase()}</span>
+					<span className="kind">{superhero.kind || 'Човек'}</span>
+				</div>
 
-                <p className="text">
-                    {superhero.story}
-                </p>
+				<p className="text">
+					{superhero.story}
+				</p>
 
-                <div className="likes">
-                    {/* <img className="hearts" /> */}
-                    <span id="total-likes">{titles.Likes}: {superhero.likes?.length || 0}</span>
-                </div>
+				<div className="likes">
+					{/* <img className="hearts" /> */}
+					<span id="total-likes">{titles.Likes}: {superhero.likes?.length || 0}</span>
+				</div>
 
-                {user._id && (user._id === superhero._ownerId
-                    ? ownerButtons
-                    : userButtons
-                )}
-                <ConfirmDialog
-                    textMessage="DeleteConfirm"
-                    show={showDeleteDialog}
-                    onCancel={() => setShowDeleteDialog(false)}
-                    onSave={helper.deleteHandler} />
+				{user._id && (user._id === superhero._ownerId
+					? ownerButtons
+					: userButtons
+				)}
+				<ConfirmDialog
+					textMessage="DeleteConfirm"
+					show={showDeleteDialog}
+					onCancel={() => setShowDeleteDialog(false)}
+					onSave={helper.deleteHandler} />
 
-            </div>
-        </section>
-    );
+			</div>
+		</section>
+	);
 }
 
 export default HeroDetails;

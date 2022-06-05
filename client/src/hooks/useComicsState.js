@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import * as comicsService from '../services/comicsService';
 
-const useHeroState = (id) => {
+const useComicsState = (id) => {
     const [comics, setComics] = useState({});
 
     useEffect(() => {
@@ -11,7 +11,7 @@ const useHeroState = (id) => {
             });
     }, [id, setComics]);
 
-    return [comics, setComics]
+    return [comics, setComics];
 }
 
-export default useHeroState;
+export default useComicsState;

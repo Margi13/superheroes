@@ -20,14 +20,17 @@ const ComicsDetails = () => {
 	const helper = DetailsHelper(user, comics, setComics, setShowDeleteDialog);
 
 	useEffect(() => {
-		imageService.getImageFromFirebase(comics.imagesUrl[0])
+		if(comics.coverPage){
+			imageService.getImageFromFirebase(comics.coverPage)
 			.then(url => {
 				setImageUrl(url);
 			})
 			.catch(error => {
 				console.log(error);
 			});
-	}, [id, comics.imagesUrl, setImageUrl])
+		}
+			
+	}, [comics.coverPage, setImageUrl])
 
 	const ownerButtons = (
 		<div className="buttons">
@@ -38,7 +41,7 @@ const ComicsDetails = () => {
 	return (
 		<section className="hero-details">
 			<h1>{comics
-				? <h1>{comics.title}</h1>
+				? comics.title
 				: titles.Details}
 			</h1>
 			<div className="info-section">
@@ -46,13 +49,14 @@ const ComicsDetails = () => {
 				<div className="hero-header">
 					<img className="hero-img" src={imageUrl || '../images/avatar-grooth.png'} alt="" />
 					{/* if names are equal => we write it only one time */}
-
-					<h1>{comics.title}</h1>
+					<div className="info-container">
+						<h1>{comics.title}</h1>
+						<p className="text">
+							{comics.description}
+						</p>
+					</div>
 				</div>
 
-				<p className="text">
-					{comics.description}
-				</p>
 
 				{user._id && (user._id === comics._ownerId
 					? ownerButtons

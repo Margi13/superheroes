@@ -4,6 +4,7 @@ const comicsSchema = new mongoose.Schema({
     title: String,
     description: String,
     imagesUrl: Array,
+    coverPage: String,
     status: Number,
     likes: Array,
     participants: Array,

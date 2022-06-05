@@ -77,6 +77,7 @@ router.delete('/:comicsId', isAuth, async (req, res) => {
 router.post('/', isAuth, async (req, res) => {
     const comicsData = req.body;
     comicsData.status = 0;
+    comicsData.coverPage = comicsData.coverPage || comicsData.imagesUrl[0];
     let ownerId;
     if (req.user) {
         ownerId = req.user._id;

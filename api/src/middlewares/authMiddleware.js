@@ -32,9 +32,9 @@ exports.isGuest = function (req, res, next) {
     }
 }
 exports.isAdmin = function (req, res, next) {
-    if (req.user && req.user.email && req.user.email === 'admin@abv.bg') {
+    if (req.user && req.user.email && req.user.email.toString() === 'admin@abv.bg') {
         next();
     } else {
-        res.status(401).json('You are already authorized');
+        res.status(401).json('You are not administrator');
     }
 }

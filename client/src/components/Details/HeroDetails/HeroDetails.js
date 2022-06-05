@@ -21,13 +21,15 @@ const HeroDetails = () => {
 	const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog);
 
 	useEffect(() => {
-		imageService.getImageFromFirebase(superhero.imageUrl)
+		if(superhero.imageUrl){
+			imageService.getImageFromFirebase(superhero.imageUrl)
 			.then(url => {
 				setImageUrl(url);
 			})
 			.catch(error => {
 				console.log(error);
 			});
+		}
 		likeService.getHeroLikes(id)
 			.then((likes) => {
 				setSuperhero(state => ({ ...state, likes }))
@@ -57,17 +59,19 @@ const HeroDetails = () => {
 				<div className="hero-header">
 					<img className="hero-img" src={imageUrl || '../images/avatar-grooth.png'} alt="" />
 					{/* if names are equal => we write it only one time */}
-					{superhero.heroName === superhero.personName
-						? <h1>{superhero.heroName}</h1>
-						: <h1>{superhero.heroName} ({superhero.personName})</h1>
-					}
-					<span className="age">{superhero.age} {formLabelsBG.Age.toLocaleLowerCase()}</span>
-					<span className="kind">{superhero.kind || 'Човек'}</span>
-				</div>
+					<div className="info-container">
+						{superhero.heroName === superhero.personName
+							? <h1>{superhero.heroName}</h1>
+							: <h1>{superhero.heroName} ({superhero.personName})</h1>
+						}
+						<span className="age">{superhero.age} {formLabelsBG.Age.toLocaleLowerCase()}</span>
+						<span className="kind">{superhero.kind || 'Човек'}</span>
 
-				<p className="text">
-					{superhero.story}
-				</p>
+						<p className="text">
+							{superhero.story}
+						</p>
+					</div>
+				</div>
 
 				<div className="likes">
 					{/* <img className="hearts" /> */}

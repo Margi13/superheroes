@@ -54,15 +54,14 @@
     text-align: center;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap-reverse;
 }
 .comics-card .comics-info {
     display: block;
     position: absolute;
-    bottom: 65px;
     color: gray;
     background-color: rgb(235, 235, 235, 0.8);
-    width: 125px;
-    border-radius: 50%;
+    width: 150px;
     padding: 19px 0;
     height: 70px;
 }

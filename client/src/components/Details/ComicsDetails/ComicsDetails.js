@@ -34,7 +34,7 @@ const ComicsDetails = () => {
 
 	const ownerButtons = (
 		<div className="buttons">
-			<Link to={`/edit/hero/${comics._id}`} href="/edit/hero" className="button">{buttonLabelsBG.Edit}</Link>
+			<Link to={`/edit/comics/${comics._id}`} href="/edit/comics" className="button">{buttonLabelsBG.Edit}</Link>
 			<button className="button" onClick={helper.deleteClickHandler}>{buttonLabelsBG.Delete}</button>
 		</div>
 	)

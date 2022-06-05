@@ -5,10 +5,14 @@ const useHeroState = (id) => {
     const [superhero, setSuperhero] = useState({});
 
     useEffect(() => {
-        superheroService.getOne(id)
+        if (id) {
+            superheroService.getOne(id)
             .then(res => {
                 setSuperhero(res);
             });
+        } else {
+            setSuperhero({});
+        }
     }, [id, setSuperhero]);
 
     return [superhero, setSuperhero]

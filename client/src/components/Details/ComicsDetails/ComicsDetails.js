@@ -11,6 +11,8 @@ import { buttonLabelsBG, } from '../../../common/labelsConstatnsBG';
 import { titles } from '../../../common/messagesConstantsBG';
 import { DetailsHelper } from '../DetailsHelper';
 import '../Details.css';
+import ButtonsBox from '../../Card/ButtonsBox';
+import ImageBox from '../../Card/ImageBox';
 const ComicsDetails = () => {
 	const { user } = useAuthContext();
 	const { id } = useParams();
@@ -20,16 +22,16 @@ const ComicsDetails = () => {
 	const helper = DetailsHelper(user, comics, setComics, setShowDeleteDialog);
 
 	useEffect(() => {
-		if(comics.coverPage){
+		if (comics.coverPage) {
 			imageService.getImageFromFirebase(comics.coverPage)
-			.then(url => {
-				setImageUrl(url);
-			})
-			.catch(error => {
-				console.log(error);
-			});
+				.then(url => {
+					setImageUrl(url);
+				})
+				.catch(error => {
+					console.log(error);
+				});
 		}
-			
+
 	}, [comics.coverPage, setImageUrl])
 
 	const ownerButtons = (
@@ -37,7 +39,11 @@ const ComicsDetails = () => {
 			<Link to={`/edit/comics/${comics._id}`} href="/edit/comics" className="button">{buttonLabelsBG.Edit}</Link>
 			<button className="button" onClick={helper.deleteClickHandler}>{buttonLabelsBG.Delete}</button>
 		</div>
-	)
+	);
+	const role = {
+		isGuest: user._id ? user._id.length <= 0 : true,
+		isOwner: user._id === comics._ownerId ? true : false
+	};
 	return (
 		<section className="hero-details">
 			<h1>{comics
@@ -47,9 +53,9 @@ const ComicsDetails = () => {
 			<div className="info-section">
 
 				<div className="hero-header">
-					<img className="hero-img" src={imageUrl || '../images/avatar-grooth.png'} alt="" />
-					{/* if names are equal => we write it only one time */}
-					<div className="info-container">
+					<ImageBox className="hero-img" imageUrl={imageUrl} />
+
+					<div className="info-contaner">
 						<h1>{comics.title}</h1>
 						<p className="text">
 							{comics.description}
@@ -57,11 +63,15 @@ const ComicsDetails = () => {
 					</div>
 				</div>
 
+				<ButtonsBox
+					id={comics._id}
+					urlFor="comics"
+					role={role}
+					onDelete={helper.deleteClickHandler}
+				>
+					<span id="total-likes" className="likes">{!user._id ? titles.Likes : ''} {comics.likes?.length || 0}</span>
+				</ButtonsBox>
 
-				{user._id && (user._id === comics._ownerId
-					? ownerButtons
-					: ''
-				)}
 				<ConfirmDialog
 					textMessage="DeleteConfirm"
 					show={showDeleteDialog}

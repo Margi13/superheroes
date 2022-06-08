@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import useComicsState from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
@@ -7,12 +7,12 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import * as imageService from '../../../services/imageService';
 
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
-import { buttonLabelsBG, } from '../../../common/labelsConstatnsBG';
 import { titles } from '../../../common/messagesConstantsBG';
 import { DetailsHelper } from '../DetailsHelper';
 import '../Details.css';
 import ButtonsBox from '../../Card/ButtonsBox';
 import ImageBox from '../../Card/ImageBox';
+
 const ComicsDetails = () => {
 	const { user } = useAuthContext();
 	const { id } = useParams();
@@ -34,12 +34,6 @@ const ComicsDetails = () => {
 
 	}, [comics.coverPage, setImageUrl])
 
-	const ownerButtons = (
-		<div className="buttons">
-			<Link to={`/edit/comics/${comics._id}`} href="/edit/comics" className="button">{buttonLabelsBG.Edit}</Link>
-			<button className="button" onClick={helper.deleteClickHandler}>{buttonLabelsBG.Delete}</button>
-		</div>
-	);
 	const role = {
 		isGuest: user._id ? user._id.length <= 0 : true,
 		isOwner: user._id === comics._ownerId ? true : false

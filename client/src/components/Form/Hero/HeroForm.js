@@ -12,7 +12,7 @@ import { typesColor, useNotificationContext } from '../../../contexts/Notificati
 import { ChangeHandlers } from '../../Common/Validation/HeroValidationHelper';
 import TextField from '../Fields/TextField';
 import NumberField from '../Fields/NumberField';
-import ImageUpload from '../Fields/ImageUploadField';
+import ImageUpload from '../Uploads/ImageUploadField';
 import TextareaField from '../Fields/TextareaField';
 
 const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }

@@ -53,10 +53,10 @@ export const ChangeHandlers = (setErrors, setImage) => {
         }
     }
     const storyChangeHandler = (e) => {
-        let currentNameStory = e.target.value;
-        if (currentNameStory === '') {
+        let currentStory = e.target.value;
+        if (currentStory === '') {
             setErrors(state => ({ ...state, story: validationMessages.requiredMessage }));
-        } else if (currentNameStory.length < 10) {
+        } else if (currentStory.length < 10) {
             setErrors(state => ({ ...state, story: validationMessages.StoryRange }));
         } else {
             setErrors(state => ({ ...state, story: null }));

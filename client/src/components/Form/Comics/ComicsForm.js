@@ -11,7 +11,7 @@ import { alertMessages } from '../../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../../contexts/NotificationContext';
 import { ChangeHandlers } from '../../Common/Validation/HeroValidationHelper';
 import TextField from '../Fields/TextField';
-import ImageUpload from '../Fields/ImageUploadField';
+import ImagesBulkUpload from '../Uploads/ImagesBulkUpload';
 import TextareaField from '../Fields/TextareaField';
 
 const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }
@@ -23,7 +23,7 @@ const ComicsForm = ({
     const { id } = useParams();
     const { addNotification } = useNotificationContext();
     const { user } = useAuthContext();
-    const [image, setImage] = useState({ image: null, url: '' });
+    const [images, setImages] = useState({images: null, urls: ''});
     const [errors, setErrors] = useState(initialErrorState);
     const [comics] = useComicsState(id);
 
@@ -31,19 +31,22 @@ const ComicsForm = ({
         return <Navigate to="/"/>
     }
 
-    const handlers = ChangeHandlers(setErrors, setImage);
+    const handlers = ChangeHandlers(setErrors, setImages);
 
     const imageHandler = (e) => {
         if (e.target.files[0]) {
-            const file = e.target.files[0]
-            setImage(() => ({ file }));
+            const files = e.target.files;
+            setImages(() => ({ files }));
         }
     }
 
-    const create = (comicsData, image) => {
-        comicsService.create(comicsData, image)
+    const create = (comicsData, images) => {
+        comicsService.create(comicsData, images)
             .then(() => {
-                imageService.handleImageUpload(image);
+                const data = {
+                    images: images, type: 'comics', folderName: comicsData.title
+                }
+                imageService.handleMultipleImagesUpload(data, setImages, ()=>{});
                 addNotification(alertMessages.CreateSuccess, typesColor.success);
                 navigate('/');
             })
@@ -55,7 +58,7 @@ const ComicsForm = ({
     const edit = (id, comicsData) => {
         comicsService.update(id, comicsData)
             .then(() => {
-                imageService.handleImageUpload(image.img);
+                imageService.handleImageUpload(images.img);
                 addNotification(alertMessages.EditSuccess, typesColor.success);
                 navigate(`/details/${id}`)
             })
@@ -79,11 +82,10 @@ const ComicsForm = ({
 
         let comicsData = Object.fromEntries(new FormData(e.currentTarget));
         checkForError(comicsData);
-
-        comicsData.imageUrl = image.file ? image.file.name : comics.imageUrl;
+        comicsData.imagesUrl = images.urls ? images.urls : comics.imagesUrl;
 
         if (type === 'create') {
-            create(comicsData, image.file);
+            create(comicsData, images.files);
         } else {
             edit(comics.id, comicsData);
         }
@@ -98,7 +100,7 @@ const ComicsForm = ({
                     errorMessage={errors.title}
                     changeHandler={handlers.personNameChangeHandler}
                 />
-                <ImageUpload name="coverPage"
+                <ImagesBulkUpload name="coverPage"
                     label={formLabelsBG.CoverPage}
                     defaultValue={comics.coverPage}
                     placeholder={placeholdersBG.Image}

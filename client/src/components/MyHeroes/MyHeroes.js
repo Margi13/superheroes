@@ -31,14 +31,14 @@ const MyHeroes = () => {
                 {superheroes.length > 0
                     ? superheroes.map(x =>
                         <MyCard
-                            id={x.id}
+                            id={x._id}
                             status={x.status}
-                            type="hero"
+                            type="heroes"
                             image={x.imageUrl}
                             key={x._id}
                         >
-                            <h2>{x.heroName} ({x.personName})</h2>
-                            <p className="description">{x.story.slice(0, 100) + '...'}</p>
+                            <h2>{x.heroName}</h2>
+                            <p className="description">{x.story.slice(0, 70) + '...'}</p>
                         </MyCard>
                     )
                     : noHeroesElement

@@ -27,9 +27,9 @@ const HeroForm = ({
     const [image, setImage] = useState({ image: null, url: '' });
     const [errors, setErrors] = useState(initialErrorState);
     const [superhero] = useHeroState(id);
-    
+
     if (superhero._ownerId && user._id !== superhero._ownerId) {
-        return <Navigate to="/"/>
+        return <Navigate to="/" />
     }
 
     const handlers = ChangeHandlers(setErrors, setImage);
@@ -44,7 +44,10 @@ const HeroForm = ({
     const create = (heroData, image) => {
         supereroService.create(heroData, image)
             .then(() => {
-                imageService.handleImageUpload(image);
+                const data = {
+                    image: image, type: 'heroes', folderName: heroData.title
+                }
+                imageService.handleImageUpload(data, setImage, () => { })
                 addNotification(alertMessages.CreateSuccess, typesColor.success);
                 navigate('/');
             })
@@ -53,12 +56,15 @@ const HeroForm = ({
                 console.log(error);
             });
     }
-    const edit = (id, heroData) => {
+    const edit = (id, heroData, image) => {
         supereroService.update(id, heroData)
             .then(() => {
-                imageService.handleImageUpload(image.img);
+                const data = {
+                    image: image, type: 'heroes', folderName: heroData.title
+                }
+                imageService.handleImageUpload(data, setImage, () => { });
                 addNotification(alertMessages.EditSuccess, typesColor.success);
-                navigate(`/details/${id}`)
+                navigate(`/details/heroes/${id}`)
             })
             .catch(error => {
                 addNotification(alertMessages.EditDenied, typesColor.error);
@@ -82,12 +88,12 @@ const HeroForm = ({
         heroData.age = Number(heroData.age);
         checkForError(heroData);
 
-        heroData.imageUrl = image.file ? image.file.name : superhero.imageUrl;
-
+        heroData.imageUrl = image.file ? image.file : superhero.imageUrl;
+        console.log(image.file)
         if (type === 'create') {
             create(heroData, image.file);
         } else {
-            edit(superhero.id, heroData);
+            edit(superhero._id, heroData, image.file);
         }
     }
     return (

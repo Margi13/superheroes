@@ -23,12 +23,12 @@ const ComicsForm = ({
     const { id } = useParams();
     const { addNotification } = useNotificationContext();
     const { user } = useAuthContext();
-    const [images, setImages] = useState({images: null, urls: ''});
+    const [images, setImages] = useState({ images: null, urls: '' });
     const [errors, setErrors] = useState(initialErrorState);
     const [comics] = useComicsState(id);
 
     if (comics._ownerId && user._id !== comics._ownerId) {
-        return <Navigate to="/"/>
+        return <Navigate to="/" />
     }
 
     const handlers = ChangeHandlers(setErrors, setImages);
@@ -47,7 +47,7 @@ const ComicsForm = ({
                 const data = {
                     images: images, type: 'comics', folderName: comicsData.title
                 }
-                imageService.handleMultipleImagesUpload(data, setImages, ()=>{});
+                imageService.handleMultipleImagesUpload(data, setImages, () => { });
                 addNotification(alertMessages.CreateSuccess, typesColor.success);
                 navigate('/');
             })
@@ -62,9 +62,9 @@ const ComicsForm = ({
                 const data = {
                     images: images, type: 'comics', folderName: comicsData.title
                 }
-                imageService.handleMultipleImagesUpload(data, setImages, ()=>{});
+                imageService.handleMultipleImagesUpload(data, setImages, () => { });
                 addNotification(alertMessages.EditSuccess, typesColor.success);
-                navigate(`/details/${id}`)
+                navigate(`/details/comics/${id}`)
             })
             .catch(error => {
                 addNotification(alertMessages.EditDenied, typesColor.error);

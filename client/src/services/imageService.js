@@ -5,7 +5,9 @@ export const handleImageUpload = (data, setUrl, setProgress) => {
     if (!data.image) {
         throw new Error('There was no image uploaded!');
     }
-    const storageRef = ref(storage, `images/${data.type}/${data.folderName}${data.image.name}`);
+    const folder = data.folderName ? data.folderName.split(' ').join('_') : undefined;
+    const url = folder ? `images/${data.type}/${folder}/${data.image.name}` : `images/${data.type}/${data.image.name}`
+    const storageRef = ref(storage, url);
 
     const uploadTask = uploadBytesResumable(storageRef, data.image, { contentType: 'images/jpeg' });
 
@@ -13,7 +15,7 @@ export const handleImageUpload = (data, setUrl, setProgress) => {
     uploadTask.on('state_changed',
         (snapshot) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
             setProgress(progress);
             console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
@@ -33,10 +35,15 @@ export const handleImageUpload = (data, setUrl, setProgress) => {
         () => {
             //complete function
             // Upload completed successfully, now we can get the download URL
-            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                setUrl(downloadURL);
+            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                console.log(url)
+                setUrl(url);
             });
         });
+    Promise.all([uploadTask])
+        .then(() => console.log("Image uploaded"))
+        .catch((err) => console.log(err));
+
 }
 export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
     const promises = [];
@@ -81,7 +88,7 @@ export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
 
 }
 export const getImageFromFirebase = (imageName, imagePath) => {
-    let imageUrl = imagePath ?  `images/${imagePath}` : 'images';
+    let imageUrl = imagePath ? `images/${imagePath}` : 'images';
     var imageRef = ref(storage, `${imageUrl}/${imageName}`);
 
     return getDownloadURL(imageRef);

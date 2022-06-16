@@ -24,7 +24,7 @@ const HeroDetails = () => {
 
 	useEffect(() => {
 		if (superhero.imageUrl) {
-			imageService.getImageFromFirebase(superhero.imageUrl)
+			imageService.getImageFromFirebase(superhero.imageUrl, 'heroes')
 				.then(url => {
 					setImageUrl(url);
 				})
@@ -71,8 +71,9 @@ const HeroDetails = () => {
 				<ButtonsBox
 					id={superhero._id}
 					role={role}
-					urlFor="hero"
+					urlFor="heroes"
 					hasLikes={true}
+					hasFunctionalButtons={true}
 					onDelete={helper.deleteClickHandler}
 					onLike={helper.likeButtonClick}
 				>

@@ -6,7 +6,7 @@ const Edit = () => {
     return (
         <>
         <Routes>
-            <Route path="/hero/:id" element={<HeroForm type="edit" />} />
+            <Route path="/heroes/:id" element={<HeroForm type="edit" />} />
             <Route path="/comics/:id" element={<ComicsForm type="edit" />} />
         </Routes>
         </>

@@ -23,7 +23,7 @@ const ComicsDetails = () => {
 
 	useEffect(() => {
 		if (comics.coverPage) {
-			imageService.getImageFromFirebase(comics.coverPage)
+			imageService.getImageFromFirebase(comics.coverPage, `comics/${comics.title.split(' ').join('_')}`)
 				.then(url => {
 					setImageUrl(url);
 				})
@@ -36,13 +36,11 @@ const ComicsDetails = () => {
 
 	const role = {
 		isGuest: user._id ? user._id.length <= 0 : true,
-		isOwner: user._id === comics._ownerId ? true : false
+		isOwner: user._id && (user._id === comics._ownerId) ? true : false
 	};
 	return (
 		<section className="hero-details">
-			<h1>{comics
-				? comics.title
-				: titles.Details}
+			<h1>{titles.Details}
 			</h1>
 			<div className="info-section">
 
@@ -61,6 +59,7 @@ const ComicsDetails = () => {
 					id={comics._id}
 					urlFor="comics"
 					role={role}
+					hasFunctionalButtons={true}
 					onDelete={helper.deleteClickHandler}
 				>
 					<span id="total-likes" className="likes">{!user._id ? titles.Likes : ''} {comics.likes?.length || 0}</span>

@@ -80,8 +80,9 @@ export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
         .catch((err) => console.log(err));
 
 }
-export const getImageFromFirebase = (imageName) => {
-    var imageRef = ref(storage, `images/${imageName}`);
+export const getImageFromFirebase = (imageName, imagePath) => {
+    let imageUrl = imagePath ?  `images/${imagePath}` : 'images';
+    var imageRef = ref(storage, `${imageUrl}/${imageName}`);
 
     return getDownloadURL(imageRef);
 

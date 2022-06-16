@@ -3,6 +3,7 @@ export const navigationTitlesBG = {
     'AllComics': 'Всички комикси',
     'Create': 'Създай',
     'MyHeroes': 'Моите герои',
+    'MyComics': 'Моите комикси',
     'Login':'Вход',
     'Register':'Регистрация',
     'Logout':'Изход',

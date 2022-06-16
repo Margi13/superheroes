@@ -1,0 +1,65 @@
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.data-info {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.data-info>.data-img {
+    border-radius: 20%;
+    height: 200px;
+    width: 140px;
+    min-width: 140px;
+    margin-left: initial;
+    margin-right: 15px;
+}
+
+.data-info h2 {
+    font-size: 17px;
+    font-weight: 650;
+    color: #161618;
+    margin-bottom: 10px;
+}
+
+.my-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    margin: 5px;
+    overflow: hidden;
+    width: 40%;
+    min-width: 400px;
+    height: auto;
+    min-height: 210px;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: initial;
+}
+
+.status {
+    writing-mode: vertical-rl;
+    text-align: center;
+    color: white;
+    margin: unset;
+    flex: auto;
+}
+.description {
+    font-size: 14px;
+}

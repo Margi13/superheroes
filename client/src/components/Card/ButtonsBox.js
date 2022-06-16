@@ -7,6 +7,7 @@ const ButtonsBox = ({
     id,
     hasDetails,
     hasLikes,
+    hasFunctionalButtons,
     role,
     isDocument,
     onDelete,
@@ -50,19 +51,21 @@ const ButtonsBox = ({
                 )
                 : ''
             }
-            {isDocument
-                ? (role.isOwner
-                    ? ownerButtons
-                    : approveButtons
-                )
-                : role.isAdmin
-                    ? approveButtons
-                    : (role.isOwner
+            {hasFunctionalButtons
+                ? isDocument
+                    ? (role.isOwner
                         ? ownerButtons
-                        : <></>
+                        : approveButtons
                     )
+                    : role.isAdmin
+                        ? approveButtons
+                        : (role.isOwner
+                            ? ownerButtons
+                            : <></>
+                        )
+                : ''
             }
-            
+
             {hasDetails
                 ? detailsButton
                 : <></>

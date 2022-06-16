@@ -17,3 +17,22 @@
     margin-bottom: 20px;
     text-align: center;
 }
+
+.hero-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.hero {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    margin: 10px;
+    overflow: hidden;
+    width: 45%;
+    min-width: 400px;
+    height: auto;
+    min-height: 210px;
+}

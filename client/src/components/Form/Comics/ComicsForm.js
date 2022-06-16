@@ -41,6 +41,7 @@ const ComicsForm = ({
     }
 
     const create = (comicsData, images) => {
+        //images ги получавам като обект с ключове 0,1,2,... и стойности - самите изображения
         comicsService.create(comicsData, images)
             .then(() => {
                 const data = {
@@ -58,7 +59,10 @@ const ComicsForm = ({
     const edit = (id, comicsData) => {
         comicsService.update(id, comicsData)
             .then(() => {
-                imageService.handleImageUpload(images.img);
+                const data = {
+                    images: images, type: 'comics', folderName: comicsData.title
+                }
+                imageService.handleMultipleImagesUpload(data, setImages, ()=>{});
                 addNotification(alertMessages.EditSuccess, typesColor.success);
                 navigate(`/details/${id}`)
             })

@@ -4,7 +4,7 @@ import * as comicsService from '../../services/comicsService';
 
 
 import { alertMessages, titles } from '../../common/messagesConstantsBG';
-import ComicsCard from './ComicsCard';
+import MyCard from '../Card/MyCard/MyCard';
 import './MyComics.css'
 const MyComics = () => {
     const [comics, setComics] = useState([]);
@@ -27,11 +27,24 @@ const MyComics = () => {
     return (
         <section className="my-comics-page my-heroes-page">
             <h1>{titles.MyComics}</h1>
+            <div className="hero-container">
 
-            {comics.length > 0
-                ? comics.map(x => <ComicsCard key={x._id} comics={x} />)
-                : noComicsElement
-            }
+                {comics.length > 0
+                    ? comics.map(x =>
+                        <MyCard
+                            id={x._id}
+                            title={x.title.split(' ').join('_')}
+                            status={x.status}
+                            type="comics"
+                            image={x.coverPage}
+                            key={x._id}
+                        >
+                            <h2>{x.title}</h2>
+                            <p className="description">{x.description.slice(0, 100) + '...'}</p>
+                        </MyCard>)
+                    : noComicsElement
+                }
+            </div>
         </section>
     );
 }

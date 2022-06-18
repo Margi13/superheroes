@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
             comics = await comicsService.getAllApproved();
         }
         if (comics) {
-            res.json(comics);
+            return res.json(comics);
         } else {
-            res.json([]);
+            return res.json([]);
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
@@ -28,32 +28,39 @@ router.get('/:comicsId', async (req, res) => {
         const comicsId = req.params.comicsId;
         const comics = await comicsService.getOne(comicsId);
         if (comics) {
-            res.json(comics);
+            return res.json(comics);
         } else {
-            res.json({});
+            return res.json({});
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
     }
 });
 router.put('/:comicsId', isAuth, async (req, res) => {
-    // isAuth();
     try {
         const comicsId = req.params.comicsId;
         const comicsData = req.body;
         comicsData.status = 0;
         comicsData.coverPage = comicsData.coverPage ? comicsData.coverPage : comicsData.imagesUrl[0];
+        trimData(comicsData);
+        const isUnique = await checkForUniqueness(comicsData.title);
+        if (!isUnique) {
+            return res.json({
+                type: "error",
+                message: "Comics title should be unique"
+            })
+        }
         const comics = await comicsService.update(comicsId, comicsData);
         if (comics) {
-            res.json({ ok: true });
+            return res.json({ ok: true });
         } else {
-            res.json({ ok: false });
+            return res.json({ ok: false });
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
@@ -64,13 +71,12 @@ router.delete('/:comicsId', isAuth, async (req, res) => {
         const comicsId = req.params.comicsId;
         const result = await comicsService.delete(comicsId);
         if (result) {
-            res.json({ ok: true });
+            return res.json({ ok: true });
         } else {
-            res.json({ ok: false });
+            return res.json({ ok: false });
         }
     } catch (error) {
-        console.log(error)
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
@@ -81,36 +87,51 @@ router.post('/', isAuth, async (req, res) => {
     comicsData.status = 0;
     comicsData.coverPage = comicsData.coverPage ? comicsData.coverPage : comicsData.imagesUrl[0];
     comicsData._createdOn = new Date();
+    trimData(comicsData);
+    const isUnique = await checkForUniqueness(comicsData.title);
+    if (!isUnique) {
+        return res.json({
+            type: "error",
+            message: "Comics title should be unique"
+        })
+    }
     let ownerId;
     if (req.user) {
         ownerId = req.user._id;
     } else {
-        res.json({
+        return res.json({
             type: "error",
             message: "User is not found!"
-        })
+        });
     }
     //TODO:
     //Find if there is comics with given title and throw error if there is
     //Find in FE if image extension is .png, .jpg, .jpeg and throw error if not
-    //Rename images in FE with comicsTitle.stepOrder.*
-    //Rename image in FE for firebase: userId_comicsTitle.stepOrder.*
-    //Make util for extracting comicsTitle from firebase image to compare it
-    //Maybe saving in firebase has to be in server?
     //FE - Animation while waiting images from firebase.
     try {
         const comics = await comicsService.create({ ...comicsData, _ownerId: ownerId });
         if (comics) {
-            res.json({ ok: true });
+            return res.json({ ok: true });
         } else {
-            throw new Error('Cannot create comics');
+            return res.json({
+                type: "error",
+                message: "Cannot create comics"
+            });
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
     }
 });
+const trimData = (comics) => {
+    comics.title = comics.title.trim();
+    comics.description = comics.description.trim();
+}
+const checkForUniqueness = async (title) => {
+    const comics = await comicsService.getByTitle(title);
+    return comics.length > 0 ? false : true;
+}
 
 module.exports = router;

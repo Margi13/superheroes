@@ -1,11 +1,26 @@
 const mongoose = require('mongoose');
 
 const comicsSchema = new mongoose.Schema({
-    title: String,
-    description: String,
+    title: {
+        type: String,
+        unique: true,
+        required: true,
+        minLength: [2, 'The title should be at least 2 characters long']
+    },
+    description: {
+        type: String,
+        required: true,
+        minLength: [10, 'The description should be at least 10 characters long']
+    },
+    coverPage: {
+        type: String,
+        required: true
+    },
     imagesUrl: Array,
-    coverPage: String,
-    status: Number,
+    status: {
+        type: Number,
+        default: 0
+    },
     likes: Array,
     participants: Array,
     coworkers: Array,

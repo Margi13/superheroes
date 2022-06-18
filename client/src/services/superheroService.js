@@ -39,3 +39,5 @@ export const create = (heroData) => request.post(`${superheroesUrl}`, { ...heroD
 export const update = (heroId, heroData) => request.put(`${superheroesUrl}/${heroId}`, heroData, true);
 
 export const remove = (heroId) => request.remove(`${superheroesUrl}/${heroId}`, null, true);
+
+export const getByHeroicName = (heroName) => request.get(`${superheroesUrl}?heroName=${heroName}`);

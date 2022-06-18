@@ -15,3 +15,5 @@ export const create = (comicsData) => request.post(`${comicsUrl}`, { ...comicsDa
 export const update = (comicsId, comicsData) => request.put(`${comicsUrl}/${comicsId}`, comicsData, true);
 
 export const remove = (comicsId) => request.remove(`${comicsUrl}/${comicsId}`, null, true);
+
+export const getByTitle = (title) => request.get(`${comicsUrl}?title=${title}`);

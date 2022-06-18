@@ -1,7 +1,7 @@
 import Form from '../Form';
 import { useState } from 'react';
 import { useNavigate, Navigate, useParams } from 'react-router-dom';
-import * as supereroService from '../../../services/superheroService';
+import * as superheroService from '../../../services/superheroService';
 import * as imageService from '../../../services/imageService';
 import useHeroState from '../../../hooks/useHeroState';
 import { useAuthContext } from '../../../contexts/AuthContext';
@@ -42,10 +42,11 @@ const HeroForm = ({
     }
 
     const create = (heroData, image) => {
-        supereroService.create(heroData, image)
+        superheroService.create(heroData, image)
             .then(() => {
+                // image.name = heroData.imageUrl;
                 const data = {
-                    image: image, type: 'heroes', folderName: heroData.title
+                    image: image, type: 'heroes'
                 }
                 imageService.handleImageUpload(data, setImage, () => { })
                 addNotification(alertMessages.CreateSuccess, typesColor.success);
@@ -57,10 +58,11 @@ const HeroForm = ({
             });
     }
     const edit = (id, heroData, image) => {
-        supereroService.update(id, heroData)
+        superheroService.update(id, heroData)
             .then(() => {
+                // image.name = heroData.imageUrl;
                 const data = {
-                    image: image, type: 'heroes', folderName: heroData.title
+                    image: image, type: 'heroes'
                 }
                 imageService.handleImageUpload(data, setImage, () => { });
                 addNotification(alertMessages.EditSuccess, typesColor.success);
@@ -80,6 +82,12 @@ const HeroForm = ({
             addNotification(alertMessages.EnteredInvalidData, typesColor.error);
             return 0;
         }
+
+        const hero = superheroService.getByHeroicName(heroData.heroName);
+        if(hero) {
+            addNotification(alertMessages.EnteredInvalidData, typesColor.error);
+            return 0;
+        }
         return 1;
     }
     const onHeroCreate = async (e) => {
@@ -89,6 +97,7 @@ const HeroForm = ({
         heroData.age = Number(heroData.age);
         const isValid = checkForError(heroData);
 
+        // heroData.imageUrl = image.file ? getImageName(heroData.heroName, image.file.name) : superhero.imageUrl;
         heroData.imageUrl = image.file ? image.file.name : superhero.imageUrl;
         if (isValid && type === 'create') {
             create(heroData, image.file);
@@ -96,6 +105,12 @@ const HeroForm = ({
             edit(superhero._id, heroData, image.file);
         }
     }
+    // const getImageName = (newName, imageName) => {
+    //     newName = newName.split(' ').join('_');
+    //     const imageNameParts = imageName.split('.');
+    //     const ext = imageNameParts[imageNameParts.length - 1];
+    //     return `${newName}.${ext}`
+    // }
     return (
         <section id={type + "-page"} className="auth">
             <Form onSubmit={onHeroCreate} type={type}>

@@ -1,14 +1,39 @@
 const mongoose = require('mongoose');
 
 const superheroSchema = new mongoose.Schema({
-    personName: String,
-    heroName: String,
-    kind: String,
-    age: Number,
-    imageUrl: String,
-    story: String,
+    personName: {
+        type: String,
+        required: true,
+        minLength: [4, 'The name should be at least 4 characters long']
+    },
+    heroName: {
+        type: String,
+        unique: true,
+        required: true,
+        minLength: [2, 'The name should be at least 4 characters long']
+    },
+    kind: {
+        type: String,
+        required: true
+    },
+    age: {
+        type: Number,
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        required: true
+    },
+    story: {
+        type: String,
+        required: true,
+        minLength: [10, 'The story should be at least 10 characters long']
+    },
     likes: Array,
-    status: Number,
+    status: {
+        type: Number,
+        default: 0
+    },
     _createdOn: Date,
     _ownerId: {
         type: mongoose.Types.ObjectId,

@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
             superheroes = await superheroService.getAllApproved();
         }
         if (superheroes) {
-            res.json(superheroes);
+            return res.json(superheroes);
         } else {
-            res.json([]);
+            return res.json([]);
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
@@ -29,46 +29,54 @@ router.get('/:superheroId', async (req, res) => {
         let superheroId = req.params.superheroId;
         let superhero = await superheroService.getOne(superheroId);
         if (superhero) {
-            res.json(superhero);
+            return res.json(superhero);
         } else {
-            res.json({});
+            return res.json({});
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
     }
 });
 router.put('/:superheroId', isAuth, async (req, res) => {
+    const superheroId = req.params.superheroId;
+    const superheroData = req.body;
+    superheroData.status = 0;
+    trimData(superheroData);
+    const isUnique = await checkForUniqueness(superheroData.heroName);
+    if (!isUnique) {
+        return res.json({
+            type: "error",
+            message: "Hero name should be unique!"
+        })
+    }
     try {
-        let superheroId = req.params.superheroId;
-        let superheroData = req.body;
-        superheroData.status = 0;
         let superhero = await superheroService.update(superheroId, superheroData);
         if (superhero) {
-            res.json({ ok: true });
+            return res.json({ ok: true });
         } else {
-            res.json({ ok: false });
+            return res.json({ ok: false });
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
     }
 });
 router.delete('/:superheroId', isAuth, async (req, res) => {
+    const superheroId = req.params.superheroId;
     try {
-        let superheroId = req.params.superheroId;
-        let result = await superheroService.delete(superheroId);
+        const result = await superheroService.delete(superheroId);
         if (result) {
-            res.json({ ok: true });
+            return res.json({ ok: true });
         } else {
-            res.json({ ok: false });
+            return res.json({ ok: false });
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
@@ -78,37 +86,53 @@ router.post('/', isAuth, async (req, res) => {
     const superheroData = req.body;
     superheroData.status = 0;
     superheroData._createdOn = new Date();
+    trimData(superheroData);
+    const isUnique = await checkForUniqueness(superheroData.heroName);
+    if (!isUnique) {
+        return res.json({
+            type: "error",
+            message: "Hero name should be unique!"
+        })
+    }
     let ownerId;
     if (req.user) {
         ownerId = req.user._id;
     } else {
-        res.json({
+        return res.json({
             type: "error",
             message: "User is not found!"
         })
     }
     //TODO: 
-    //Find if there is superhero with given heroic name and throw error if there is
-    //Find if there is superhero with given real name and throw error if there is
     //Find in FE if image extension is .png, .jpg, .jpeg and throw error if not
-    //Rename image in FE with heroName.*
-    //Rename image in FE for firebase: userId_heroName.*
-    //Make util for extracting heroName from firebase image to compare it
     //Maybe saving in firebase has to be in server?
     //FE - Animation while waiting images from firebase.
     try {
         let superhero = await superheroService.create({ ...superheroData, _ownerId: ownerId });
         if (superhero) {
-            res.json({ ok: true });
+            return res.json({ ok: true });
         } else {
-            throw new Error('Cannot create superhero');
+            return res.json({
+                type: "error",
+                message: "Cannot create superhero"
+            });
         }
     } catch (error) {
-        res.json({
+        return res.json({
             type: 'error',
             message: error.message
         })
     }
 
 });
+const trimData = (superhero) => {
+    superhero.personName = superhero.personName.trim();
+    superhero.heroName = superhero.heroName.trim();
+    superhero.kind = superhero.kind.trim();
+    superhero.story = superhero.story.trim();
+}
+const checkForUniqueness = async (heroName) => {
+    const hero = await superheroService.getByHeroName(heroName);
+    return hero.length > 0 ? false : true;
+}
 module.exports = router;

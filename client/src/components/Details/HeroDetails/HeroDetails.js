@@ -20,7 +20,7 @@ const HeroDetails = () => {
 	const [superhero, setSuperhero] = useHeroState(id);
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 	const [imageUrl, setImageUrl] = useState('');
-	const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog);
+	const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog, 'heroes');
 
 	useEffect(() => {
 		if (superhero.imageUrl) {

@@ -17,15 +17,18 @@ export const request = async (method, url, data, needAuth) => {
                 'Content-Type': 'application/json',
                 'X-Authorization': getToken()
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data ? data : {})
         })
     } else {
+        console.log('url', url);
+        console.log('method', method);
+        console.log('data', data);
         promise = fetch(url, {
             method,
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data ? data : {})
         })
     }
     return promise.then(responseHandler);

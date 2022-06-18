@@ -9,6 +9,7 @@ const comicsSchema = new mongoose.Schema({
     likes: Array,
     participants: Array,
     coworkers: Array,
+    _createdOn: Date,
     _ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'

@@ -95,9 +95,10 @@ export const getImageFromFirebase = (imageName, imagePath) => {
 
 }
 
-export const deleteImageFromFirebase = (imageName) => {
+export const deleteImageFromFirebase = (imageName, imagePath) => {
     // Create a reference to the file to delete
-    const desertRef = ref(storage, `images/${imageName}`);
+    let imageUrl = imagePath ? `images/${imagePath}` : 'images';
+    const desertRef = ref(storage, `${imageUrl}/${imageName}`);
     // Delete the file
     return deleteObject(desertRef);
 }

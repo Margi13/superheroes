@@ -9,6 +9,7 @@ const superheroSchema = new mongoose.Schema({
     story: String,
     likes: Array,
     status: Number,
+    _createdOn: Date,
     _ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'

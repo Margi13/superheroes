@@ -6,7 +6,7 @@ router.get('/', async (req, res) => {
     try {
         let comics = null;
         if (req.query.where) {
-            let ownerId = req.query.where.split('=')[1].slice(1, -1);
+            const ownerId = req.query.where.split('=')[1].slice(1, -1);
             comics = await comicsService.getOwn(ownerId);
         } else {
             comics = await comicsService.getAllApproved();
@@ -25,8 +25,8 @@ router.get('/', async (req, res) => {
 });
 router.get('/:comicsId', async (req, res) => {
     try {
-        let comicsId = req.params.comicsId;
-        let comics = await comicsService.getOne(comicsId);
+        const comicsId = req.params.comicsId;
+        const comics = await comicsService.getOne(comicsId);
         if (comics) {
             res.json(comics);
         } else {
@@ -42,10 +42,11 @@ router.get('/:comicsId', async (req, res) => {
 router.put('/:comicsId', isAuth, async (req, res) => {
     // isAuth();
     try {
-        let comicsId = req.params.comicsId;
-        let comicsData = req.body;
+        const comicsId = req.params.comicsId;
+        const comicsData = req.body;
         comicsData.status = 0;
-        let comics = await comicsService.update(comicsId, comicsData);
+        comicsData.coverPage = comicsData.coverPage ? comicsData.coverPage : comicsData.imagesUrl[0];
+        const comics = await comicsService.update(comicsId, comicsData);
         if (comics) {
             res.json({ ok: true });
         } else {
@@ -60,14 +61,15 @@ router.put('/:comicsId', isAuth, async (req, res) => {
 });
 router.delete('/:comicsId', isAuth, async (req, res) => {
     try {
-        let comicsId = req.params.comicsId;
-        let result = await comicsService.delete(comicsId);
+        const comicsId = req.params.comicsId;
+        const result = await comicsService.delete(comicsId);
         if (result) {
             res.json({ ok: true });
         } else {
             res.json({ ok: false });
         }
     } catch (error) {
+        console.log(error)
         res.json({
             type: 'error',
             message: error.message
@@ -77,7 +79,8 @@ router.delete('/:comicsId', isAuth, async (req, res) => {
 router.post('/', isAuth, async (req, res) => {
     const comicsData = req.body;
     comicsData.status = 0;
-    comicsData.coverPage = comicsData.coverPage || comicsData.imagesUrl[0];
+    comicsData.coverPage = comicsData.coverPage ? comicsData.coverPage : comicsData.imagesUrl[0];
+    comicsData._createdOn = new Date();
     let ownerId;
     if (req.user) {
         ownerId = req.user._id;
@@ -96,7 +99,7 @@ router.post('/', isAuth, async (req, res) => {
     //Maybe saving in firebase has to be in server?
     //FE - Animation while waiting images from firebase.
     try {
-        let comics = await comicsService.create({ ...comicsData, _ownerId: ownerId });
+        const comics = await comicsService.create({ ...comicsData, _ownerId: ownerId });
         if (comics) {
             res.json({ ok: true });
         } else {

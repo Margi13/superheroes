@@ -74,25 +74,25 @@ const HeroForm = ({
     const checkForError = (heroData) => {
         if (heroData.personName === '' || heroData.heroName === '' || heroData.kind === '' || !heroData.age || heroData.image === '' || heroData.story === '') {
             addNotification(alertMessages.EnteredNoData, typesColor.error);
-            return;
+            return 0;
         }
         if (errors.personName || errors.heroName || errors.kind || errors.age || errors.image || errors.story) {
             addNotification(alertMessages.EnteredInvalidData, typesColor.error);
-            return;
+            return 0;
         }
+        return 1;
     }
     const onHeroCreate = async (e) => {
         e.preventDefault();
 
         let heroData = Object.fromEntries(new FormData(e.currentTarget));
         heroData.age = Number(heroData.age);
-        checkForError(heroData);
+        const isValid = checkForError(heroData);
 
-        heroData.imageUrl = image.file ? image.file : superhero.imageUrl;
-        console.log(image.file)
-        if (type === 'create') {
+        heroData.imageUrl = image.file ? image.file.name : superhero.imageUrl;
+        if (isValid && type === 'create') {
             create(heroData, image.file);
-        } else {
+        } else if (isValid && type === 'edit') {
             edit(superhero._id, heroData, image.file);
         }
     }

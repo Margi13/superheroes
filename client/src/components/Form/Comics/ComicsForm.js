@@ -14,7 +14,7 @@ import TextField from '../Fields/TextField';
 import ImagesBulkUpload from '../Uploads/ImagesBulkUpload';
 import TextareaField from '../Fields/TextareaField';
 
-const initialErrorState = { personName: null, heroName: null, kind: null, age: null, image: null, story: null }
+const initialErrorState = { title: null, description: null, images: null }
 
 const ComicsForm = ({
     type
@@ -56,7 +56,7 @@ const ComicsForm = ({
                 console.log(error);
             });
     }
-    const edit = (id, comicsData) => {
+    const edit = (id, comicsData, images) => {
         comicsService.update(id, comicsData)
             .then(() => {
                 const data = {
@@ -72,26 +72,27 @@ const ComicsForm = ({
             })
     }
     const checkForError = (comicsData) => {
-        if (comicsData.personName === '' || comicsData.heroName === '' || comicsData.kind === '' || !comicsData.age || comicsData.image === '' || comicsData.story === '') {
+        if (comicsData.title === '' || comicsData.description === '' || comicsData.images === '') {
             addNotification(alertMessages.EnteredNoData, typesColor.error);
-            return;
+            return 0;
         }
-        if (errors.personName || errors.heroName || errors.kind || errors.age || errors.image || errors.story) {
+        if (errors.title || errors.description || errors.images) {
             addNotification(alertMessages.EnteredInvalidData, typesColor.error);
-            return;
+            return 0;
         }
+        return 1;
     }
     const onComicsCreate = async (e) => {
         e.preventDefault();
 
         let comicsData = Object.fromEntries(new FormData(e.currentTarget));
-        checkForError(comicsData);
-        comicsData.imagesUrl = images.urls ? images.urls : comics.imagesUrl;
+        const isValid = checkForError(comicsData);
+        comicsData.imagesUrl = images.files ? Object.keys(images.files).map(i => images.files[i].name) : comics.imagesUrl;
 
-        if (type === 'create') {
+        if (isValid && type === 'create') {
             create(comicsData, images.files);
-        } else {
-            edit(comics.id, comicsData);
+        } else if (isValid && type === 'edit') {
+            edit(comics._id, comicsData, images.files);
         }
     }
     return (
@@ -104,11 +105,11 @@ const ComicsForm = ({
                     errorMessage={errors.title}
                     changeHandler={handlers.personNameChangeHandler}
                 />
-                <ImagesBulkUpload name="coverPage"
+                <ImagesBulkUpload name="imagesUrl"
                     label={formLabelsBG.CoverPage}
-                    defaultValue={comics.coverPage}
+                    defaultValue={comics.imagesUrl}
                     placeholder={placeholdersBG.Image}
-                    errorMessage={errors.image}
+                    errorMessage={errors.images}
                     changeHandler={imageHandler}
                 />
                 <TextareaField name="description"

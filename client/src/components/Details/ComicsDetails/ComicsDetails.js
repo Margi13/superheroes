@@ -19,7 +19,7 @@ const ComicsDetails = () => {
 	const [comics, setComics] = useComicsState(id);
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 	const [imageUrl, setImageUrl] = useState('');
-	const helper = DetailsHelper(user, comics, setComics, setShowDeleteDialog);
+	const helper = DetailsHelper(user, comics, setComics, setShowDeleteDialog, 'comics');
 
 	useEffect(() => {
 		if (comics.coverPage) {
@@ -32,7 +32,7 @@ const ComicsDetails = () => {
 				});
 		}
 
-	}, [comics.coverPage, setImageUrl])
+	}, [comics.coverPage, comics.title, setImageUrl])
 
 	const role = {
 		isGuest: user._id ? user._id.length <= 0 : true,

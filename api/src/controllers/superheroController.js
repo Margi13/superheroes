@@ -77,6 +77,7 @@ router.delete('/:superheroId', isAuth, async (req, res) => {
 router.post('/', isAuth, async (req, res) => {
     const superheroData = req.body;
     superheroData.status = 0;
+    superheroData._createdOn = new Date();
     let ownerId;
     if (req.user) {
         ownerId = req.user._id;

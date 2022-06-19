@@ -8,7 +8,7 @@ const TopHeroCard = ({
 }) => {
     const [imageUrl, setImageUrl ] = useState();
     useEffect(()=>{
-        imageService.getImageFromFirebase(hero.imageUrl)
+        imageService.getImageFromFirebase(hero.imageUrl, 'heroes')
         .then(url=>{
             setImageUrl(url);
         });
@@ -21,7 +21,7 @@ const TopHeroCard = ({
             </div>
             <h1>{hero.personName}</h1>
             <div className="data-buttons">
-                <Link to={"/details/" + hero._id} href="/details" className="btn details-btn">{buttonLabelsBG.Details}</Link>
+                <Link to={"/details/heroes/" + hero._id} href="/details" className="btn details-btn">{buttonLabelsBG.Details}</Link>
             </div>
         </div>
     );

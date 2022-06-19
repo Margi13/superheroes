@@ -17,6 +17,13 @@
     margin-bottom: 20px;
     text-align: center;
 }
+.my-heroes-page>h3 {
+    color: #fff;
+    font-family: "Agency FB";
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
 
 .hero-container {
     display: flex;

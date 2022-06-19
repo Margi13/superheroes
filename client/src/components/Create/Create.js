@@ -6,8 +6,10 @@ import ComicsForm from '../Form/ComicsForm';
 const Create = () => {
     return (
         <>
-            <Link to="/create/hero" href="/create/hero">Герой</Link>
-            <Link to="/create/comics" href="/create/comics">Комикс</Link>
+            <div className="choice-buttons buttons">
+                <Link to="/create/hero" className="button" href="/create/hero">Герой</Link>
+                <Link to="/create/comics" className="button" href="/create/comics">Комикс</Link>
+            </div>
             <Routes>
                 <Route path="/hero" element={<HeroForm type="create" />} />
                 <Route path="/comics" element={<ComicsForm type="create" />} />

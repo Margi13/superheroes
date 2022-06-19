@@ -4,64 +4,42 @@
     box-shadow: 0px 0px 30px 0px;
     margin-top: 20px;
     padding: 20px;
-    margin-left: 30px;
     box-sizing: border-box;
     border-radius: 15px;
-    float: left;
-    height: auto;
     color: rgb(235, 235, 235);
 }
 
 .hero-card>h3 {
     font-family: "Agency FB";
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 700;
-    line-height: normal;
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: all 0.5s ease-out;
-    text-align: center;
     text-transform: uppercase;
 }
 
 .image-wrap {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     display: inline-block;
     border-radius: 50%;
     overflow: hidden;
-    position: relative;
-    text-align: center;
 }
 
 .image-wrap>img {
     max-width: 100%;
 }
 
-.game-content>h4 {
-    color: #c2d4f8;
-    font-size: 24px;
-    text-align: center;
-    font-weight: 700;
-    line-height: normal;
-}
-
 .details-btn {
-    font-size: 1.2rem;
-    margin-top: 10px;
+    font-size: 16px;
     color: gray;
-    padding: 0.9em 1.4em;
 }
 
 .data-buttons {
     background-image: url('../../../assets/images/cloud.png');
     background-position-x: center;
     background-repeat: no-repeat;
-    background-size: 50%;
-    font-size: 1.4rem;
+    background-size: 60%;
+    font-size: 20px;
     padding: 35px;
-    text-align: center;
 }
 
 .btn.details-btn:hover {

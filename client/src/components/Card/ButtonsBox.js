@@ -47,8 +47,11 @@ const ButtonsBox = ({
     return (
         <section className='buttons-container'>
             {hasLikes
-                ? (role.isGuest
-                    ? <>{children}</>
+                ? (role.isGuest || role.isOwner
+                    ? <>
+                        <i className="fa fa-regular fa-heart"></i>
+                        {children}
+                    </>
                     : likeButton
                 )
                 : ''

@@ -9,16 +9,15 @@ body {
 
 .auth {
     width: 100px;
-    margin: 5em auto;
+    margin: 3em auto;
     display: flex;
 }
 
 header,
 footer {
-    background-color: none;
+    background-color: transparent;
     width: 100%;
     overflow: hidden;
-    color: black;
 }
 
 .cloud-link {
@@ -26,7 +25,6 @@ footer {
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
-    background-size: 75%;
     padding: 15%;
     text-align: center;
     font-size: 14px;

@@ -1,8 +1,6 @@
 #create-page,
 #edit-page {
-    position: relative;
     width: 80%;
-    height: auto;
     border-radius: 20px;
     padding: 20px;
     box-sizing: border-box;
@@ -47,4 +45,7 @@ textarea {
     color: white;
     letter-spacing: 1px;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.choice-buttons {
+    text-align: center;
 }

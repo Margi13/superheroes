@@ -4,7 +4,7 @@ import * as superheroService from '../../services/superheroService';
 
 
 import { alertMessages, titles } from '../../common/messagesConstantsBG';
-import MyCard from '../Card/MyCard/MyCard';
+import MyCard from '../Card/MyCard';
 import './MyHeroes.css'
 const MyHeroes = () => {
     const [superheroes, setSuperheroes] = useState([]);

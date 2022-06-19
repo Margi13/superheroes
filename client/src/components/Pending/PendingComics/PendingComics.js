@@ -4,7 +4,7 @@ import * as adminService from '../../../services/adminService';
 
 
 import { alertMessages } from '../../../common/messagesConstantsBG';
-import PendingCard from '../../Card/PendingCard/PendingCard';
+import PendingCard from '../../Card/PendingCard';
 
 const PendingComics = ({
     isAdmin

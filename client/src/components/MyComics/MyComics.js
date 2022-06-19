@@ -4,7 +4,7 @@ import * as comicsService from '../../services/comicsService';
 
 
 import { alertMessages, titles } from '../../common/messagesConstantsBG';
-import MyCard from '../Card/MyCard/MyCard';
+import MyCard from '../Card/MyCard';
 import './MyComics.css'
 const MyComics = () => {
     const [comics, setComics] = useState([]);

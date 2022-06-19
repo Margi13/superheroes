@@ -32,7 +32,7 @@ const ComicsDetails = () => {
 				});
 		}
 
-	}, [comics.coverPage, comics.title, setImageUrl])
+	}, [comics.coverPage, comics._id, setImageUrl])
 
 	const role = {
 		isGuest: user._id ? user._id.length <= 0 : true,

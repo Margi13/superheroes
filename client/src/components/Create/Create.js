@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import HeroForm from '../Form/Hero/HeroForm';
-import ComicsForm from '../Form/Comics/ComicsForm';
+import HeroForm from '../Form/HeroForm';
+import ComicsForm from '../Form/ComicsForm';
 
 const Create = () => {
     return (

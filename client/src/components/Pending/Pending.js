@@ -6,7 +6,7 @@ import * as adminService from '../../services/adminService';
 
 import { titles } from '../../common/messagesConstantsBG';
 import PendingHeroes from './PendingHeroes';
-import PendingComics from './PendingComics/PendingComics';
+import PendingComics from './PendingComics';
 const Pending = () => {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);

@@ -7,7 +7,8 @@ import { alertMessages } from '../../../common/messagesConstantsBG';
 import PendingCard from '../../Card/PendingCard';
 
 const PendingHeroes = ({
-    isAdmin
+    isAdmin,
+    loggedUser
 }) => {
     const navigate = useNavigate();
     const [superheroes, setSuperheroes] = useState([]);
@@ -44,6 +45,7 @@ const PendingHeroes = ({
                         type="heroes"
                         data={x}
                         isAdmin={isAdmin}
+                        user={loggedUser}
                     >
                         <h2>{x.personName} ({x.heroName})</h2>
                         <p className="description">

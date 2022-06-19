@@ -49,7 +49,7 @@ const ComicsDetails = () => {
 
 					<div className="info-contaner">
 						<h1>{comics.title}</h1>
-						<p className="text">
+						<p className="description">
 							{comics.description}
 						</p>
 					</div>
@@ -59,6 +59,7 @@ const ComicsDetails = () => {
 					id={comics._id}
 					urlFor="comics"
 					role={role}
+					hasLikes={true}
 					hasFunctionalButtons={true}
 					onDelete={helper.deleteClickHandler}
 					onLike={helper.likeButtonClick}

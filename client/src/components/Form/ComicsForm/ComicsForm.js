@@ -9,7 +9,7 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import { formLabelsBG, placeholdersBG } from '../../../common/labelsConstatnsBG';
 import { alertMessages } from '../../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../../contexts/NotificationContext';
-import { ChangeHandlers } from '../../Common/Validation/HeroValidationHelper';
+import { ChangeHandlers } from '../../Common/Validation/ComicsValidationHelper';
 import TextField from '../Fields/TextField';
 import ImagesBulkUpload from '../Uploads/ImagesBulkUpload';
 import TextareaField from '../Fields/TextareaField';
@@ -34,7 +34,7 @@ const ComicsForm = ({
     const handlers = ChangeHandlers(setErrors, setImages);
 
     const imageHandler = (e) => {
-        if (e.target.files[0]) {
+        if (e.target.files) {
             const files = e.target.files;
             setImages(() => ({ files }));
         }
@@ -56,7 +56,7 @@ const ComicsForm = ({
             });
     }
     const edit = (id, comicsData, images) => {
-        comicsService.update(id, comicsData)
+        comicsService.update(id, { data: comicsData })
             .then(() => {
                 const data = {
                     images: images, type: 'comics', folderName: id
@@ -102,7 +102,7 @@ const ComicsForm = ({
                     defaultValue={comics.title}
                     placeholder={placeholdersBG.ComicsTitle}
                     errorMessage={errors.title}
-                    changeHandler={handlers.personNameChangeHandler}
+                    changeHandler={handlers.titleChangeHandler}
                 />
                 <ImagesBulkUpload name="imagesUrl"
                     label={formLabelsBG.CoverPage}
@@ -116,7 +116,7 @@ const ComicsForm = ({
                     defaultValue={comics.description}
                     placeholder={placeholdersBG.Description}
                     errorMessage={errors.description}
-                    changeHandler={handlers.storyChangeHandler}
+                    changeHandler={handlers.descriptionChangeHandler}
                 />
             </Form>
         </section>

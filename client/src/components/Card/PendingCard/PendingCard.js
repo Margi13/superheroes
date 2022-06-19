@@ -11,7 +11,8 @@ const PendingCard = ({
     children,
     type,
     data,
-    isAdmin
+    isAdmin,
+    user
 }) => {
     const navigate = useNavigate();
     const [imageUrl, setImageUrl] = useState();
@@ -39,8 +40,11 @@ const PendingCard = ({
     }
     const declineClickHandler = () => {
         if (isAdmin) {
-
-            adminService.decline(data._id, data, type)
+            const body = {
+                adminId: user._id,
+                reportMessage: 'Не отговаря на стандартите'
+            }
+            adminService.decline(data._id, body, type)
                 .then(result => {
                     if (result.ok) {
                         navigate(`/admin/pending`);
@@ -68,7 +72,7 @@ const PendingCard = ({
                             id={data._id}
                             hasDetails={true}
                             urlFor={type}
-                            role={{ isAdmin: true }}
+                            role={{ isAdmin: isAdmin }}
                             hasFunctionalButtons={true}
                             onApprove={approveClickHandler}
                             onDecline={declineClickHandler}

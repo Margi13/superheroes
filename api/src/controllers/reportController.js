@@ -43,7 +43,6 @@ router.get('/', async (req, res) => {
     }
 });
 router.post('/', isAuth, async (req, res) => {
-    console.log('create report')
     const { ownerId, reportMessage } = req.body;
     const newReport = {
         _ownerId: ownerId,

@@ -31,8 +31,8 @@ const Pending = () => {
             <Link to="/admin/pending/heroes" href="/admin/pending/heroes">Герой</Link>
             <Link to="/admin/pending/comics" href="/admin/pending/comics">Комикс</Link>
             <Routes>
-                <Route path="/heroes" element={<PendingHeroes pageSize={0} pageIndex={0} isAdmin={isAdmin} />} />
-                <Route path="/comics" element={<PendingComics pageSize={0} pageIndex={0} isAdmin={isAdmin} />} />
+                <Route path="/heroes" element={<PendingHeroes pageSize={0} pageIndex={0} isAdmin={isAdmin} loggedUser={user} />} />
+                <Route path="/comics" element={<PendingComics pageSize={0} pageIndex={0} isAdmin={isAdmin} loggedUser={user}/>} />
             </Routes>
             <h3 align="center" float="none">Страница 1/1</h3>
 

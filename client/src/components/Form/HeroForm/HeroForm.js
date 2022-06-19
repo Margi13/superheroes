@@ -44,7 +44,6 @@ const HeroForm = ({
     const create = (heroData, image) => {
         superheroService.create(heroData, image)
             .then(() => {
-                // image.name = heroData.imageUrl;
                 const data = {
                     image: image, type: 'heroes'
                 }
@@ -78,15 +77,11 @@ const HeroForm = ({
             return 0;
         }
         if (errors.personName || errors.heroName || errors.kind || errors.age || errors.image || errors.story) {
+            console.log(errors)
             addNotification(alertMessages.EnteredInvalidData, typesColor.error);
             return 0;
         }
 
-        const hero = superheroService.getByHeroicName(heroData.heroName);
-        if (hero) {
-            addNotification(alertMessages.EnteredInvalidData, typesColor.error);
-            return 0;
-        }
         return 1;
     }
     const onHeroCreate = async (e) => {
@@ -96,7 +91,6 @@ const HeroForm = ({
         heroData.age = Number(heroData.age);
         const isValid = checkForError(heroData);
 
-        // heroData.imageUrl = image.file ? getImageName(heroData.heroName, image.file.name) : superhero.imageUrl;
         heroData.imageUrl = image.file ? image.file.name : superhero.imageUrl;
         if (isValid && type === 'create') {
             create(heroData, image.file);
@@ -104,12 +98,7 @@ const HeroForm = ({
             edit(superhero._id, heroData, image.file);
         }
     }
-    // const getImageName = (newName, imageName) => {
-    //     newName = newName.split(' ').join('_');
-    //     const imageNameParts = imageName.split('.');
-    //     const ext = imageNameParts[imageNameParts.length - 1];
-    //     return `${newName}.${ext}`
-    // }
+
     return (
         <section id={type + "-page"} className="auth">
             <Form onSubmit={onHeroCreate} type={type}>

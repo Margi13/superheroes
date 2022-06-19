@@ -47,7 +47,7 @@ router.put('/:superheroId', isAuth, async (req, res) => {
     trimData(data);
     try {
         if (!status) {
-            const isUnique = await checkForUniqueness(data.heroName, data._id);
+            const isUnique = await checkForUniqueness(data.heroName);
             if (!isUnique) {
                 return res.json({
                     type: "error",
@@ -57,7 +57,7 @@ router.put('/:superheroId', isAuth, async (req, res) => {
         }
         const superhero = await superheroService.update(superheroId, data);
         if (superhero) {
-            return res.json({ ok: true });
+            return res.json(superhero);
         } else {
             return res.json({ ok: false });
         }
@@ -133,10 +133,8 @@ const trimData = (superhero) => {
     superhero.kind = (superhero.kind || '').trim();
     superhero.story = (superhero.story || '').trim();
 }
-const checkForUniqueness = async (heroName, heroId) => {
+const checkForUniqueness = async (heroName) => {
     const heroes = await superheroService.getByHeroName(heroName);
-    const current = heroId ? await superheroService.getOne(heroId) : undefined;
-    const isCurrent = current ? (heroes || []).map(h => h._id).includes(current._id) && (heroes || []).length === 1 : false
-    return heroes.length > 0 && !isCurrent ? false : true;
+    return heroes.length > 0 ? false : true;
 }
 module.exports = router;

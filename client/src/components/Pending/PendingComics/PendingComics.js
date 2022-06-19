@@ -7,7 +7,8 @@ import { alertMessages } from '../../../common/messagesConstantsBG';
 import PendingCard from '../../Card/PendingCard';
 
 const PendingComics = ({
-    isAdmin
+    isAdmin,
+    loggedUser
 }) => {
     const navigate = useNavigate();
     const [comics, setComics] = useState([]);
@@ -30,9 +31,9 @@ const PendingComics = ({
             navigate('/');
         }
     }, [isAdmin, navigate]);
-    const noHeroesElement = (
+    const noComicsElement = (
         <div>
-            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
+            <p className="no-articles">{alertMessages.NoComics}</p>
         </div>
     );
     return (
@@ -44,14 +45,15 @@ const PendingComics = ({
                         type="comics"
                         data={x}
                         isAdmin={isAdmin}
+                        user={loggedUser}
                     >
                         <h2>{x.title}</h2>
                         <p className="description">
-                            {x.description}
+                            {x.description.slice(0, 200) + '...'}
                         </p>
 
                     </PendingCard>)
-                : noHeroesElement
+                : noComicsElement
             }
         </div >
     );

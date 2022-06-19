@@ -40,20 +40,22 @@ router.get('/:comicsId', async (req, res) => {
     }
 });
 router.put('/:comicsId', isAuth, async (req, res) => {
+    const comicsId = req.params.comicsId;
+    const { data, status } = req.body;
+    data.status = status ? status : 0;
+    data.coverPage = data.coverPage ? data.coverPage : data.imagesUrl[0];
+    trimData(data);
     try {
-        const comicsId = req.params.comicsId;
-        const comicsData = req.body;
-        comicsData.status = 0;
-        comicsData.coverPage = comicsData.coverPage ? comicsData.coverPage : comicsData.imagesUrl[0];
-        trimData(comicsData);
-        const isUnique = await checkForUniqueness(comicsData.title);
-        if (!isUnique) {
-            return res.json({
-                type: "error",
-                message: "Comics title should be unique"
-            })
+        if (!status) {
+            const isUnique = await checkForUniqueness(data.title);
+            if (!isUnique) {
+                return res.json({
+                    type: "error",
+                    message: "Comics title should be unique"
+                })
+            }
         }
-        const comics = await comicsService.update(comicsId, comicsData);
+        const comics = await comicsService.update(comicsId, data);
         if (comics) {
             return res.json(comics);
         } else {
@@ -126,7 +128,7 @@ router.post('/', isAuth, async (req, res) => {
     }
 });
 const trimData = (comics) => {
-    comics.title = comics.title.trim();
+    comics.title = (comics.title || '').trim();
     comics.description = comics.description.trim();
 }
 const checkForUniqueness = async (title) => {

@@ -51,6 +51,7 @@ export const validationMessages = {
     'PasswordSymbols': 'Паролата трябва да се състои само от латински букви и цифри',
     'PasswordMissmatch': 'Паролите не съвпадат',
 
+    'TitleLength': 'Заглавието трябва да е между 3 и 30 символа',
     'PersonNameLength': 'Рожденото име трябва да е между 3 и 30 символа',
     'HeroNameLength': 'Псевдонимът трябва да е между 3 и 30 символа',
     'KindLength': 'Расата трябва да е между 2 и 15 символа',

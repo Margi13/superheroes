@@ -121,7 +121,7 @@ router.put('/approve/comics/:comicsId', isAdmin, async (req, res) => {
 
 router.put('/decline/heroes/:superheroId', isAdmin, async (req, res) => {
     const superheroId = req.params.superheroId;
-    const { adminId, reportMessage } = req.body.reportMessage;
+    const { adminId, reportMessage } = req.body;
     try {
         const superhero = await superheroService.getOne(superheroId);
         if (superhero) {
@@ -152,7 +152,7 @@ router.put('/decline/heroes/:superheroId', isAdmin, async (req, res) => {
 
 router.put('/decline/comics/:comicsId', isAdmin, async (req, res) => {
     const comicsId = req.params.comicsId;
-    const { adminId, reportMessage } = req.body.reportMessage;
+    const { adminId, reportMessage } = req.body;
     try {
         const comics = await comicsService.getOne(comicsId);
         if (comics) {

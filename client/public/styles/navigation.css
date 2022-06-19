@@ -26,9 +26,10 @@ footer {
     background-position-x: center;
     background-position-y: center;
     background-repeat: no-repeat;
-    background-size: 90%;
+    background-size: 75%;
     padding: 15%;
     text-align: center;
+    font-size: 14px;
 }
 
 

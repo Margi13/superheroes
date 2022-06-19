@@ -41,11 +41,10 @@ const ComicsForm = ({
     }
 
     const create = (comicsData, images) => {
-        //images ги получавам като обект с ключове 0,1,2,... и стойности - самите изображения
         comicsService.create(comicsData, images)
-            .then(() => {
+            .then((res) => {
                 const data = {
-                    images: images, type: 'comics', folderName: comicsData.title
+                    images: images, type: 'comics', folderName: res._id
                 }
                 imageService.handleMultipleImagesUpload(data, setImages, () => { });
                 addNotification(alertMessages.CreateSuccess, typesColor.success);
@@ -60,7 +59,7 @@ const ComicsForm = ({
         comicsService.update(id, comicsData)
             .then(() => {
                 const data = {
-                    images: images, type: 'comics', folderName: comicsData.title
+                    images: images, type: 'comics', folderName: id
                 }
                 imageService.handleMultipleImagesUpload(data, setImages, () => { });
                 addNotification(alertMessages.EditSuccess, typesColor.success);

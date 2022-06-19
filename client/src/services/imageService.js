@@ -49,8 +49,7 @@ export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
     const promises = [];
     for (let i = 0; i < data.images.length; i++) {
         const image = data.images[i];
-        const folder = data.folderName.split(' ').join('_');
-        const storageRef = ref(storage, `images/${data.type}/${folder}/${image.name}`);
+        const storageRef = ref(storage, `images/${data.type}/${data.folderName}/${image.name}`);
 
         const uploadTask = uploadBytesResumable(storageRef, image, { contentType: 'images/jpeg' });
         promises.push(uploadTask);
@@ -83,22 +82,48 @@ export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
     }
 
     Promise.all(promises)
-        .then(() => alert("All images uploaded"))
+        .then(() => console.log("All images uploaded"))
         .catch((err) => console.log(err));
 
 }
 export const getImageFromFirebase = (imageName, imagePath) => {
-    let imageUrl = imagePath ? `images/${imagePath}` : 'images';
-    var imageRef = ref(storage, `${imageUrl}/${imageName}`);
+    const imageUrl = imagePath ? `images/${imagePath}` : 'images';
+    const imageRef = ref(storage, `${imageUrl}/${imageName}`);
 
     return getDownloadURL(imageRef);
 
 }
+export const getMultipleImagesFromFirebase = (images, imagePath) => {
+    const imageUrl = imagePath ? `images/${imagePath}` : 'images';
+    const promises = [];
+    images.forEach(imageName => {
+        const imageRef = ref(storage, `${imageUrl}/${imageName}`);
+        promises.push(getDownloadURL(imageRef));
+    })
+
+    Promise.all(promises)
+        .then((res) => { return res })
+        .catch((err) => console.log(err));
+}
 
 export const deleteImageFromFirebase = (imageName, imagePath) => {
     // Create a reference to the file to delete
-    let imageUrl = imagePath ? `images/${imagePath}` : 'images';
+    const imageUrl = imagePath ? `images/${imagePath}` : 'images';
     const desertRef = ref(storage, `${imageUrl}/${imageName}`);
     // Delete the file
     return deleteObject(desertRef);
+}
+export const deleteMultipleImagesFromFirebase = (images, imagePath) => {
+    // Create a reference to the file to delete
+    const imageUrl = imagePath ? `images/${imagePath}` : 'images';
+    const promises = [];
+    images.forEach(imageName => {
+        const desertRef = ref(storage, `${imageUrl}/${imageName}`);
+        // Delete the file
+        promises.push(deleteObject(desertRef));
+
+        Promise.all(promises)
+            .then(() => console.log("All images deleted"))
+            .catch((err) => console.log(err));
+    })
 }

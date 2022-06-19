@@ -3,13 +3,12 @@ import '../Card.css';
 import { buttonLabelsBG } from '../../../common/labelsConstatnsBG'
 import { useEffect, useState } from 'react';
 import * as imageService from '../../../services/imageService';
-
 const HeroCard = ({
 	hero
 }) => {
 	const [imageUrl, setImageUrl] = useState();
 	useEffect(() => {
-		imageService.getImageFromFirebase(hero.imageUrl)
+		imageService.getImageFromFirebase(hero.imageUrl, 'heroes')
 			.then(url => {
 				setImageUrl(url);
 			});

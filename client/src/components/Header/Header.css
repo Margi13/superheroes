@@ -43,14 +43,18 @@ nav a:hover {
 }
 
 .all-nav {
-    padding-top: 20%;
+    padding-top: 25%;
+    background-size: contain;
 }
 
 .user-nav {
-    padding-top: 15%;
+    padding-top: 19%;
 }
 
-.guest-nav,
+.guest-nav {
+    padding-top: 50%;
+}
+
 .admin-nav {
-    padding-top: 40%;
+    padding-top: 60%;
 }

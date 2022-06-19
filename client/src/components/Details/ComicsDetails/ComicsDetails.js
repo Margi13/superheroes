@@ -23,7 +23,7 @@ const ComicsDetails = () => {
 
 	useEffect(() => {
 		if (comics.coverPage) {
-			imageService.getImageFromFirebase(comics.coverPage, `comics/${comics.title.split(' ').join('_')}`)
+			imageService.getImageFromFirebase(comics.coverPage, `comics/${comics._id}`)
 				.then(url => {
 					setImageUrl(url);
 				})

@@ -49,12 +49,15 @@ nav a:hover {
 
 .user-nav {
     padding-top: 19%;
+    background-size: contain;
 }
 
 .guest-nav {
     padding-top: 50%;
+    background-size: contain;
 }
 
 .admin-nav {
     padding-top: 60%;
+    background-size: contain;
 }

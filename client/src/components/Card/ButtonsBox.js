@@ -24,8 +24,8 @@ const ButtonsBox = ({
     )
     const approveButtons = (
         <div className="buttons">
-            <button className="pending-button success" onClick={onApprove}>Yes</button>
-            <button className="pending-button danger" onClick={onDecline}>No</button>
+            <button className="button success" onClick={onApprove}>Yes</button>
+            <button className="button danger" onClick={onDecline}>No</button>
         </div>
     )
     const likeButton = (

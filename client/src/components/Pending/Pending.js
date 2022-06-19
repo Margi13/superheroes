@@ -1,14 +1,14 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../contexts/AuthContext';
 import * as adminService from '../../services/adminService';
 
 
-import { alertMessages, titles } from '../../common/messagesConstantsBG';
-import HeroCard from './HeroCard';
+import { titles } from '../../common/messagesConstantsBG';
+import PendingHeroes from './PendingHeroes';
+import PendingComics from './PendingComics/PendingComics';
 const Pending = () => {
     const navigate = useNavigate();
-    const [superheroes, setSuperheroes] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
     const { user } = useAuthContext();
     useEffect(() => {
@@ -16,18 +16,6 @@ const Pending = () => {
             .then(result => {
                 if (result.adminId === user._id) {
                     setIsAdmin(true);
-                    adminService.getAllPending()
-                        .then(data => {
-                            if (!data.type) {
-                                setSuperheroes(data);
-
-                            } else {
-                                throw new Error(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.log('Error:', error);
-                        });
                 }
                 else {
                     setIsAdmin(false);
@@ -36,19 +24,18 @@ const Pending = () => {
             });
 
     }, [user._id, navigate]);
-    const noHeroesElement = (
-        <div>
-            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
-        </div>
-    );
+
     return (
         <section className="my-heroes-page">
             <h1>{titles.Pending}</h1>
+            <Link to="/admin/pending/heroes" href="/admin/pending/heroes">Герой</Link>
+            <Link to="/admin/pending/comics" href="/admin/pending/comics">Комикс</Link>
+            <Routes>
+                <Route path="/heroes" element={<PendingHeroes pageSize={0} pageIndex={0} isAdmin={isAdmin} />} />
+                <Route path="/comics" element={<PendingComics pageSize={0} pageIndex={0} isAdmin={isAdmin} />} />
+            </Routes>
+            <h3 align="center" float="none">Страница 1/1</h3>
 
-            {superheroes.length > 0
-                ? superheroes.map(x => <HeroCard key={x._id} hero={x} isAdmin={isAdmin}/>)
-                : noHeroesElement
-            }
 
 
         </section>

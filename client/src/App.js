@@ -44,7 +44,7 @@ function App() {
                 <Route path="/my-comics" element={<PrivateRoute><MyComics /></PrivateRoute>} />
                 <Route path="/create/*" element={<PrivateRoute><Create /></PrivateRoute>} />
                 <Route path="/edit/*" element={<PrivateRoute><Edit /></PrivateRoute>} />
-                <Route path="/admin/pending" element={<PrivateRoute><Pending /></PrivateRoute>} />
+                <Route path="/admin/pending/*" element={<PrivateRoute><Pending /></PrivateRoute>} />
                 <Route path="/*" element={<Error />} />
               </Routes>
 

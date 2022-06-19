@@ -35,6 +35,7 @@ export const buttonLabelsBG = {
     'Cancel': 'Отказ',
     'Confirm': 'Потвърди',
     'Details':'Детайли',
+    'Read':'Прочети',
     'Login': 'Влез',
     'Register': 'Регистрирай се',
     'Approve': 'Одобри',

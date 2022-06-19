@@ -23,15 +23,18 @@ const HeroesCatalog = () => {
     );
 
     return (
-        <section>
-            <h1 align="center">{titles.AllSuperheroes}</h1>
-            <div className="card-rows">
-                {superheroes.length > 0
-                    ? superheroes.map(x => <HeroCard key={x._id} hero={x} />)
-                    : noHeroesElement
-                }
-            </div>
-        </section>
+        <>
+            <h1>{titles.AllSuperheroes}</h1>
+            <section>
+                <div className="card-rows">
+                    {superheroes.length > 0
+                        ? superheroes.map(x => <HeroCard key={x._id} hero={x} />)
+                        : noHeroesElement
+                    }
+                </div>
+            </section>
+            <h3 align="center" float="none">Страница 1/1</h3>
+        </>
     );
 }
 

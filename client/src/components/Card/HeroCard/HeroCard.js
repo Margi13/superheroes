@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import '../Card.css';
-import { buttonLabelsBG } from '../../../common/labelsConstatnsBG'
 import { useEffect, useState } from 'react';
 import * as imageService from '../../../services/imageService';
 const HeroCard = ({
@@ -15,14 +14,15 @@ const HeroCard = ({
 	}, [hero.imageUrl, setImageUrl])
 	return (
 		<div className="heroes-card card">
-			<h1>{hero.heroName}</h1>
-			<div className="card-image-wrap">
-				<img src={imageUrl} alt="" />
-			</div>
-			<h3>{hero.personName}</h3>
-			<div className="card-data-buttons">
-				<Link to={"/details/heroes/" + hero._id} href="/details/heroes" className="btn card-details-btn">{buttonLabelsBG.Details}</Link>
-			</div>
+			<Link to={"/details/heroes/" + hero._id} href="/details/heroes" className="btn card-details-btn">
+				<div className="card-image-wrap">
+					<img src={imageUrl} alt="" />
+
+					<div className="hero-info">
+						<h3>{hero.heroName}</h3>
+					</div>
+				</div>
+			</Link>
 		</div>
 	);
 }

@@ -11,8 +11,11 @@ export const titles = {
     'PendingComics': 'Комикси, очакващи одобрение',
     'Login': 'Вход',
     'Register': 'Нов профил',
-    'Welcome': 'Добре дошли в комиксовия свят на България!'
-
+    'Welcome': 'Добре дошли в комиксовия свят на България!',
+    'Author': 'Автор',
+    'Title': 'Заглавие',
+    'Page': 'Страница',
+    'Description': 'Описание'
 }
 
 export const alertMessages = {
@@ -23,7 +26,7 @@ export const alertMessages = {
     'ReportsSuccess': 'Успешно сигнализирахте!',
     'LikesDenied': 'Възникна проблем с харесването!',
     'ReportsDenied': 'Възникна проблем със сигнализирането!',
-    'LikesDuplicate': 'Вече сте харесали този герой!',
+    'LikesDuplicate': 'Вече сте го харесали!',
     'LoginSuccess': 'Успешно влязохте в профила си!',
     'LoginDenied': 'Възникна проблем с влизането!',
     'RegisterSuccess': 'Успешно се регистрирахте в профила си!',
@@ -32,18 +35,22 @@ export const alertMessages = {
     'LogoutDenied': 'Възникна проблем с излизането от профила!',
     'NoProfileMessage': 'Нямате профил? Просто натиснете тук',
     'HasProfileMessage': 'Вече имате профил? Просто натиснете тук',
-    'EditSuccess': 'Успешно редактирахте героя!',
-    'EditDenied': 'Възникна проблем с редактирането на героя!',
-    'CreateSuccess': 'Успешно създадохте нов герой!',
-    'CreateDenied': 'Възникна проблем със създаването на нов герой!',
-    'DeleteSuccess': 'Успешно изтрихте този герой!',
-    'DeleteDenied': 'Възникна проблем с изтриването на героя!',
-    'DeleteConfirm': 'Сигурни ли сте, че искате да изтриете този герой?',
+    'EditSuccess': 'Успешно редактирахте!',
+    'EditDenied': 'Възникна проблем с редактирането!',
+    'CreateSuccess': 'Успешно създадохте!',
+    'CreateDenied': 'Възникна проблем със създаването!',
+    'DeleteSuccess': 'Успешно изтрихте!',
+    'DeleteDenied': 'Възникна проблем с изтриването!',
+    'DeleteConfirm': 'Сигурни ли сте, че искате да го изтриете?',
     'EnteredInvalidData': 'Моля въведете валидни данни!',
     'EnteredNoData': 'Моля попълнете формата!',
     'Pending': 'Чака преглед...',
     'Approved': 'Одобрен!',
-    'Declined': 'Изисква се редакция!'
+    'Declined': 'Изисква се редакция!',
+    'ReportOwnComicsDenied': 'Не е позволено да сигнализираш свой комикс',
+    'ReportOwnHeroDenied': 'Не е позволено да сигнализираш свой герой',
+    'LikeOwnComicsDenied': 'Не е позволено да харесаш свой комикс',
+    'LikeOwnHeroDenied': 'Не е позволено да харесаш свой герой'
 }
 
 export const validationMessages = {

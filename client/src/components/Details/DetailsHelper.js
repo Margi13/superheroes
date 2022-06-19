@@ -47,7 +47,8 @@ export const DetailsHelper = (user, data, setData, setShowDeleteDialog, type) =>
 	const likeButtonClick = (e) => {
 
 		if (user._id === data._ownerId) {
-			throw new Error(`Cannot like your own ${type}`)
+			addNotification(`${type === 'comics' ? alertMessages.LikeOwnComicsDenied : alertMessages.LikeOwnHeroDenied}`, typesColor.warning);
+			return;
 		}
 		if (data.likes.includes(user._id)) {
 			addNotification(alertMessages.LikesDuplicate, typesColor.warning);
@@ -85,7 +86,8 @@ export const DetailsHelper = (user, data, setData, setShowDeleteDialog, type) =>
 	}
 	const reportButtonClick = (e) => {
 		if (user._id === data._ownerId) {
-			throw new Error(`Cannot report your own ${type}`)
+			addNotification(`${type === 'comics' ? alertMessages.LikeOwnComicsDenied : alertMessages.LikeOwnHeroDenied}`, typesColor.warning);
+			return;
 		}
 		const reportMessage = "I want to report it!"
 		reportService.report(reportMessage, user._id)

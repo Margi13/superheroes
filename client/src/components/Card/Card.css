@@ -14,14 +14,11 @@
     color: gray;
 }
 
-.heroes-card {
-    background-color: rgb(255, 255, 255, 0.5);
-    min-width: 115px;
-}
-
+.heroes-card,
 .comics-card {
     background-color: rgb(255, 255, 255, 0.5);
     min-width: 150px;
+    max-width: min-content;
 }
 
 .card h1,
@@ -49,16 +46,10 @@ h3 {
     display: block;
     margin: auto;
     overflow: hidden;
-
 }
 
+.comics-card .card-image-wrap,
 .heroes-card .card-image-wrap {
-    height: 100px;
-    max-width: 115px;
-    border-radius: 20%;
-}
-
-.comics-card .card-image-wrap {
     height: 200px;
     max-width: 150px;
     text-align: center;
@@ -67,7 +58,8 @@ h3 {
     flex-wrap: wrap-reverse;
 }
 
-.comics-card .comics-info {
+.comics-card .comics-info,
+.heroes-card .hero-info {
     display: block;
     position: absolute;
     color: gray;
@@ -77,12 +69,8 @@ h3 {
     height: 70px;
 }
 
-.comics-card .card-image-wrap>img {
+.card-image-wrap>img {
     max-height: 100%;
-}
-
-.heroes-card .card-image-wrap>img {
-    max-width: 100%;
 }
 
 .card-details-btn {

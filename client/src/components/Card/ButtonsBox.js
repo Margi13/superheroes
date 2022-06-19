@@ -25,8 +25,13 @@ const ButtonsBox = ({
     )
     const approveButtons = (
         <div className="buttons">
-            <button className="button success" onClick={onApprove}>Yes</button>
-            <button className="button danger" onClick={onDecline}>No</button>
+            <button className="button success" onClick={onApprove}>Одобри</button>
+            <button className="button danger" onClick={onDecline}>Откажи</button>
+        </div>
+    )
+    const readButtons = (
+        <div className="buttons">
+            <Link to={`/read/comics/${id}`} href="/read/comics" className="button link-button">{buttonLabelsBG.Read}</Link>
         </div>
     )
     const likeButton = (
@@ -70,7 +75,10 @@ const ButtonsBox = ({
                         )
                 : ''
             }
-
+            {urlFor === "comics"
+                ? readButtons
+                : <></>
+            }
             {hasDetails
                 ? detailsButton
                 : <></>

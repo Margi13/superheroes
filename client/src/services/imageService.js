@@ -101,7 +101,7 @@ export const getMultipleImagesFromFirebase = (images, imagePath) => {
         promises.push(getDownloadURL(imageRef));
     })
 
-    Promise.all(promises)
+    return Promise.all(promises)
         .then((res) => { return res })
         .catch((err) => console.log(err));
 }

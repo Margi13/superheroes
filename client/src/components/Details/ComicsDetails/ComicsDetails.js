@@ -40,8 +40,7 @@ const ComicsDetails = () => {
 	};
 	return (
 		<section className="hero-details">
-			<h1>{titles.Details}
-			</h1>
+			<h1>{titles.Details}</h1>
 			<div className="info-section">
 
 				<div className="hero-header">

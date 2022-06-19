@@ -58,9 +58,8 @@ const HeroForm = ({
             });
     }
     const edit = (id, heroData, image) => {
-        superheroService.update(id, heroData)
+        superheroService.update(id, { data: heroData })
             .then(() => {
-                // image.name = heroData.imageUrl;
                 const data = {
                     image: image, type: 'heroes'
                 }
@@ -84,7 +83,7 @@ const HeroForm = ({
         }
 
         const hero = superheroService.getByHeroicName(heroData.heroName);
-        if(hero) {
+        if (hero) {
             addNotification(alertMessages.EnteredInvalidData, typesColor.error);
             return 0;
         }

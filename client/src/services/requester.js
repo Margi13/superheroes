@@ -20,9 +20,6 @@ export const request = async (method, url, data, needAuth) => {
             body: JSON.stringify(data ? data : {})
         })
     } else {
-        console.log('url', url);
-        console.log('method', method);
-        console.log('data', data);
         promise = fetch(url, {
             method,
             headers: {

@@ -61,6 +61,8 @@ const ComicsDetails = () => {
 					role={role}
 					hasFunctionalButtons={true}
 					onDelete={helper.deleteClickHandler}
+					onLike={helper.likeButtonClick}
+					onReport={helper.reportButtonClick}
 				>
 					<span id="total-likes" className="likes">{!user._id ? titles.Likes : ''} {comics.likes?.length || 0}</span>
 				</ButtonsBox>

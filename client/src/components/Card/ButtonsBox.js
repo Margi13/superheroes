@@ -14,7 +14,8 @@ const ButtonsBox = ({
     onLike,
     onApprove,
     onDecline,
-    urlFor
+    urlFor,
+    onReport
 }) => {
     const ownerButtons = (
         <div className="buttons">
@@ -34,6 +35,7 @@ const ButtonsBox = ({
                 {buttonLabelsBG.Like}
                 {children}
             </button>
+            <button className="button danger" onClick={onReport}>{buttonLabelsBG.Report}</button>
         </div>
     )
     const detailsButton = (

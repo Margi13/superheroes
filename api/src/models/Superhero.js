@@ -10,7 +10,7 @@ const superheroSchema = new mongoose.Schema({
         type: String,
         unique: true,
         required: true,
-        minLength: [2, 'The name should be at least 4 characters long']
+        minLength: [2, 'The name should be at least 2 characters long']
     },
     kind: {
         type: String,
@@ -30,6 +30,7 @@ const superheroSchema = new mongoose.Schema({
         minLength: [10, 'The story should be at least 10 characters long']
     },
     likes: Array,
+    reports: Array,
     status: {
         type: Number,
         default: 0

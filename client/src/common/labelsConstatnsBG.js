@@ -30,6 +30,7 @@ export const buttonLabelsBG = {
     'Create': 'Създай',
     'Delete': 'Изтрий',
     'Like': 'Харесай',
+    'Report': 'Сигнализирай',
     'Edit': 'Редактирай',
     'Cancel': 'Отказ',
     'Confirm': 'Потвърди',

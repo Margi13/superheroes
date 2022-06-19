@@ -22,6 +22,7 @@ const comicsSchema = new mongoose.Schema({
         default: 0
     },
     likes: Array,
+    reports: Array,
     participants: Array,
     coworkers: Array,
     _createdOn: Date,

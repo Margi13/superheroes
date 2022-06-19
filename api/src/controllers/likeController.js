@@ -25,7 +25,7 @@ router.post('/', isAuth, async (req, res) => {
     try {
         const result = await likeService.create(newLike);
         if (result) {
-            res.json({ ok: true });
+            res.json(result);
         } else {
             res.json({});
         }

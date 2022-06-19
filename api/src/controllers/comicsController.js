@@ -55,7 +55,7 @@ router.put('/:comicsId', isAuth, async (req, res) => {
         }
         const comics = await comicsService.update(comicsId, comicsData);
         if (comics) {
-            return res.json({ ok: true });
+            return res.json(comics);
         } else {
             return res.json({ ok: false });
         }
@@ -111,7 +111,7 @@ router.post('/', isAuth, async (req, res) => {
     try {
         const comics = await comicsService.create({ ...comicsData, _ownerId: ownerId });
         if (comics) {
-            return res.json({ ok: true });
+            return res.json(comics);
         } else {
             return res.json({
                 type: "error",

@@ -42,18 +42,20 @@ router.get('/:superheroId', async (req, res) => {
 });
 router.put('/:superheroId', isAuth, async (req, res) => {
     const superheroId = req.params.superheroId;
-    const superheroData = req.body;
-    superheroData.status = 0;
-    trimData(superheroData);
-    const isUnique = await checkForUniqueness(superheroData.heroName);
-    if (!isUnique) {
-        return res.json({
-            type: "error",
-            message: "Hero name should be unique!"
-        })
-    }
+    const { data, status } = req.body;
+    data.status = status ? status : 0;
+    trimData(data);
     try {
-        let superhero = await superheroService.update(superheroId, superheroData);
+        if (!status) {
+            const isUnique = await checkForUniqueness(data.heroName, data._id);
+            if (!isUnique) {
+                return res.json({
+                    type: "error",
+                    message: "Hero name should be unique!"
+                })
+            }
+        }
+        const superhero = await superheroService.update(superheroId, data);
         if (superhero) {
             return res.json({ ok: true });
         } else {
@@ -126,13 +128,15 @@ router.post('/', isAuth, async (req, res) => {
 
 });
 const trimData = (superhero) => {
-    superhero.personName = superhero.personName.trim();
-    superhero.heroName = superhero.heroName.trim();
-    superhero.kind = superhero.kind.trim();
-    superhero.story = superhero.story.trim();
+    superhero.personName = (superhero.personName || '').trim();
+    superhero.heroName = (superhero.heroName || '').trim();
+    superhero.kind = (superhero.kind || '').trim();
+    superhero.story = (superhero.story || '').trim();
 }
-const checkForUniqueness = async (heroName) => {
-    const hero = await superheroService.getByHeroName(heroName);
-    return hero.length > 0 ? false : true;
+const checkForUniqueness = async (heroName, heroId) => {
+    const heroes = await superheroService.getByHeroName(heroName);
+    const current = heroId ? await superheroService.getOne(heroId) : undefined;
+    const isCurrent = current ? (heroes || []).map(h => h._id).includes(current._id) && (heroes || []).length === 1 : false
+    return heroes.length > 0 && !isCurrent ? false : true;
 }
 module.exports = router;

@@ -21,6 +21,17 @@ export const ChangeHandlers = (setErrors, setImage) => {
         }
     }
 
+    const genreChangeHandler = (e) => {
+        let currentGenre = e.target.value;
+        if (currentGenre === '') {
+            setErrors(state => ({ ...state, genre: validationMessages.requiredMessage }));
+        } else if (currentGenre.length > 30) {
+            setErrors(state => ({ ...state, genre: validationMessages.GenreLength }));
+        } else {
+            setErrors(state => ({ ...state, genre: null }));
+        }
+    }
+
     const descriptionChangeHandler = (e) => {
         let currentDescription = e.target.value;
         if (currentDescription === '') {
@@ -36,6 +47,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
     return {
         titleChangeHandler,
         descriptionChangeHandler,
-        imagesHandler
+        imagesHandler,
+        genreChangeHandler
     }
 }

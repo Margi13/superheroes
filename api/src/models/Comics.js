@@ -7,6 +7,11 @@ const comicsSchema = new mongoose.Schema({
         required: true,
         minLength: [2, 'The title should be at least 2 characters long']
     },
+    genre: {
+        type: String,
+        required: true,
+        maxlength: [30, 'The genre should be maximum 30 characters long'] 
+    },
     description: {
         type: String,
         required: true,
@@ -26,6 +31,7 @@ const comicsSchema = new mongoose.Schema({
     participants: Array,
     coworkers: Array,
     _createdOn: Date,
+    _updatedOn: Date,
     _ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'

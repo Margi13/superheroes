@@ -11,7 +11,7 @@ const imageSchema = new mongoose.Schema({
     },
     _designedFor: {
         type: mongoose.Types.ObjectId,
-        ref: 'User'
+        ref: 'Superhero' | 'Comics'
     }
 });
 

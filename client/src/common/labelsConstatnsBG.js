@@ -18,6 +18,7 @@ export const formLabelsBG = {
     'Image':'Скица на героя',
     'Story':'История на героя',
     'Title': 'Заглавие',
+    'Genre': 'Жанр',
     'Description': 'Описание',
     'CoverPage': 'Корица',
     'Images': 'Комиксови страници',
@@ -49,6 +50,7 @@ export const placeholdersBG = {
     'Kind': 'Човек',
     'Story': 'История, суперсили, семейство...',
     'Title': 'Новите приключения на...',
+    'Genre': 'Исторически',
     'Description': 'Всичко започва с една допусната грешка...',
     'Email': 'steve_rodgers@gmail.com',
 }

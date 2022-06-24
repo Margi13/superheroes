@@ -36,6 +36,7 @@ const superheroSchema = new mongoose.Schema({
         default: 0
     },
     _createdOn: Date,
+    _updatedOn: Date,
     _ownerId: {
         type: mongoose.Types.ObjectId,
         ref: 'User'

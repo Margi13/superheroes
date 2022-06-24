@@ -14,7 +14,7 @@ import TextField from '../Fields/TextField';
 import ImagesBulkUpload from '../Uploads/ImagesBulkUpload';
 import TextareaField from '../Fields/TextareaField';
 
-const initialErrorState = { title: null, description: null, images: null }
+const initialErrorState = { title: null, genre: null, description: null, images: null }
 
 const ComicsForm = ({
     type
@@ -100,9 +100,16 @@ const ComicsForm = ({
                 <TextField name="title"
                     label={formLabelsBG.Title}
                     defaultValue={comics.title}
-                    placeholder={placeholdersBG.ComicsTitle}
+                    placeholder={placeholdersBG.Title}
                     errorMessage={errors.title}
                     changeHandler={handlers.titleChangeHandler}
+                />
+                <TextField name="genre"
+                    label={formLabelsBG.Genre}
+                    defaultValue={comics.genre}
+                    placeholder={placeholdersBG.Genre}
+                    errorMessage={errors.genre}
+                    changeHandler={handlers.genreChangeHandler}
                 />
                 <ImagesBulkUpload name="imagesUrl"
                     label={formLabelsBG.CoverPage}

@@ -43,7 +43,8 @@ router.get('/:superheroId', async (req, res) => {
 router.put('/:superheroId', isAuth, async (req, res) => {
     const superheroId = req.params.superheroId;
     const { data, status } = req.body;
-    data.status = status ? status : 0;
+    data.status = status ? Number(status) : 0;
+    data._updatedOn = Number(status) === 0 ? new Date() : undefined;
     trimData(data);
     try {
         if (!status) {

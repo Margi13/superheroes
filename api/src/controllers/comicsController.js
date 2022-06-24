@@ -44,6 +44,7 @@ router.put('/:comicsId', isAuth, async (req, res) => {
     const { data, status } = req.body;
     data.status = status ? status : 0;
     data.coverPage = data.coverPage ? data.coverPage : data.imagesUrl[0];
+    data._updatedOn = Number(status) === 0 ? new Date() : undefined;
     trimData(data);
     try {
         if (!status) {
@@ -129,6 +130,7 @@ router.post('/', isAuth, async (req, res) => {
 });
 const trimData = (comics) => {
     comics.title = (comics.title || '').trim();
+    comics.genre = (comics.genre || '').trim();
     comics.description = comics.description.trim();
 }
 const checkForUniqueness = async (title) => {

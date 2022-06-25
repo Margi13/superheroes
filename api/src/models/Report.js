@@ -11,6 +11,11 @@ const reportSchema = new mongoose.Schema({
         minLength: [10, 'The message should be at least 10 characters long'],
         default: 'I want to report this'
     },
+    _dataId: {
+        type: mongoose.Types.ObjectId,
+        ref:'Comics',
+        required: true
+    },
     active: Boolean,
     _createdOn: Date
 });

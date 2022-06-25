@@ -40,12 +40,16 @@ const ButtonsBox = ({
                 {buttonLabelsBG.Like}
                 {children}
             </button>
-            <button className="button danger" onClick={onReport}>{buttonLabelsBG.Report}</button>
         </div>
     )
     const detailsButton = (
         <div className="buttons">
             <Link to={`/details/${urlFor}/${id}`} href="/details" className="button">{buttonLabelsBG.Details}</Link>
+        </div>
+    )
+    const reportButton = (
+        <div className="buttons like-container">
+            <button className="button danger" onClick={onReport}>{buttonLabelsBG.Report}</button>
         </div>
     )
 
@@ -61,6 +65,10 @@ const ButtonsBox = ({
                 )
                 : ''
             }
+            {urlFor === "comics"
+                ? readButtons
+                : <></>
+            }
             {hasFunctionalButtons
                 ? isDocument
                     ? (role.isOwner
@@ -75,13 +83,13 @@ const ButtonsBox = ({
                         )
                 : ''
             }
-            {urlFor === "comics"
-                ? readButtons
-                : <></>
-            }
             {hasDetails
                 ? detailsButton
                 : <></>
+            }
+            {!hasLikes && !role.isGuest && !role.isOwner
+                ? reportButton
+                : ''
             }
         </section>
     )

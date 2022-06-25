@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { isAuth } = require('../middlewares/authMiddleware');
 const reportService = require('../services/reportService');
 const comicsService = require('../services/comicsService');
+const superheroService = require('../services/superheroService');
 
 router.get('/:id', async (req, res) => {
     const reportId = Number(req.params.id);
@@ -20,21 +21,9 @@ router.get('/:id', async (req, res) => {
     }
 });
 router.get('/', async (req, res) => {
-    const comicsId = req.query.where.split('=')[1].slice(1, -1);
     try {
-        const comics = await comicsService.getById(comicsId);
-
-        if (comics && comics.reports.length > 0) {
-            const promises = [];
-            comics.reports.forEach(reportId => {
-                const reportPromise = reportService.getById(reportId);
-                promises.push(reportPromise);
-            });
-            const result = await Promise.all(promises)
-            return res.json(result);
-        } else {
-            return res.json([]);
-        }
+        const result = await reportService.getAll();
+        return res.json(result);
     } catch (error) {
         return res.json({
             type: 'error',
@@ -43,20 +32,17 @@ router.get('/', async (req, res) => {
     }
 });
 router.post('/', isAuth, async (req, res) => {
-    const { ownerId, reportMessage } = req.body;
+    const { ownerId, reportMessage, dataId } = req.body;
     const newReport = {
         _ownerId: ownerId,
+        _dataId: dataId,
         reportMessage,
         active: true,
         _createdOn: new Date()
     };
     try {
         const result = await reportService.create(newReport);
-        if (result) {
-            return res.json(result);
-        } else {
-            return res.json({});
-        }
+        return res.json(result);
     } catch (error) {
         return res.json({
             type: 'error',
@@ -73,7 +59,7 @@ router.put('/:id', isAuth, async (req, res) => {
         if (result) {
             return res.json({ ok: true });
         } else {
-            return res.json({});
+            return res.json({ ok: false });
         }
     } catch (error) {
         return res.json({

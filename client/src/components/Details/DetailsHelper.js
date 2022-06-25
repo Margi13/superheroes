@@ -90,7 +90,7 @@ export const DetailsHelper = (user, data, setData, setShowDeleteDialog, type) =>
 			return;
 		}
 		const reportMessage = "I want to report it!"
-		reportService.report(reportMessage, user._id)
+		reportService.report(reportMessage, data._id, user._id)
 			.then((result) => {
 				if (!result) {
 					throw new Error('Cannot report this. Try again later.')

@@ -59,7 +59,10 @@ const PendingComics = ({
                     : noComicsElement
                 }
             </div>
-            <h3 align="center" float="none">Страница 1/1</h3>
+            {comics.length > 0
+                ? <h3 align="center" float="none">Страница 1/1</h3>
+                : <></>
+            }
         </>
     );
 }

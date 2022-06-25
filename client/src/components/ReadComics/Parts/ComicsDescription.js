@@ -1,7 +1,8 @@
 import { DetailsHelper } from '../../Details/DetailsHelper';
 import { useAuthContext } from '../../../contexts/AuthContext';
-import '../ReadComics.css';
 import { titles } from '../../../common/messagesConstantsBG';
+import { buttonLabelsBG } from '../../../common/labelsConstatnsBG';
+import '../ReadComics.css';
 
 const ComicsDescription = ({
     comics,
@@ -9,16 +10,11 @@ const ComicsDescription = ({
 }) => {
     const { user } = useAuthContext();
     const helper = DetailsHelper(user, comics, setComics, () => { }, 'comics');
-    const ownerLikes = (
-        <div className="likes-div">
-            <i className="fa fa-regular fa-heart"></i>
-            {(comics.likes || []).length}
-        </div>
-    )
-    const likeButton = (
-        <button className="likes-button" onClick={helper.likeButtonClick}>
-            <i className="fa fa-regular fa-heart"></i>
-            {(comics.likes || []).length}
+
+    const reportButton = (
+        <button className="likes-button danger" onClick={helper.reportButtonClick}>
+            <i className="fa fa-regular fa-exclamation"></i>
+            {buttonLabelsBG.Report}
         </button>
     )
     return (
@@ -29,8 +25,8 @@ const ComicsDescription = ({
                 <p className='description-paragraph'>{comics.description}</p>
                 <div align="right">
                     {user._id === comics._ownerId
-                        ? ownerLikes
-                        : likeButton
+                        ? ''
+                        : reportButton
                     }
                 </div>
             </section>

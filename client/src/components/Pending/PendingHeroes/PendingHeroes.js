@@ -60,7 +60,10 @@ const PendingHeroes = ({
                     : noHeroesElement
                 }
             </div>
-            <h3 align="center" float="none">Страница 1/1</h3>
+            {superheroes.length > 0
+                ? <h3 align="center" float="none">Страница 1/1</h3>
+                : <></>
+            }
         </>
     );
 }

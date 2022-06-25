@@ -7,7 +7,8 @@ export const navigationTitlesBG = {
     'Login':'Вход',
     'Register':'Регистрация',
     'Logout':'Изход',
-    'Pending': 'Преглед'
+    'Pending': 'Чакащи',
+    'Reports': 'Сигнали'
 }
 
 export const formLabelsBG = {

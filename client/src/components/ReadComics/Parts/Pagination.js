@@ -47,11 +47,12 @@ const Pagination = ({
     return (
         <>
             <section className="pagination">
-                <PrevAndNext
-                    url={imagesUrl[pageIndex]}
+                <PrevAndNext className="comics-view"
                     onNext={openNextPage}
                     onPrev={openPrevPage}
-                />
+                >
+                    <img src={imagesUrl[pageIndex]} alt="Comics Page" />
+                </PrevAndNext>
                 <FirstAndLast
                     pageIndex={pageIndex}
                     totalPages={imagesUrl.length}

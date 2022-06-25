@@ -1,17 +1,18 @@
 import '../ReadComics.css';
 
 const PrevAndNext = ({
+    children,
     onNext,
     onPrev,
-    url
+    className
 }) => {
 
     return (
-        <section className="comics-view">
+        <section className={className}>
             <button className="prev-button" onClick={onPrev}>
                 <i className="fa fa-regular fa-chevron-left"></i>
             </button>
-            <img src={url} alt="Comics Page" />
+            {children}
             <button className="next-button" onClick={onNext}>
                 <i className="fa fa-regular fa-chevron-right"></i>
             </button>

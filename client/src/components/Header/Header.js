@@ -39,6 +39,7 @@ const Header = () => {
     let adminNavigation = (
         <div id="admin" className='nav-container'>
             <Link to="/admin/pending" href="/pending" className="cloud-link admin-nav">{navigationTitlesBG.Pending}</Link>
+            <Link to="/admin/reports" href="/reports" className="cloud-link admin-nav">{navigationTitlesBG.Reports}</Link>
             <Link to="/logout" href="/logout" className="cloud-link admin-nav">{navigationTitlesBG.Logout}</Link>
 
         </div>

@@ -51,15 +51,16 @@ router.post('/', isAuth, async (req, res) => {
     }
 });
 router.put('/:id', isAuth, async (req, res) => {
+    
     const reportId = req.params.id;
-    const reportData = req.body;
-    const updatedReport = { ...reportData, active: false };
     try {
-        const result = await reportService.update(reportId, updatedReport);
+        const reportData = await reportService.getById(reportId);
+        reportData.active = false;
+        const result = await reportService.update(reportData._id, reportData);
         if (result) {
             return res.json({ ok: true });
         } else {
-            return res.json({ ok: false });
+            throw new Error('Data was not updated')
         }
     } catch (error) {
         return res.json({

@@ -47,6 +47,8 @@ export const alertMessages = {
     'Pending': 'Чака преглед...',
     'Approved': 'Одобрен!',
     'Declined': 'Изисква се редакция!',
+    'DeleteReportDenied': 'Възникна проблем с изтриването на сигнал!',
+    'DeleteReportSuccess': 'Успешно изтриване на сигнал!',
     'ReportOwnComicsDenied': 'Не е позволено да сигнализираш свой комикс',
     'ReportOwnHeroDenied': 'Не е позволено да сигнализираш свой герой',
     'LikeOwnComicsDenied': 'Не е позволено да харесаш свой комикс',

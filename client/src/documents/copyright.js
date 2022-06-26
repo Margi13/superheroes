@@ -7,21 +7,16 @@ const footer = "СОБСТВЕНИКЪТ има правото да използ
 const adminMessage = "Администраторът на платформата има правото да свали новия герой или комикс от платформата, БЕЗ ПРЕДУПРЕЖДЕНИЕ, при наличие на сигнал от СОБСТВЕНИКА, който има Документ за авторско право, нарушаване на задълженията, описани в този документ и/или при наличие на нарушение от друго естество!"
 
 export const generateCopyrightDocument = (data, document, image, dataType) => {
-    const mockDocument = {
-        _id: 1,
-        _userId: 1,
-        for: dataType,
-        _createdOn: new Date()
-    }
+
     // Create a new instance of Document for the docx module
     let doc = new Document({
         sections: [
             {
                 children: [
-                    helpers.createHeader(mockDocument),
+                    helpers.createHeader(document),
                     ...helpers.createTitle(title, subtitle),
                     helpers.blankLine(),
-                    ...createMainText(data, mockDocument),
+                    ...createMainText(data, document),
                     helpers.blankLine(),
                     ...createDataInfo(data, image, dataType),
                     helpers.blankLine(),
@@ -41,8 +36,8 @@ export const generateCopyrightDocument = (data, document, image, dataType) => {
 
 const createMainText = (data, document) => {
     const text = [
-        `На ${new Date(data._createdOn).toLocaleDateString('bg-BG')}, потребител с ИН: ${document._userId}, наричан за по-кратко СОБСТВЕНИК е създал ${document.for === 'heroes' ? 'герой' : 'комикс'} с ИН: ${data._id}.`,
-        `На ${new Date(document._createdOn).toLocaleDateString('bg-BG')}, СОБСТВЕНИКЪТ е получил одобрение за публикуването му и е създаден настоящият документ, който доказва авторството на ${document.for === 'heroes' ? 'герой' : 'комикс'} с данни:`,
+        `На ${new Date(data._createdOn).toLocaleDateString('bg-BG')}, потребител с ИН: ${document._userId}, наричан за по-кратко СОБСТВЕНИК е създал ${document.dataType === 'heroes' ? 'герой' : 'комикс'} с ИН: ${data._id}.`,
+        `На ${new Date(document._createdOn).toLocaleDateString('bg-BG')}, СОБСТВЕНИКЪТ е получил одобрение за публикуването му и е създаден настоящият документ, който доказва авторството на ${document.dataType === 'heroes' ? 'герой' : 'комикс'} с данни:`,
     ];
     return helpers.createMainText(text);
 }

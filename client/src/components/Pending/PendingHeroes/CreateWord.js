@@ -34,19 +34,8 @@ const CreateWord = ({
                 break;
             }
         }
-    },[type, setButtonLabel]);
-    const mockDocument = {
-        _id: 1,
-        _docOwnerId: 1,
-        _dataOwnerId: 2,
-        _dataId: 3,
-        _createdOn: new Date(),
-        _updatedOn: new Date(),
-        message: 'Някакво съобщение',
-        requestedDataType: 'hero',
-        newDataType: 'comics',
-        response: true
-    }
+    }, [type, setButtonLabel]);
+
     const create = async () => {
         const imageUrl = dataType === 'comics' ? data.coverPage : data.imageUrl
         const imagePath = dataType === 'comics' ? `comics/${data._id}` : 'heroes'
@@ -54,25 +43,64 @@ const CreateWord = ({
         const image = await getImageFromFirebase(imageUrl, imagePath)
         switch (type) {
             case "copyright": {
-                const doc = copyright.generateCopyrightDocument(data, undefined, image, dataType);
+                const mockDocument = {
+                    _id: 1,
+                    _userId: 1,
+                    dataType,
+                    _createdOn: new Date()
+                }
+                const doc = copyright.generateCopyrightDocument(data, mockDocument, image, dataType);
                 onCreate();
                 documentService.saveDocumentToFile(doc, `${dataType}_${data._id}`, 'copyright', mockDocument._docOwnerId);
                 break;
             }
             case "request": {
-                const doc = request.generateRequestDocument(mockDocument);
+                const mockDocument = {
+                    _id: 1,
+                    _docOwnerId: 1,
+                    _dataOwnerId: 2,
+                    _createdOn: new Date(),
+                    _updatedOn: new Date(),
+                    message: 'Някакво съобщение',
+                    requestedDataType: 'hero',
+                    newDataType: 'comics',
+                    response: true
+                }
+                const doc = request.generateRequestDocument(data, mockDocument);
                 onCreate();
                 documentService.saveDocumentToFile(doc, `request_${mockDocument._id}`, 'request', mockDocument._docOwnerId);
                 break;
             }
             case "response": {
-                const doc = response.generateResponseDocument(mockDocument);
+                const mockDocument = {
+                    _id: 1,
+                    _docOwnerId: 1,
+                    _dataOwnerId: 2,
+                    _createdOn: new Date(),
+                    _updatedOn: new Date(),
+                    message: 'Някакво съобщение',
+                    requestedDataType: 'hero',
+                    newDataType: 'comics',
+                    response: true
+                }
+                const doc = response.generateResponseDocument(data, mockDocument);
                 onCreate();
                 documentService.saveDocumentToFile(doc, `response_${mockDocument._id}`, 'response', mockDocument._docOwnerId);
                 break;
             }
             case "rights": {
-                const doc = useRights.generateRightsDocument(mockDocument, image);
+                const mockDocument = {
+                    _id: 1,
+                    _docOwnerId: 1,
+                    _dataOwnerId: 2,
+                    _createdOn: new Date(),
+                    _updatedOn: new Date(),
+                    message: 'Някакво съобщение',
+                    requestedDataType: 'hero',
+                    newDataType: 'comics',
+                    response: true
+                }
+                const doc = useRights.generateRightsDocument(data, mockDocument, image);
                 onCreate();
                 documentService.saveDocumentToFile(doc, `rights_${mockDocument._id}`, 'rights', mockDocument._docOwnerId);
                 break;

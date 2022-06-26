@@ -10,7 +10,7 @@ const copyrightMessages = [
     "Тези три документа ще бъдат видими за СОБСТВЕНИКА, ПОДАТЕЛЯ и Администратора на платформата.",
     "Авторското право върху дадения {type} остава на СОБСТВЕНИКА, независимо от неговият отговор. ПОДАТЕЛЯТ получава правото за използване, но не и авторските права!"
 ]
-export const generateRightsDocument = ( document ) => {
+export const generateRightsDocument = (data, document) => {
     // Create a new instance of Document for the docx module
     let doc = new Document({
         sections: [
@@ -19,7 +19,7 @@ export const generateRightsDocument = ( document ) => {
                     helpers.createHeader(document),
                     ...helpers.createTitle(title, subtitle),
                     helpers.blankLine(),
-                    ...createMainText(document),
+                    ...createMainText(data, document),
                     helpers.blankLine(),
                     createMessage(document.message),
                     helpers.blankLine(),
@@ -38,12 +38,12 @@ export const generateRightsDocument = ( document ) => {
 }
 
 
-const createMainText = (document) => {
+const createMainText = (data, document) => {
     const text = [
         `На ${new Date(document._createdOn).toLocaleDateString('bg-BG')}, потребител с ИН: ${document._docOwnerId}, наричан за по-кратко ПОДАТЕЛ е подал заявление за получаване на право за използване на ${document.requestedDataType === "comics" ? "комикс" : "герой"}, който принадлежи на потребител с ИН: ${document._dataOwnerId}, наричан за по-кратко СОБСТВЕНИК.`,
         `На ${new Date(document._updatedOn).toLocaleDateString('bg-BG')}, СОБСТВЕНИКЪТ е дал своят ${document.response === true ? "положителен" : "отрицателен"} отговор на заявление с име: request_${document._id} за получаване на право за използване на ${document.requestedDataType === "comics" ? "комикс" : "герой"}, подадено от ПОДАТЕЛЯ.`,
-        `Oт днес ${new Date(document._updatedOn).toLocaleDateString('bg-BG')}, въз основа на ${document.response === true ? "полученото разрешение" : "полученият отказ"} от СОБСТВЕНИКА, ПОДАТЕЛЯТ ${document.response === true ? "има" : "няма"} право да използва ${document.requestedDataType === "comics" ? "комикс" : "герой"} с ИН: ${document._dataId}, принадлежащ на СОБСТВЕНИКА, като референция или история в свой нов ${document.newDataType === "comics" ? "комикс" : "герой"}.`
-    
+        `Oт днес ${new Date(document._updatedOn).toLocaleDateString('bg-BG')}, въз основа на ${document.response === true ? "полученото разрешение" : "полученият отказ"} от СОБСТВЕНИКА, ПОДАТЕЛЯТ ${document.response === true ? "има" : "няма"} право да използва ${document.requestedDataType === "comics" ? "комикс" : "герой"} с ИН: ${data._id}, принадлежащ на СОБСТВЕНИКА, като референция или история в свой нов ${document.newDataType === "comics" ? "комикс" : "герой"}.`
+
     ];
     return helpers.createMainText(text);
 }

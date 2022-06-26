@@ -62,7 +62,7 @@ const CreateWord = ({
                     _createdOn: new Date(),
                     _updatedOn: new Date(),
                     message: 'Някакво съобщение',
-                    requestedDataType: 'hero',
+                    requestedDataType: 'heroes',
                     newDataType: 'comics',
                     response: true
                 }
@@ -79,7 +79,7 @@ const CreateWord = ({
                     _createdOn: new Date(),
                     _updatedOn: new Date(),
                     message: 'Някакво съобщение',
-                    requestedDataType: 'hero',
+                    requestedDataType: 'heroes',
                     newDataType: 'comics',
                     response: true
                 }
@@ -96,7 +96,7 @@ const CreateWord = ({
                     _createdOn: new Date(),
                     _updatedOn: new Date(),
                     message: 'Някакво съобщение',
-                    requestedDataType: 'hero',
+                    requestedDataType: 'heroes',
                     newDataType: 'comics',
                     response: true
                 }

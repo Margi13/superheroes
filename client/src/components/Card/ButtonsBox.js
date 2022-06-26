@@ -15,7 +15,8 @@ const ButtonsBox = ({
     onApprove,
     onDecline,
     urlFor,
-    onReport
+    onReport,
+    enableApprove
 }) => {
     const ownerButtons = (
         <div className="buttons">
@@ -25,7 +26,7 @@ const ButtonsBox = ({
     )
     const approveButtons = (
         <div className="buttons">
-            <button className="button success" onClick={onApprove}>Одобри</button>
+            <button className={`${enableApprove ? 'button success' : 'disabled'}`} disabled={!enableApprove} onClick={onApprove}>Одобри</button>
             <button className="button danger" onClick={onDecline}>Откажи</button>
         </div>
     )
@@ -87,7 +88,7 @@ const ButtonsBox = ({
                 ? detailsButton
                 : <></>
             }
-            {!hasLikes && !role.isGuest && !role.isOwner
+            {!hasLikes && !role.isGuest && !role.isOwner && !role.isAdmin
                 ? reportButton
                 : ''
             }

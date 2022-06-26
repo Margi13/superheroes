@@ -5,6 +5,7 @@ import * as adminService from '../../../services/adminService';
 import ImageBox from '../ImageBox';
 import StatusBox from '../StatusBox';
 import ButtonsBox from '../ButtonsBox';
+import CreateWord from '../../Pending/PendingHeroes/CreateWord';
 import './PendingCard.css'
 
 const PendingCard = ({
@@ -16,6 +17,7 @@ const PendingCard = ({
 }) => {
     const navigate = useNavigate();
     const [imageUrl, setImageUrl] = useState();
+    const [enableApprove, setEnableApprove] = useState(false);
     useEffect(() => {
         const imageName = type === 'comics' ? data.coverPage : data.imageUrl;
         const imagePath = type === 'comics' ? `comics/${data._id}` : 'heroes';
@@ -23,7 +25,7 @@ const PendingCard = ({
             .then(url => {
                 setImageUrl(url);
             });
-    }, [data, data._id, type, setImageUrl])
+    }, [data, data._id, type, setImageUrl, enableApprove])
     const approveClickHandler = () => {
         if (isAdmin) {
 
@@ -68,12 +70,16 @@ const PendingCard = ({
                             {children}
                         </div>
 
+                        <div align="right">
+                            <CreateWord data={data} dataType={type} type="copyright" onCreate={ ()=> setEnableApprove(true) } />
+                        </div>
                         <ButtonsBox
                             id={data._id}
                             hasDetails={true}
                             urlFor={type}
                             role={{ isAdmin: isAdmin }}
                             hasFunctionalButtons={true}
+                            enableApprove={enableApprove}
                             onApprove={approveClickHandler}
                             onDecline={declineClickHandler}
                         />

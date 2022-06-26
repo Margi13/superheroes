@@ -153,3 +153,7 @@ h3 {
     font-size: 30px;
     margin-left: 110px;
 }
+.functional-buttons {
+    display: flex;
+    justify-content: flex-end;
+}

@@ -41,7 +41,11 @@ export const buttonLabelsBG = {
     'Login': 'Влез',
     'Register': 'Регистрирай се',
     'Approve': 'Одобри',
-    'Decline': 'Откажи'
+    'Decline': 'Откажи',
+    'Copyright': 'Авторско право',
+    'Request': 'Заявление',
+    'Response': 'Отговор',
+    'UseRights': 'Право за ползване'
 }
 
 export const placeholdersBG = {

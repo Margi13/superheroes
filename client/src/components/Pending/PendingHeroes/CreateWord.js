@@ -1,14 +1,40 @@
+import { useEffect, useState } from 'react';
+import { buttonLabelsBG } from '../../../common/labelsConstatnsBG';
 import * as copyright from '../../../documents/copyright';
 import * as request from '../../../documents/request';
 import * as response from '../../../documents/response';
 import * as useRights from '../../../documents/useRights';
 import * as documentService from '../../../services/documentService';
 
-import { getImageFromFirebase } from '../../../services/imageService'
+import { getImageFromFirebase } from '../../../services/imageService';
+import '../Document.css';
 const CreateWord = ({
-    hero,
-    type
+    data,
+    type,
+    dataType,
+    onCreate
 }) => {
+    const [buttonLabel, setButtonLabel] = useState('');
+    useEffect(() => {
+        switch (type) {
+            case "copyright": {
+                setButtonLabel(buttonLabelsBG.Copyright);
+                break;
+            }
+            case "request": {
+                setButtonLabel(buttonLabelsBG.Request);
+                break;
+            }
+            case "response": {
+                setButtonLabel(buttonLabelsBG.Response);
+                break;
+            }
+            case "rights": {
+                setButtonLabel(buttonLabelsBG.UseRights);
+                break;
+            }
+        }
+    },[type, setButtonLabel]);
     const mockDocument = {
         _id: 1,
         _docOwnerId: 1,
@@ -22,36 +48,44 @@ const CreateWord = ({
         response: true
     }
     const create = async () => {
-        const image = await getImageFromFirebase(hero.imageUrl, 'heroes')
+        const imageUrl = dataType === 'comics' ? data.coverPage : data.imageUrl
+        const imagePath = dataType === 'comics' ? `comics/${data._id}` : 'heroes'
+
+        const image = await getImageFromFirebase(imageUrl, imagePath)
         switch (type) {
             case "copyright": {
-                const doc = copyright.generateCopyrightDocument(hero, undefined, image);
-                documentService.saveDocumentToFile(doc, `hero_${hero._id}`, 'copyright', mockDocument._docOwnerId);
+                const doc = copyright.generateCopyrightDocument(data, undefined, image, dataType);
+                onCreate();
+                documentService.saveDocumentToFile(doc, `${dataType}_${data._id}`, 'copyright', mockDocument._docOwnerId);
                 break;
             }
             case "request": {
                 const doc = request.generateRequestDocument(mockDocument);
-                documentService.saveDocumentToFile(doc, `request_${hero._id}`, 'request', mockDocument._docOwnerId);
+                onCreate();
+                documentService.saveDocumentToFile(doc, `request_${mockDocument._id}`, 'request', mockDocument._docOwnerId);
                 break;
             }
             case "response": {
                 const doc = response.generateResponseDocument(mockDocument);
-                documentService.saveDocumentToFile(doc, `response_${hero._id}`, 'response', mockDocument._docOwnerId);
+                onCreate();
+                documentService.saveDocumentToFile(doc, `response_${mockDocument._id}`, 'response', mockDocument._docOwnerId);
                 break;
             }
             case "rights": {
                 const doc = useRights.generateRightsDocument(mockDocument, image);
-                documentService.saveDocumentToFile(doc, `rights_${hero._id}`, 'rights', mockDocument._docOwnerId);
+                onCreate();
+                documentService.saveDocumentToFile(doc, `rights_${mockDocument._id}`, 'rights', mockDocument._docOwnerId);
                 break;
             }
             default: {
-                return "No document was created"
+                console.log("No document was created")
             }
         }
     }
     return (
         <>
-            <button id="generate" onClick={create}>{type}</button>
+            {buttonLabelsBG.Create}:
+            <button className="generate-document" onClick={create}>{buttonLabel}</button>
         </>
     );
 }

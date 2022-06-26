@@ -56,11 +56,6 @@ const PendingHeroes = ({
                             <p className="description">
                                 {x.story.slice(0, 200) + '...'}
                             </p>
-
-                            <CreateWord hero={x} type="copyright"/>
-                            <CreateWord hero={x} type="request"/>
-                            <CreateWord hero={x} type="response"/>
-                            <CreateWord hero={x} type="rights"/>
                         </PendingCard>)
                     : noHeroesElement
                 }

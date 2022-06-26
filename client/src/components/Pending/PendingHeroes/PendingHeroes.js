@@ -6,6 +6,7 @@ import { titles } from '../../../common/messagesConstantsBG';
 
 import { alertMessages } from '../../../common/messagesConstantsBG';
 import PendingCard from '../../Card/PendingCard';
+import CreateWord from './CreateWord';
 
 const PendingHeroes = ({
     isAdmin,
@@ -56,6 +57,10 @@ const PendingHeroes = ({
                                 {x.story.slice(0, 200) + '...'}
                             </p>
 
+                            <CreateWord hero={x} type="copyright"/>
+                            <CreateWord hero={x} type="request"/>
+                            <CreateWord hero={x} type="response"/>
+                            <CreateWord hero={x} type="rights"/>
                         </PendingCard>)
                     : noHeroesElement
                 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { buttonLabelsBG } from '../../common/labelsConstatnsBG';
+import { useAuthContext } from '../../contexts/AuthContext';
 import * as copyright from '../../documents/copyright';
 import * as request from '../../documents/request';
 import * as response from '../../documents/response';
@@ -12,9 +13,11 @@ const CreateWord = ({
     data,
     type,
     dataType,
-    onCreate
+    onCreate,
+    docId
 }) => {
     const [buttonLabel, setButtonLabel] = useState('');
+	const { user } = useAuthContext()
     useEffect(() => {
         switch (type) {
             case "copyright": {
@@ -43,66 +46,32 @@ const CreateWord = ({
         const image = await getImageFromFirebase(imageUrl, imagePath)
         switch (type) {
             case "copyright": {
-                const mockDocument = {
-                    _id: 1,
-                    _userId: 1,
-                    dataType,
-                    _createdOn: new Date()
-                }
-                const doc = copyright.generateCopyrightDocument(data, mockDocument, image, dataType);
+                const document = await documentService.getFilteredCopyright(data._id, data._ownerId, dataType);
+                console.log('document:',document)
+                const doc = copyright.generateCopyrightDocument(data, document, image, dataType);
                 onCreate();
-                documentService.saveDocumentToFile(doc, `${dataType}_${data._id}`, 'copyright', mockDocument._docOwnerId);
+                documentService.saveDocumentToFile(doc, `${dataType}_${data._id}`, 'copyright', document._docOwnerId);
                 break;
             }
             case "request": {
-                const mockDocument = {
-                    _id: 1,
-                    _docOwnerId: 1,
-                    _dataOwnerId: 2,
-                    _createdOn: new Date(),
-                    _updatedOn: new Date(),
-                    message: 'Някакво съобщение',
-                    requestedDataType: 'heroes',
-                    newDataType: 'comics',
-                    response: true
-                }
-                const doc = request.generateRequestDocument(data, mockDocument);
+                const document = await documentService.getFilteredUseRight(data._id, data._ownerId, user._id);
+                const doc = request.generateRequestDocument(data, document);
                 onCreate();
-                documentService.saveDocumentToFile(doc, `request_${mockDocument._id}`, 'request', mockDocument._docOwnerId);
+                documentService.saveDocumentToFile(doc, `request_${document._id}`, 'request', document._docOwnerId);
                 break;
             }
             case "response": {
-                const mockDocument = {
-                    _id: 1,
-                    _docOwnerId: 1,
-                    _dataOwnerId: 2,
-                    _createdOn: new Date(),
-                    _updatedOn: new Date(),
-                    message: 'Някакво съобщение',
-                    requestedDataType: 'heroes',
-                    newDataType: 'comics',
-                    response: true
-                }
-                const doc = response.generateResponseDocument(data, mockDocument);
+                const document = await documentService.getOneCopyright(docId);
+                const doc = response.generateResponseDocument(data, document);
                 onCreate();
-                documentService.saveDocumentToFile(doc, `response_${mockDocument._id}`, 'response', mockDocument._docOwnerId);
+                documentService.saveDocumentToFile(doc, `response_${document._id}`, 'response', document._docOwnerId);
                 break;
             }
             case "rights": {
-                const mockDocument = {
-                    _id: 1,
-                    _docOwnerId: 1,
-                    _dataOwnerId: 2,
-                    _createdOn: new Date(),
-                    _updatedOn: new Date(),
-                    message: 'Някакво съобщение',
-                    requestedDataType: 'heroes',
-                    newDataType: 'comics',
-                    response: true
-                }
-                const doc = useRights.generateRightsDocument(data, mockDocument, image);
+                const document = await documentService.getOneCopyright(docId);
+                const doc = useRights.generateRightsDocument(data, document, image);
                 onCreate();
-                documentService.saveDocumentToFile(doc, `rights_${mockDocument._id}`, 'rights', mockDocument._docOwnerId);
+                documentService.saveDocumentToFile(doc, `rights_${document._id}`, 'rights', document._docOwnerId);
                 break;
             }
             default: {

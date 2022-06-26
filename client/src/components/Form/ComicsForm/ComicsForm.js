@@ -10,7 +10,7 @@ import { useAuthContext } from '../../../contexts/AuthContext';
 import { formLabelsBG, placeholdersBG } from '../../../common/labelsConstatnsBG';
 import { alertMessages } from '../../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../../contexts/NotificationContext';
-import { ChangeHandlers } from '../../Common/Validation/ComicsValidationHelper';
+import { ChangeHandlers } from '../Validation/ComicsValidationHelper';
 import TextField from '../Fields/TextField';
 import ImagesBulkUpload from '../Uploads/ImagesBulkUpload';
 import TextareaField from '../Fields/TextareaField';

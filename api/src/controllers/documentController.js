@@ -54,6 +54,31 @@ router.get('/use-right/:id', async (req, res) => {
         })
     }
 });
+router.get('/copyright', async (req, res) => {
+    try {
+        const { dataId, ownerId, type } = req.query;
+        const copyright = await documentService.getFilteredCopyright(dataId, ownerId, type);
+        return res.json(copyright[0])
+    } catch (error) {
+        console.log(error);
+        return res.json({
+            type: 'error',
+            message: error.message
+        })
+    }
+});
+router.get('/use-right', async (req, res) => {
+    try {
+        const { dataId, dataOwnerId, docOwnerId } = req.params.id;
+        const useRight = await documentService.getFilteredUseRight(dataId, dataOwnerId, docOwnerId);
+        return res.json(useRight[0])
+    } catch (error) {
+        return res.json({
+            type: 'error',
+            message: error.message
+        })
+    }
+});
 router.delete('/copyright/:id', isAuth, async (req, res) => {
     try {
         const documentId = req.params.id;
@@ -86,17 +111,14 @@ router.post('/copyright', isAuth, async (req, res) => {
             message: "User is not found!"
         });
     }
-    console.log('create copyright')
     const documentData = req.body;
     documentData._createdOn = new Date();
     documentData._userId = req.user._id;
     try {
         const document = await documentService.createCopyright(documentData);
-        console.log("Document: ",document)
         if (document) {
             return res.json(document);
         } else {
-            console.log(error)
             return res.json({
                 type: "error",
                 message: "Cannot create copyright"

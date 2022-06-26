@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, Navigate, useParams } from 'react-router-dom';
 import * as superheroService from '../../../services/superheroService';
 import * as imageService from '../../../services/imageService';
+import * as documentService from '../../../services/documentService';
 import useHeroState from '../../../hooks/useHeroState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
@@ -43,11 +44,20 @@ const HeroForm = ({
 
     const create = (heroData, image) => {
         superheroService.create(heroData, image)
-            .then(() => {
+            .then((result) => {
+                if (result.type) {
+                    console.log(result.message)
+                    throw new Error(result.message);
+                }
                 const data = {
                     image: image, type: 'heroes'
                 }
-                imageService.handleImageUpload(data, setImage, () => { })
+                imageService.handleImageUpload(data, setImage, () => { });
+                const document = {
+                    dataId: result._id,
+                    dataType: "heroes"
+                }
+                documentService.createCopyright(document);
                 addNotification(alertMessages.CreateSuccess, typesColor.success);
                 navigate('/');
             })

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useNavigate, Navigate, useParams } from 'react-router-dom';
 import * as comicsService from '../../../services/comicsService';
 import * as imageService from '../../../services/imageService';
+import * as documentService from '../../../services/documentService';
 import useComicsState from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
@@ -42,11 +43,20 @@ const ComicsForm = ({
 
     const create = (comicsData, images) => {
         comicsService.create(comicsData, images)
-            .then((res) => {
+            .then((result) => {
+                if (result.type) {
+                    console.log(result.message);
+                    throw new Error(result.message);
+                }
                 const data = {
-                    images: images, type: 'comics', folderName: res._id
+                    images: images, type: 'comics', folderName: result._id
                 }
                 imageService.handleMultipleImagesUpload(data, setImages, () => { });
+                const document = {
+                    dataId: result._id,
+                    dataType: "comics"
+                }
+                documentService.createCopyright(document)
                 addNotification(alertMessages.CreateSuccess, typesColor.success);
                 navigate('/');
             })

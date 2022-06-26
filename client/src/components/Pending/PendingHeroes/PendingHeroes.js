@@ -6,7 +6,6 @@ import { titles } from '../../../common/messagesConstantsBG';
 
 import { alertMessages } from '../../../common/messagesConstantsBG';
 import PendingCard from '../../Card/PendingCard';
-import CreateWord from './CreateWord';
 
 const PendingHeroes = ({
     isAdmin,

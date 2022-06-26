@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { buttonLabelsBG } from '../../../common/labelsConstatnsBG';
-import * as copyright from '../../../documents/copyright';
-import * as request from '../../../documents/request';
-import * as response from '../../../documents/response';
-import * as useRights from '../../../documents/useRights';
-import * as documentService from '../../../services/documentService';
+import { buttonLabelsBG } from '../../common/labelsConstatnsBG';
+import * as copyright from '../../documents/copyright';
+import * as request from '../../documents/request';
+import * as response from '../../documents/response';
+import * as useRights from '../../documents/useRights';
+import * as documentService from '../../services/documentService';
 
-import { getImageFromFirebase } from '../../../services/imageService';
-import '../Document.css';
+import { getImageFromFirebase } from '../../services/imageService';
+import './Document.css';
 const CreateWord = ({
     data,
     type,

@@ -17,6 +17,10 @@ const useRightSchema = new mongoose.Schema({
         required: true
 
     },
+    dataId: {
+        type: String, 
+        required: true
+    },
     requestedDataType: {
         type: String,
         enum: ['comics', 'heroes'],

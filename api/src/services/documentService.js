@@ -1,5 +1,5 @@
 const Copyright = require('../models/CopyrightDocument')
-const UserRight = require('../models/UseRightDocument')
+const UseRight = require('../models/UseRightDocument')
 
 // Copyrights
 exports.getAllCopyrights = () => Copyright.find();
@@ -10,12 +10,12 @@ exports.createCopyright = (documentData) => Copyright.create(documentData);
 exports.deleteCopyright = (documentId) => Copyright.findByIdAndDelete(documentId);
 
 // Use rights
-exports.getAllUseRights = () => UserRight.find();
-exports.getAllUseRightsByResponse = (response) => UserRight.find({response: response});
-exports.getUseRightsByDocOwnerId = (docOwnerId) => UserRight.find({ _docOwnerId: docOwnerId});
-exports.getUseRightsByDataOwnerId = (dataOwnerId) => UserRight.find({ _dataOwnerId: dataOwnerId});
-exports.getOneUseRight = (documentId) => UserRight.findById(documentId);
+exports.getAllUseRights = () => UseRight.find();
+exports.getAllUseRightsByResponse = (response) => UseRight.find({response: response});
+exports.getUseRightsByDocOwnerId = (docOwnerId) => UseRight.find({ _docOwnerId: docOwnerId});
+exports.getUseRightsByDataOwnerId = (dataOwnerId) => UseRight.find({ _dataOwnerId: dataOwnerId});
+exports.getOneUseRight = (documentId) => UseRight.findById(documentId);
 
-exports.createUseRight = (documentData) => UserRight.create(documentData);
-exports.updateUseRight = (documentId, documentData) => UserRight.findByIdAndUpdate(documentId, documentData);
-exports.deleteUseRight = (documentId) => UserRight.findByIdAndDelete(documentId);
+exports.createUseRight = (documentData) => UseRight.create(documentData);
+exports.updateUseRight = (documentId, documentData) => UseRight.findByIdAndUpdate(documentId, documentData);
+exports.deleteUseRight = (documentId) => UseRight.findByIdAndDelete(documentId);

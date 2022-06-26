@@ -86,20 +86,24 @@ router.post('/copyright', isAuth, async (req, res) => {
             message: "User is not found!"
         });
     }
+    console.log('create copyright')
     const documentData = req.body;
     documentData._createdOn = new Date();
     documentData._userId = req.user._id;
     try {
         const document = await documentService.createCopyright(documentData);
+        console.log("Document: ",document)
         if (document) {
             return res.json(document);
         } else {
+            console.log(error)
             return res.json({
                 type: "error",
                 message: "Cannot create copyright"
             });
         }
     } catch (error) {
+        console.log(error)
         return res.json({
             type: 'error',
             message: error.message

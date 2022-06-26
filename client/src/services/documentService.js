@@ -1,6 +1,8 @@
 import { Packer } from 'docx'
 import { saveAs } from 'file-saver'
+import { copyrightUrl, useRightUrl } from '../common/urlConstants'
 import * as imageService from './imageService'
+import * as request from './requester';
 export const saveDocumentToFile = (doc, fileName, type, userId) => {
     // Create a mime type that will associate the new file with Microsoft Word
     const mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
@@ -14,3 +16,15 @@ export const saveDocumentToFile = (doc, fileName, type, userId) => {
         saveAs(docblob, fileName);
     })
 }
+
+export const getAllCopyright = () => request.get(`${copyrightUrl}/list`);
+export const getOneCopyright = (documentId) => request.get(`${copyrightUrl}//${documentId}`);
+export const createCopyright = (documentData) => request.post(`${copyrightUrl}`, documentData, true);
+export const deleteCopyright = (documentId) => request.post(`${copyrightUrl}/${documentId}`, null, true);
+
+export const getAllUseRight = () => request.get(`${useRightUrl}/list`);
+export const getAllUseRightByResponse = (response) => request.get(`${useRightUrl}/list?response=${response}`);
+export const getOneUseRight = (documentId) => request.get(`${useRightUrl}/${documentId}`);
+export const createUseRight = (documentData) => request.post(`${useRightUrl}`, documentData, true);
+export const updateUseRight = (documentId, documentData) => request.post(`${useRightUrl}/${documentId}`, documentData, true);
+export const deleteUseRight = (documentId) => request.post(`${useRightUrl}/${documentId}`, null, true);

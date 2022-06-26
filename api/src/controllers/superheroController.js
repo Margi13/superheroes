@@ -113,7 +113,7 @@ router.post('/', isAuth, async (req, res) => {
     try {
         let superhero = await superheroService.create({ ...superheroData, _ownerId: ownerId });
         if (superhero) {
-            return res.json({ ok: true });
+            return res.json(superhero);
         } else {
             return res.json({
                 type: "error",

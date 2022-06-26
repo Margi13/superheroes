@@ -5,7 +5,7 @@ import * as adminService from '../../../services/adminService';
 import ImageBox from '../ImageBox';
 import StatusBox from '../StatusBox';
 import ButtonsBox from '../ButtonsBox';
-import CreateWord from '../../Pending/PendingHeroes/CreateWord';
+import CreateWord from '../../Document/CreateWord';
 import './PendingCard.css'
 
 const PendingCard = ({

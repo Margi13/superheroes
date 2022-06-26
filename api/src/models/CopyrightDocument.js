@@ -11,6 +11,10 @@ const copyrightSchema = new mongoose.Schema({
         enum: ['comics', 'heroes'],
         required: true
     },
+    dataId: {
+        type: String,
+        required: true
+    },
     _createdOn: Date,
     _updatedOn: Date
 });

@@ -7,5 +7,5 @@ export const getAllPendingComics = () => request.get(`${adminUrl}/pending/comics
 
 export const getOnePending = (heroId, type) => request.get(`${adminUrl}/pending/${type}/${heroId}`);
 
-export const approve = (heroId, body, type) => request.put(`${adminUrl}/approve/${type}/${heroId}`, body, true);
-export const decline = (heroId, body, type) => request.put(`${adminUrl}/decline/${type}/${heroId}`, body, true);
+export const approve = (heroId, type) => request.put(`${adminUrl}/approve/${type}/${heroId}`, undefined, true);
+export const decline = (heroId, data, type) => request.put(`${adminUrl}/decline/${type}/${heroId}`, data, true);

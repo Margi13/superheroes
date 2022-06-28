@@ -12,8 +12,8 @@ import { formLabelsBG } from '../../../common/labelsConstatnsBG';
 import { titles } from '../../../common/messagesConstantsBG';
 import { DetailsHelper } from '../DetailsHelper';
 import '../Details.css';
-import ButtonsBox from '../../Card/ButtonsBox';
 import ImageBox from '../../Card/ImageBox';
+import AdminButtons from '../../Buttons/AdminButtons';
 const HeroDetails = () => {
 	const { user } = useAuthContext();
 	const { id } = useParams();
@@ -52,7 +52,7 @@ const HeroDetails = () => {
 			<div className="info-section">
 
 				<div className="hero-header">
-					<ImageBox className="hero-img" imageUrl={imageUrl}/>
+					<ImageBox className="hero-img" imageUrl={imageUrl} />
 					{/* if names are equal => we write it only one time */}
 					<div className="info-contaner">
 						{superhero.heroName === superhero.personName
@@ -68,18 +68,23 @@ const HeroDetails = () => {
 					</div>
 				</div>
 
-				<ButtonsBox
-					id={superhero._id}
-					role={role}
-					urlFor="heroes"
-					hasLikes={true}
-					hasFunctionalButtons={true}
-					onDelete={helper.deleteClickHandler}
-					onLike={helper.likeButtonClick}
-					onReport={helper.reportButtonClick}
-				>
-					<span id="total-likes" className="likes">{!user._id ? titles.Likes : ''} {superhero.likes?.length || 0}</span>
-				</ButtonsBox>
+				<section className='buttons-container'>
+					<UserButtons
+						id={superhero._id}
+						urlFor="heroes"
+						hasDetailsButton={true}
+						hasLikesButton={true}
+						likesCount={superhero.likes?.length || 0}
+						onLike={helper.likeButtonClick}
+						onReport={helper.reportButtonClick}
+					>
+						{role.isOwner
+							? <OwnerButtons id={superhero._id} urlFor="heroes" onDelete={helper.deleteClickHandler} />
+							: role.isAdmin
+								? <AdminButtons id={superhero._id} hasApproveButton={false} />
+								: ''}
+					</UserButtons>
+				</section>
 
 				<ConfirmDialog
 					textMessage="DeleteConfirm"

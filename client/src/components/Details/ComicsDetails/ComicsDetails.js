@@ -10,7 +10,6 @@ import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 import { titles } from '../../../common/messagesConstantsBG';
 import { DetailsHelper } from '../DetailsHelper';
 import '../Details.css';
-import ButtonsBox from '../../Card/ButtonsBox';
 import ImageBox from '../../Card/ImageBox';
 
 const ComicsDetails = () => {
@@ -54,25 +53,25 @@ const ComicsDetails = () => {
 					</div>
 				</div>
 
-				<ButtonsBox
+				<UserButtons
 					id={comics._id}
 					urlFor="comics"
-					role={role}
-					hasLikes={false}
-					hasDetails={true}
-					hasFunctionalButtons={true}
-					onDelete={helper.deleteClickHandler}
-					onLike={helper.likeButtonClick}
+					hasDetailsButton={true}
+					hasReportButton={true}
 					onReport={helper.reportButtonClick}
 				>
-					<span id="total-likes" className="likes">{!user._id ? titles.Likes : ''} {comics.likes?.length || 0}</span>
-				</ButtonsBox>
+					{role.isOwner
+						? <OwnerButtons id={comics._id} urlFor="comics" onDelete={helper.deleteClickHandler} />
+						: role.isAdmin
+							? <AdminButtons id={comics._id} hasApproveButton={false} />
+							: ''}
+				</UserButtons>
 
 				<ConfirmDialog
 					textMessage="DeleteConfirm"
 					show={showDeleteDialog}
 					onCancel={() => setShowDeleteDialog(false)}
-					onSave={helper.deleteHandler} />
+					onOk={helper.deleteHandler} />
 
 			</div>
 		</section>

@@ -5,7 +5,7 @@ const ConfirmDialog = ({
     textMessage,
     show,
     onCancel,
-    onSave
+    onOk
 }) => {
     return (
         <>
@@ -14,7 +14,7 @@ const ConfirmDialog = ({
                     <section className="confirm-container warning">
                         <div>{alertMessages[textMessage]}</div>
                         <div>
-                            <button className="success" onClick={onSave}>{buttonLabelsBG.Confirm}</button>
+                            <button className="success" onClick={onOk}>{buttonLabelsBG.Confirm}</button>
                             <button className="danger" onClick={onCancel}>{buttonLabelsBG.Cancel}</button>
                         </div>
                     </section>

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import * as imageService from '../../../services/imageService';
 
 import './MyCard.css';
-import ButtonsBox from '../../Card/ButtonsBox';
 import ImageBox from '../../Card/ImageBox';
 import StatusBox from '../StatusBox';
 
@@ -34,13 +33,12 @@ const MyCard = ({
                         {children}
                     </div>
 
-                    <ButtonsBox
-                        id={id}
-                        hasDetails={true}
-                        urlFor={type}
-                        role={{ isOwner: true }}
-                        hasFunctionalButtons={false}
-                    />
+                    <section className='buttons-container'>
+                        <UserButtons id={id} hasDetailsButton={true} urlFor={type}>
+                            {/* Add onDelete */}
+                            <OwnerButtons id={id} urlFor={type} onDelete={() => { }} />
+                        </UserButtons>
+                    </section>
                 </div>
             </div>
 

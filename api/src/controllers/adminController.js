@@ -121,12 +121,20 @@ router.put('/approve/comics/:comicsId', isAdmin, async (req, res) => {
 
 router.put('/decline/heroes/:superheroId', isAdmin, async (req, res) => {
     const superheroId = req.params.superheroId;
-    const { adminId, reportMessage } = req.body;
+    const { reportMessage } = req.body;
     try {
+        const role = await roleService.getRoleIdByName(ADMIN_ROLE_NAME);
+        const admin = await adminService.getAdmin(role._id);
+        if (!req.user || req.user._id !== admin._id) {
+            return res.json({
+                type: 'error',
+                message: 'You are not with role administrator'
+            });
+        }
         const superhero = await superheroService.getOne(superheroId);
         if (superhero) {
             superhero.status = -1;
-            const report = await reportService.create({ _ownerId: adminId, reportMessage, active: true, _createdOn: new Date() })
+            const report = await reportService.create({ _ownerId: req.user._id, reportMessage, active: true, _createdOn: new Date() })
             superhero.reports.push(report);
             const declined = await adminService.declineHero(superheroId, superhero);
             if (declined) return res.json({ ok: true });
@@ -152,12 +160,20 @@ router.put('/decline/heroes/:superheroId', isAdmin, async (req, res) => {
 
 router.put('/decline/comics/:comicsId', isAdmin, async (req, res) => {
     const comicsId = req.params.comicsId;
-    const { adminId, reportMessage } = req.body;
+    const { reportMessage } = req.body;
     try {
+        const role = await roleService.getRoleIdByName(ADMIN_ROLE_NAME);
+        const admin = await adminService.getAdmin(role._id);
+        if (!req.user || req.user._id !== admin._id) {
+            return res.json({
+                type: 'error',
+                message: 'You are not with role administrator'
+            });
+        }
         const comics = await comicsService.getOne(comicsId);
         if (comics) {
             comics.status = -1;
-            const report = await reportService.create({ _ownerId: adminId, reportMessage, active: true, _createdOn: new Date() })
+            const report = await reportService.create({ _ownerId: req.user._id, reportMessage, active: true, _createdOn: new Date() })
             comics.reports.push(report);
             const declined = await adminService.declineComics(comicsId, comics);
             if (declined) return res.json({ ok: true });

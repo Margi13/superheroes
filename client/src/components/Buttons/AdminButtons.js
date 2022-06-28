@@ -1,12 +1,15 @@
 
+import { useNavigate } from 'react-router-dom';
 import { buttonLabelsBG } from '../../common/labelsConstatnsBG';
 import * as adminService from '../../services/adminService';
 
 const AdminButtons = ({
     id,
+    type,
     hasApproveButton,
     enableApprove
 }) => {
+    const navigate = useNavigate();
     const approveClickHandler = () => {
         adminService.approve(id, type)
             .then(result => {

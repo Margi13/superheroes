@@ -25,8 +25,7 @@ export const formLabelsBG = {
     'Images': 'Комиксови страници',
     'Email': 'Имейл',
     'Password': 'Парола',
-    'RepeatPassword': 'Повторете паролата',
-    'Genre': "Жанр"
+    'RepeatPassword': 'Повторете паролата'
 }
 
 export const buttonLabelsBG = {

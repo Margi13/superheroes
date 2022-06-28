@@ -1,7 +1,7 @@
 
 import { buttonLabelsBG } from '../../common/labelsConstatnsBG';
-import { titles } from '../../common/messagesConstantsBG';
 import { Link } from 'react-router-dom';
+import './Buttons.css';
 
 const UserButton = ({
     children,
@@ -9,6 +9,7 @@ const UserButton = ({
     urlFor,
     hasDetailsButton,
     hasLikesButton,
+    canLike,
     hasReportButton,
     likesCount,
     onLike,
@@ -22,20 +23,20 @@ const UserButton = ({
     // To see this because the logic is more complex when there are no likes
     const likeButton = (
         <div className="buttons like-container">
-            <button className="button" onClick={hasLikesButton ? onLike : () => { }}>
-                {buttonLabelsBG.Like}
-                <span id="total-likes" className="likes">{titles.Likes}: {likesCount || 0}</span>
-            </button>
+            <span id="total-likes" className="likes">
+                <i className={`fa fa-heart ${canLike ? 'like-button' : ''}`} onClick={canLike ? onLike : () => { }} />
+                {likesCount || 0}
+            </span>
         </div>
     )
     const detailsButton = (
         <div className="buttons">
-            <Link to={`/details/${urlFor}/${id}`} href="/details" className="button">{buttonLabelsBG.Details}</Link>
+            <Link to={`/details/${urlFor}/${id}`} href="/details" className="button link-button">{buttonLabelsBG.Details}</Link>
         </div>
     )
     const reportButton = (
         <div className="buttons like-container">
-            <button className="button danger" onClick={onReport}>{buttonLabelsBG.Report}</button>
+            <button className="button" onClick={onReport}>{buttonLabelsBG.Report}</button>
         </div>
     )
 
@@ -45,13 +46,15 @@ const UserButton = ({
                 ? readButton
                 : hasLikesButton
                     ? likeButton
-                    : <span id="total-likes" className="likes">{titles.Likes}: {likesCount || 0}</span>
+                    : ''
             }
-
-            {children}
-
+            <div className="functional-buttons">
             {hasDetailsButton ? detailsButton : ''}
-            {hasReportButton ? reportButton : ''}
+
+                {children}
+
+                {hasReportButton ? reportButton : ''}
+            </div>
         </>
     )
 }

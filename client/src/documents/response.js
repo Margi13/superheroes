@@ -1,4 +1,4 @@
-import { Document, Paragraph, TextRun, ExternalHyperlink } from 'docx';
+import { Document, Paragraph } from 'docx';
 import * as helpers from './helpers'
 
 const title = "Отговор";

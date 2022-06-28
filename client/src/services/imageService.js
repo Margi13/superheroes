@@ -1,5 +1,5 @@
 import { storage } from '../firebase';
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject, getBlob, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject, getBlob } from 'firebase/storage';
 
 export const handleImageUpload = (data, setUrl, setProgress) => {
     if (!data.image) {

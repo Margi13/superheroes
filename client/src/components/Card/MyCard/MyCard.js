@@ -4,6 +4,8 @@ import * as imageService from '../../../services/imageService';
 import './MyCard.css';
 import ImageBox from '../../Card/ImageBox';
 import StatusBox from '../StatusBox';
+import OwnerButtons from '../../Buttons/OwnerButtons';
+import UserButtons from '../../Buttons/UserButtons';
 
 const MyCard = ({
     children,

@@ -18,23 +18,20 @@ exports.auth = (req, res, next) => {
 }
 
 exports.isAuth = function (req, res, next) {
-    if (req.user && req.user.email) {
-        next();
-    } else {
-        res.status(401).json('You are not authorized');
+    if (!req.user || !req.user.email) {
+        res.status(401).redirect('/login');
     }
+    next();
 }
 exports.isGuest = function (req, res, next) {
-    if (req.user && !req.user.email) {
-        next();
-    } else {
+    if (req.user && req.user.email) {
         res.status(401).json('You are already authorized');
     }
+    next();
 }
 exports.isAdmin = function (req, res, next) {
-    if (req.user && req.user.email && req.user.email.toString() === 'admin@abv.bg') {
-        next();
-    } else {
+    if (!req.user || !req.user.email || req.user.email.toString() !== 'admin@abv.bg') {
         res.status(401).json('You are not administrator');
     }
+    next();
 }

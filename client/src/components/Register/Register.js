@@ -6,7 +6,7 @@ import { useAuthContext } from '../../contexts/AuthContext';
 import { formLabelsBG, buttonLabelsBG, placeholdersBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages, validationMessages } from '../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
-import { ChangeHandlers } from '../Common/Validation/UserValidationHelper';
+import { ChangeHandlers } from '../Form/Validation/UserValidationHelper';
 
 const initialErrorState = { email: null, password: null, rePassword: null };
 

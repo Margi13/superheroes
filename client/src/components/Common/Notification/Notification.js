@@ -4,7 +4,7 @@ import './Notification.css';
 const Notification = () => {
     const { notification, hideNotification } = useNotificationContext();
 
-    useEffect(()=>{
+    useEffect(() => {
         hideNotification();
     })
     if (!notification.show) {

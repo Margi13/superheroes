@@ -1,10 +1,10 @@
 import { getHeroLikes } from './likeService';
 import * as request from './requester';
-const baseUrl = 'http://localhost:5000/data/superheroes';
+import { superheroesUrl } from '../common/urlConstants';
 
-export const getAll = () => request.get(`${baseUrl}`);
+export const getAll = () => request.get(`${superheroesUrl}`);
 
-export const getOne = (heroId) => request.get(`${baseUrl}/${heroId}`);
+export const getOne = (heroId) => request.get(`${superheroesUrl}/${heroId}`);
 
 export const getTopThree = async () => {
     try {
@@ -31,11 +31,13 @@ export const getTopThree = async () => {
 
 export const getOwn = (ownerId) => {
     const query = encodeURIComponent(`_ownerId="${ownerId}"`);
-    return request.get(`${baseUrl}?where=${query}`);
+    return request.get(`${superheroesUrl}?where=${query}`);
 }
 
-export const create = (heroData) => request.post(`${baseUrl}`, { ...heroData }, true);
+export const create = (heroData) => request.post(`${superheroesUrl}`, { ...heroData }, true);
 
-export const update = (heroId, heroData) => request.put(`${baseUrl}/${heroId}`, heroData, true);
+export const update = (heroId, heroData) => request.put(`${superheroesUrl}/${heroId}`, heroData, true);
 
-export const remove = (heroId) => request.remove(`${baseUrl}/${heroId}`, null, true);
+export const remove = (heroId) => request.remove(`${superheroesUrl}/${heroId}`, null, true);
+
+export const getByHeroicName = (heroName) => request.get(`${superheroesUrl}?heroName=${heroName}`);

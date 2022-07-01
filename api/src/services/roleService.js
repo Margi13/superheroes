@@ -1,13 +1,11 @@
 const Role = require('../models/Role');
-
-exports.ADMIN_ROLE_NAME = 'ADMIN';
-exports.USER_ROLE_NAME = 'USER';
+const { ADMIN_ROLE_NAME, USER_ROLE_NAME } = require('../utils/constants');
 
 exports.createRoles = async () => {
     try {
-        const adminRole = {roleName: this.ADMIN_ROLE_NAME};
-        const userRole = {roleName: this.USER_ROLE_NAME};
-        
+        const adminRole = { roleName: ADMIN_ROLE_NAME };
+        const userRole = { roleName: USER_ROLE_NAME };
+
         const adminRoleResult = await Role.create(adminRole);
         const userRoleResult = await Role.create(userRole);
         if (adminRoleResult && userRoleResult) {
@@ -20,4 +18,4 @@ exports.createRoles = async () => {
     }
 }
 
-exports.getRoleIdByName = (adminRoleName) => Role.findOne({roleName: adminRoleName});
+exports.getRoleIdByName = (adminRoleName) => Role.findOne({ roleName: adminRoleName });

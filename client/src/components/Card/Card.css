@@ -1,0 +1,159 @@
+.card,
+.card::before {
+    background-size: 100%;
+    box-shadow: 0px 0px 30px 0px;
+    margin: 20px 19px;
+    box-sizing: border-box;
+    border-radius: 15px;
+    color: rgb(235, 235, 235);
+    padding: 0;
+    line-height: 0;
+}
+
+.comics-card:hover {
+    color: gray;
+}
+
+.heroes-card,
+.comics-card {
+    background-color: rgb(255, 255, 255, 0.5);
+    min-width: 150px;
+    max-width: min-content;
+}
+
+.card h1,
+h3 {
+    font-family: "Agency FB";
+    font-weight: 600;
+    line-height: normal;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: all 0.5s ease-out;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.card h1 {
+    font-size: 24px;
+}
+
+.card h3 {
+    font-size: 18px;
+}
+
+.card .card-image-wrap {
+    display: block;
+    margin: auto;
+    overflow: hidden;
+}
+
+.comics-card .card-image-wrap,
+.heroes-card .card-image-wrap {
+    height: 200px;
+    max-width: 150px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+}
+
+.comics-card .comics-info,
+.heroes-card .hero-info {
+    display: block;
+    position: absolute;
+    color: gray;
+    background-color: rgb(235, 235, 235, 0.8);
+    width: 150px;
+    padding: 19px 0;
+    height: 70px;
+}
+
+.card-image-wrap>img {
+    max-height: 100%;
+}
+
+.card-details-btn {
+    margin-top: 0px;
+    color: gray;
+    padding: 0.9em 1.4em;
+}
+
+.heroes-card .card-data-buttons {
+    background-image: url('../../assets/images/cloud.png');
+    background-position-x: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    font-size: 12px;
+    padding: 23px;
+    text-align: center;
+}
+
+.btn.card-details-btn:hover {
+    color: black;
+}
+
+.status {
+    writing-mode: vertical-rl;
+    text-align: center;
+    color: white;
+    margin: unset;
+    flex: auto;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: initial;
+    width: inherit;
+    text-align: justify;
+}
+
+.data-info {
+    padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.data-info>.data-img {
+    border-radius: 20%;
+    height: 200px;
+    width: 140px;
+    min-width: 140px;
+    margin-left: initial;
+}
+
+.data-info h2 {
+    font-size: 17px;
+    font-weight: 650;
+    color: #161618;
+    margin-bottom: 10px;
+}
+
+.description {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.red {
+    background-color: red;
+}
+
+.green {
+    background-color: green;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.buttons-container i {
+    font-size: 30px;
+    margin-left: 110px;
+}
+.functional-buttons {
+    display: flex;
+    justify-content: flex-end;
+}

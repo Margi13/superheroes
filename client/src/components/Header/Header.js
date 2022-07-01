@@ -32,12 +32,14 @@ const Header = () => {
         <div id="user" className="nav-container">
             <Link to="/create" href="/create" className="cloud-link user-nav">{navigationTitlesBG.Create}</Link>
             <Link to="/my-heroes" href="/my-heroes" className="cloud-link user-nav">{navigationTitlesBG.MyHeroes}</Link>
+            <Link to="/my-comics" href="/my-comics" className="cloud-link user-nav">{navigationTitlesBG.MyComics}</Link>
             <Link to="/logout" href="/logout" className="cloud-link user-nav">{navigationTitlesBG.Logout}</Link>
         </div>
     );
     let adminNavigation = (
         <div id="admin" className='nav-container'>
             <Link to="/admin/pending" href="/pending" className="cloud-link admin-nav">{navigationTitlesBG.Pending}</Link>
+            <Link to="/admin/reports" href="/reports" className="cloud-link admin-nav">{navigationTitlesBG.Reports}</Link>
             <Link to="/logout" href="/logout" className="cloud-link admin-nav">{navigationTitlesBG.Logout}</Link>
 
         </div>
@@ -52,7 +54,8 @@ const Header = () => {
 
             <nav>
                 <div id="all" className="nav-container">
-                    <Link to="/catalog" href="/catalog" className="cloud-link all-nav">{navigationTitlesBG.AllHeroes}</Link>
+                    <Link to="/catalog/heroes" href="/catalog/heroes" className="cloud-link all-nav">{navigationTitlesBG.AllHeroes}</Link>
+                    <Link to="/catalog/comics" href="/catalog/comics" className="cloud-link all-nav">{navigationTitlesBG.AllComics}</Link>
                 </div>
                 {isAdmin
                     ? adminNavigation

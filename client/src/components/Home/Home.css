@@ -1,9 +1,6 @@
 .comics-world {
     width: auto;
     padding-top: 1em;
-    justify-content: right;
-    padding-left: 15px;
-    position: relative;
     box-sizing: border-box;
     text-align: center;
 }
@@ -16,7 +13,7 @@
 }
 
 .comics-world>img {
-    height: 666px;
+    height: 400px;
     display: inline-block;
     vertical-align: top;
     margin-left: auto;
@@ -24,16 +21,10 @@
 
 .comics-message h2 {
     color: #f5f5f5;
-    font-size: 55px;
-    line-height: 1;
+    font-size: 36px;
+    line-height: 1.5;
     text-transform: uppercase;
     font-family: "Agency FB";
-}
-
-.comics-world>.home-page {
-    width: 50% fit-content;
-    margin: auto;
-    text-align: center;
 }
 
 .home-page {
@@ -41,14 +32,11 @@
     box-shadow: 0px 0px 40px 0px;
     overflow: hidden;
     border-radius: 10px;
-    padding: 55px;
-    height: auto;
-    width: auto;
 }
 
 .home-page>h1 {
     color: rgba(255, 82, 82, 0.9);
-    font-size: 84px;
+    font-size: 50px;
     font-family: "Agency FB";
 }
 

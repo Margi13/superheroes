@@ -1,0 +1,5 @@
+.generate-document { 
+    cursor: pointer;
+    border: 2px solid red;
+    padding: 5px;
+}

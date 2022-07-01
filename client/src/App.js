@@ -14,7 +14,10 @@ import Logout from './components/Logout';
 import Register from './components/Register';
 import Error from './components/Error';
 import MyHeroes from './components/MyHeroes';
+import MyComics from './components/MyComics';
 import Pending from './components/Pending';
+import Reports from './components/Reports';
+import ReadComics from './components/ReadComics';
 import ErrorBoundary from './components/Common/ErrorBoundary';
 import Notification from './components/Common/Notification/index';
 import PrivateRoute from './components/Common/PrivateRoute/index';
@@ -36,16 +39,18 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/catalog" element={<Catalog />} />
-                <Route path="/details/:heroId" element={<Details />} />
+                <Route path="/catalog/*" element={<Catalog />} />
+                <Route path="/details/*" element={<Details />} />
                 <Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
                 <Route path="/my-heroes" element={<PrivateRoute><MyHeroes /></PrivateRoute>} />
-                <Route path="/create" element={<PrivateRoute><Create /></PrivateRoute>} />
-                <Route path="/edit/:heroId" element={<PrivateRoute><Edit /></PrivateRoute>} />
-                <Route path="/admin/pending" element={<PrivateRoute><Pending /></PrivateRoute>} />
+                <Route path="/my-comics" element={<PrivateRoute><MyComics /></PrivateRoute>} />
+                <Route path="/create/*" element={<PrivateRoute><Create /></PrivateRoute>} />
+                <Route path="/edit/*" element={<PrivateRoute><Edit /></PrivateRoute>} />
+                <Route path="/read/comics/:id" element={<PrivateRoute><ReadComics /></PrivateRoute>} />
+                <Route path="/admin/pending/*" element={<PrivateRoute><Pending /></PrivateRoute>} />
+                <Route path="/admin/reports/*" element={<PrivateRoute><Reports /></PrivateRoute>} />
                 <Route path="/*" element={<Error />} />
               </Routes>
-
 
             </main>
             <Footer />

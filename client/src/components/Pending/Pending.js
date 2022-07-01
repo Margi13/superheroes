@@ -1,14 +1,12 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../contexts/AuthContext';
 import * as adminService from '../../services/adminService';
 
-
-import { alertMessages, titles } from '../../common/messagesConstantsBG';
-import HeroCard from './HeroCard';
+import PendingHeroes from './PendingHeroes';
+import PendingComics from './PendingComics';
 const Pending = () => {
     const navigate = useNavigate();
-    const [superheroes, setSuperheroes] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);
     const { user } = useAuthContext();
     useEffect(() => {
@@ -16,18 +14,6 @@ const Pending = () => {
             .then(result => {
                 if (result.adminId === user._id) {
                     setIsAdmin(true);
-                    adminService.getAllPending()
-                        .then(data => {
-                            if (!data.type) {
-                                setSuperheroes(data);
-
-                            } else {
-                                throw new Error(data.message);
-                            }
-                        })
-                        .catch(error => {
-                            console.log('Error:', error);
-                        });
                 }
                 else {
                     setIsAdmin(false);
@@ -36,21 +22,18 @@ const Pending = () => {
             });
 
     }, [user._id, navigate]);
-    const noHeroesElement = (
-        <div>
-            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
-        </div>
-    );
+
     return (
         <section className="my-heroes-page">
-            <h1>{titles.Pending}</h1>
+            <div className="choice-buttons buttons">
 
-            {superheroes.length > 0
-                ? superheroes.map(x => <HeroCard key={x._id} hero={x} isAdmin={isAdmin}/>)
-                : noHeroesElement
-            }
-
-
+                <Link to="/admin/pending/heroes" className="button" href="/admin/pending/heroes">Герои</Link>
+                <Link to="/admin/pending/comics" className="button" href="/admin/pending/comics">Комикси</Link>
+            </div>
+            <Routes>
+                <Route path="/heroes" element={<PendingHeroes pageSize={0} pageIndex={0} isAdmin={isAdmin} loggedUser={user} />} />
+                <Route path="/comics" element={<PendingComics pageSize={0} pageIndex={0} isAdmin={isAdmin} loggedUser={user} />} />
+            </Routes>
         </section>
     )
 }

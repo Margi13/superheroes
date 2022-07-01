@@ -1,6 +1,4 @@
 .logo-container {
-    position: relative;
-    float: left;
     height: 175px;
 }
 
@@ -8,11 +6,16 @@
     height: inherit;
 }
 
+header {
+    display: flex;
+    margin: 0px
+}
+
 header nav {
-    font-size: auto;
     font-family: Georgia, 'Times New Roman', Times, serif;
     display: flex;
     justify-content: space-between;
+    flex-basis: 70%;
     height: 160px;
 }
 
@@ -20,10 +23,11 @@ header nav div {
     display: flex;
     justify-content: flex-end;
     margin: 0px;
+    flex-basis: 27%;
 }
 
 nav a {
-    margin: 0 0.5em;
+    margin: 5px 0;
 }
 
 nav a:hover {
@@ -33,7 +37,6 @@ nav a:hover {
 }
 
 .home {
-    font-size: auto;
     font-family: Georgia, 'Times New Roman', Times, serif;
     height: 200px;
 }
@@ -43,14 +46,21 @@ nav a:hover {
 }
 
 .all-nav {
-    padding-top: 45%;
+    padding-top: 25%;
+    background-size: contain;
 }
 
 .user-nav {
     padding-top: 25%;
+    background-size: contain;
 }
 
-.guest-nav,
+.guest-nav {
+    padding-top: 25%;
+    background-size: contain;
+}
+
 .admin-nav {
-    padding-top: 40%;
+    padding-top: 25%;
+    background-size: contain;
 }

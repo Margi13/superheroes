@@ -1,22 +1,21 @@
 import { useState, useEffect } from 'react';
 import * as superheroService from '../services/superheroService';
 
-const useHeroState = (heroId) => {
+const useHeroState = (id) => {
     const [superhero, setSuperhero] = useState({});
 
     useEffect(() => {
-        superheroService.getOne(heroId)
+        if (id) {
+            superheroService.getOne(id)
             .then(res => {
                 setSuperhero(res);
-
             });
+        } else {
+            setSuperhero({});
+        }
+    }, [id, setSuperhero]);
 
-    }, [heroId,setSuperhero]);
-
-    return [
-        superhero,
-        setSuperhero
-    ]
+    return [superhero, setSuperhero]
 }
 
 export default useHeroState;

@@ -17,7 +17,7 @@ class ErrorBoundary extends Component {
         if (this.state.error) {
 
             return (
-                <h1>404 Not Found</h1>
+                <h1>Страницата, която търсите, не съществува!</h1>
             );
         } else {
             return this.props.children;

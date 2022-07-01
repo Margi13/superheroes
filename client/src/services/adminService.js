@@ -1,10 +1,11 @@
 import * as request from "./requester";
-const baseUrl = 'http://localhost:5000/admin';
+import { adminUrl } from "../common/urlConstants";
 
-export const getAdminId = () => request.get(`${baseUrl}`);
-export const getAllPending = () => request.get(`${baseUrl}/pending`);
+export const getAdminId = () => request.get(`${adminUrl}`);
+export const getAllPendingHeroes = () => request.get(`${adminUrl}/pending/heroes`);
+export const getAllPendingComics = () => request.get(`${adminUrl}/pending/comics`);
 
-export const getOnePending = (heroId) => request.get(`${baseUrl}/pending/${heroId}`);
+export const getOnePending = (heroId, type) => request.get(`${adminUrl}/pending/${type}/${heroId}`);
 
-export const approve = (heroId, heroData) => request.put(`${baseUrl}/approve/${heroId}`, heroData, true);
-export const decline = (heroId, heroData) => request.put(`${baseUrl}/decline/${heroId}`, heroData, true);
+export const approve = (heroId, body, type) => request.put(`${adminUrl}/approve/${type}/${heroId}`, body, true);
+export const decline = (heroId, body, type) => request.put(`${adminUrl}/decline/${type}/${heroId}`, body, true);

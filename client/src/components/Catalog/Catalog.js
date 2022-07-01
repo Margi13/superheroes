@@ -1,37 +1,18 @@
-import { useEffect, useState } from 'react';
-import * as superheroService from '../../services/superheroService';
+// import { useEffect, useState } from 'react';
 
-import {titles,alertMessages} from '../../common/messagesConstantsBG'
-import HeroCard from './HeroCard';
+import HeroesCatalog from './HeroesCatalog';
+import ComicsCatalog from './ComicsCatalog';
 import './Catalog.css';
+import { Routes, Route } from 'react-router-dom';
 const Catalog = () => {
-    const [superheroes, setSuperheroes] = useState([]);
 
-    useEffect(() => {
-        superheroService.getAll()
-            .then(data => {
-                setSuperheroes(data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }, []);
-    const noHeroesElement = (
-        <div>
-            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
-        </div>
-    );
-    
+    //Here in Catalog will be the pagination
     return (
         <section className="catalog-page">
-            <h1>{titles.AllSuperheroes}</h1>
-
-            {superheroes.length > 0
-                ? superheroes.map(x => <HeroCard key={x._id} hero={x} />)
-                : noHeroesElement
-            }
-
-
+            <Routes>
+                <Route path="/heroes" element={<HeroesCatalog pageSize={0} pageIndex={0} />} />
+                <Route path="/comics" element={<ComicsCatalog pageSize={0} pageIndex={0} />} />
+            </Routes>
         </section>
     );
 }

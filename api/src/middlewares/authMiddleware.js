@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'SECRETTOKEN';
+const { JWT_SECRET } = require('../utils/constants');
+
 exports.auth = (req, res, next) => {
     let token = req.headers['x-authorization'];
     if (token) {
@@ -16,17 +17,24 @@ exports.auth = (req, res, next) => {
     }
 }
 
-exports.isAuth = function (req, res, next){
-    if(req.user.email){
+exports.isAuth = function (req, res, next) {
+    if (req.user && req.user.email) {
         next();
-    }else{
+    } else {
         res.status(401).json('You are not authorized');
     }
 }
-exports.isGuest = function (req, res, next){
-    if(!req.user.email){
+exports.isGuest = function (req, res, next) {
+    if (req.user && !req.user.email) {
         next();
-    }else{
+    } else {
         res.status(401).json('You are already authorized');
+    }
+}
+exports.isAdmin = function (req, res, next) {
+    if (req.user && req.user.email && req.user.email.toString() === 'admin@abv.bg') {
+        next();
+    } else {
+        res.status(401).json('You are not administrator');
     }
 }

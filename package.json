@@ -4,7 +4,9 @@
   "description": "This site is a place where you can create heroes, who are in Bulgaria for one or another reason.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server":"node ./api/src/server.js",
+    "client":"cd ./client && npm start",
+    "test": "echo \"Error: no test specified\""
   },
   "repository": {
     "type": "git",

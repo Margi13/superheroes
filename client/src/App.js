@@ -37,7 +37,7 @@ function App() {
 
               <Routes>
                 <Route path="/" element={<Home />} />
-                {/* <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/catalog/*" element={<Catalog />} />
                 <Route path="/details/*" element={<Details />} />
@@ -49,7 +49,7 @@ function App() {
                 <Route path="/read/comics/:id" element={<PrivateRoute><ReadComics /></PrivateRoute>} />
                 <Route path="/admin/pending/*" element={<PrivateRoute><Pending /></PrivateRoute>} />
                 <Route path="/admin/reports/*" element={<PrivateRoute><Reports /></PrivateRoute>} />
-                <Route path="/*" element={<Error />} /> */}
+                <Route path="/*" element={<Error />} />
               </Routes>
 
             </main>

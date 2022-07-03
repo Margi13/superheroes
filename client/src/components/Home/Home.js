@@ -6,25 +6,25 @@ import * as superheroService from '../../services/superheroService';
 import { titles, alertMessages } from '../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 const Home = () => {
-    // const [superheroes, setSuperheroes] = useState();
-    // const { addNotification } = useNotificationContext();
+    const [superheroes, setSuperheroes] = useState();
+    const { addNotification } = useNotificationContext();
 
-    // useEffect(() => {
-    //     superheroService.getTopThree()
-    //         .then(topHeroes => {
+    useEffect(() => {
+        superheroService.getTopThree()
+            .then(topHeroes => {
                 
-    //             setSuperheroes(topHeroes);
-    //         })
-    //         .catch(error => {
-    //             addNotification(alertMessages.SomethingWentWrong, typesColor.error);
-    //             console.log(error);
-    //         });
-    // }, [addNotification]);
-    // const noHeroesElement = (
-    //     <div>
-    //         <p className="no-articles">{alertMessages.NoSuperheroes}</p>
-    //     </div>
-    // );
+                setSuperheroes(topHeroes);
+            })
+            .catch(error => {
+                addNotification(alertMessages.SomethingWentWrong, typesColor.error);
+                console.log(error);
+            });
+    }, [addNotification]);
+    const noHeroesElement = (
+        <div>
+            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
+        </div>
+    );
 
     return (
         <section className="comics-world">
@@ -32,7 +32,7 @@ const Home = () => {
             <div className="comics-message">
                 <h2>{titles.Welcome}</h2>
             </div>
-            {/* <img src="./images/avatar-grooth.png" alt="hero" />
+            <img src="./images/avatar-grooth.png" alt="hero" />
 
             <div className="home-page">
                 <h1>{titles.TopHeroes}</h1>
@@ -42,7 +42,7 @@ const Home = () => {
                         : noHeroesElement
                     }
                 </div>
-            </div> */}
+            </div>
 
         </section>
     );

@@ -48,7 +48,7 @@ router.put('/:superheroId', isAuth, async (req, res) => {
     trimData(data);
     try {
         if (!status) {
-            const isUnique = await checkForUniqueness(data.heroName);
+            const isUnique = await checkForUniqueness(data.heroName, superheroId);
             if (!isUnique) {
                 return res.json({
                     type: "error",
@@ -134,8 +134,11 @@ const trimData = (superhero) => {
     superhero.kind = (superhero.kind || '').trim();
     superhero.story = (superhero.story || '').trim();
 }
-const checkForUniqueness = async (heroName) => {
+const checkForUniqueness = async (heroName, heroId) => {
     const heroes = await superheroService.getByHeroName(heroName);
-    return heroes.length > 0 ? false : true;
+    if (heroId) {
+        return heroes.length === 1 && heroes[0]._id.toString() === heroId;
+    }
+    return heroes.length === 0;
 }
 module.exports = router;

@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:5000';
+const baseUrl = 'https://bg-comics-universe.azurewebsites.net';
 
 export const adminUrl = `${baseUrl}/admin`;
 export const usersUrl = `${baseUrl}/users`;

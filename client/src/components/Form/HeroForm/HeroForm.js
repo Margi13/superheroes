@@ -68,13 +68,18 @@ const HeroForm = ({
     }
     const edit = (id, heroData, image) => {
         superheroService.update(id, { data: heroData })
-            .then(() => {
+            .then((result) => {
+                if (result.type) {
+                    console.log(result.message)
+                    throw new Error(result.message);
+                }
+                console.log('On edit:')
                 const data = {
                     image: image, type: 'heroes'
                 }
-                imageService.handleImageUpload(data, setImage, () => { });
+                imageService.handleImageUpload(data, setImage, () => { })
                 addNotification(alertMessages.EditSuccess, typesColor.success);
-                navigate(`/details/heroes/${id}`)
+                navigate(`/details/heroes/${id}`);
             })
             .catch(error => {
                 addNotification(alertMessages.EditDenied, typesColor.error);

@@ -1,5 +1,5 @@
 import { storage } from '../firebase';
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject, getBlob, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL, deleteObject, getBlob } from 'firebase/storage';
 
 export const handleImageUpload = (data, setUrl, setProgress) => {
     if (!data.image) {
@@ -17,7 +17,6 @@ export const handleImageUpload = (data, setUrl, setProgress) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
             setProgress(progress);
-            console.log('Upload is ' + progress + '% done');
             switch (snapshot.state) {
                 case 'paused':
                     console.log('Upload is paused');
@@ -36,7 +35,6 @@ export const handleImageUpload = (data, setUrl, setProgress) => {
             //complete function
             // Upload completed successfully, now we can get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                console.log(url)
                 setUrl(url);
             });
         });
@@ -47,7 +45,7 @@ export const handleImageUpload = (data, setUrl, setProgress) => {
 }
 export const handleDocumentUpload = (data, setUrl, setProgress) => {
     if (!data.file) {
-        throw new Error('There was no image uploaded!');
+        throw new Error('There was no document uploaded!');
     }
     const folder = data.folderName ? data.folderName : undefined;
     const url = folder ? `documents/${data._ownerId}/${folder}/${data.file.name}` : `documents/${data._ownerId}/${data.file.name}`
@@ -102,7 +100,6 @@ export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
             (snapshot) => {
                 const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
                 setProgress(progress);
-                console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                     case 'paused':
                         console.log('Upload is paused');
@@ -118,7 +115,7 @@ export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    console.log(url)
+                    console.log(`Ready: ${i}/${data.images.length}`)
                     setUrls((prevState) => [...prevState, url])
                 });
             }

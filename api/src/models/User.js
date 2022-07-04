@@ -5,7 +5,7 @@ const { SALT_ROUNDS } = require('../utils/constants');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        validate: [/[a-zA-Z]+@[a-zA-Z]+\.[a-zA-Z]+/g, 'The email should be in the following format: <name>@<domain>.<extension> with only latin letters'],
+        validate: [/[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+/g, 'The email should be in the following format: <name>@<domain>.<extension> with only latin letters and 0-9 digits'],
         required: true
     },
     password: {

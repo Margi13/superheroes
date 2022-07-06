@@ -8,7 +8,7 @@ exports.createRoles = async () => {
 
         const adminRoleResult = await Role.create(adminRole);
         const userRoleResult = await Role.create(userRole);
-        if (adminRoleResult && userRoleResult) {
+        if (adminRoleResult._id && userRoleResult._id) {
             return { ok: true };
         } else {
             throw new Error('Cannot create admin and user roles')
@@ -18,4 +18,4 @@ exports.createRoles = async () => {
     }
 }
 
-exports.getRoleIdByName = (adminRoleName) => Role.findOne({ roleName: adminRoleName });
+exports.getRoleByName = (adminRoleName) => Role.findOne({ roleName: adminRoleName });

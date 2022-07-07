@@ -36,6 +36,7 @@ const CreateWord = ({
                 setButtonLabel(buttonLabelsBG.UseRights);
                 break;
             }
+            default: break;
         }
     }, [type, setButtonLabel]);
 

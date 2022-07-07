@@ -13,8 +13,7 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Register from './components/Register';
 import Error from './components/Error';
-import MyHeroes from './components/MyHeroes';
-import MyComics from './components/MyComics';
+import Profile from './components/Profile';
 import Pending from './components/Pending';
 import Reports from './components/Reports';
 import ReadComics from './components/ReadComics';
@@ -42,8 +41,7 @@ function App() {
                 <Route path="/catalog/*" element={<Catalog />} />
                 <Route path="/details/*" element={<Details />} />
                 <Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
-                <Route path="/my-heroes" element={<PrivateRoute><MyHeroes /></PrivateRoute>} />
-                <Route path="/my-comics" element={<PrivateRoute><MyComics /></PrivateRoute>} />
+                <Route path="/profile/*" element={<PrivateRoute><Profile /></PrivateRoute>} />
                 <Route path="/create/*" element={<PrivateRoute><Create /></PrivateRoute>} />
                 <Route path="/edit/*" element={<PrivateRoute><Edit /></PrivateRoute>} />
                 <Route path="/read/comics/:id" element={<PrivateRoute><ReadComics /></PrivateRoute>} />

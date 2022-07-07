@@ -8,7 +8,8 @@ export const navigationTitlesBG = {
     'Register':'Регистрация',
     'Logout':'Изход',
     'Pending': 'Чакащи',
-    'Reports': 'Сигнали'
+    'Reports': 'Сигнали',
+    'Profile': 'Профил'
 }
 
 export const formLabelsBG = {
@@ -45,7 +46,10 @@ export const buttonLabelsBG = {
     'Copyright': 'Авторско право',
     'Request': 'Заявление',
     'Response': 'Отговор',
-    'UseRights': 'Право за ползване'
+    'UseRights': 'Право за ползване',
+    'Superheroes': 'Герои',
+    'Comics': 'Комикси',
+    'Documents': 'Документи'
 }
 
 export const placeholdersBG = {

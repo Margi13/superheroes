@@ -5,6 +5,7 @@ import * as adminService from '../../services/adminService';
 
 import PendingHeroes from './PendingHeroes';
 import PendingComics from './PendingComics';
+import { buttonLabelsBG } from '../../common/labelsConstatnsBG';
 const Pending = () => {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false);
@@ -27,8 +28,8 @@ const Pending = () => {
         <section className="my-heroes-page">
             <div className="choice-buttons buttons">
 
-                <Link to="/admin/pending/heroes" className="button" href="/admin/pending/heroes">Герои</Link>
-                <Link to="/admin/pending/comics" className="button" href="/admin/pending/comics">Комикси</Link>
+                <Link to="/admin/pending/heroes" className="button" href="/admin/pending/heroes">{buttonLabelsBG.Superheroes}</Link>
+                <Link to="/admin/pending/comics" className="button" href="/admin/pending/comics">{buttonLabelsBG.Comics}</Link>
             </div>
             <Routes>
                 <Route path="/heroes" element={<PendingHeroes pageSize={0} pageIndex={0} isAdmin={isAdmin} loggedUser={user} />} />

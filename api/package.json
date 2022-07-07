@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "jest": {
-    "collectCoverage": true
+    "collectCoverage": false
   },
   "author": "Margarita Petrova",
   "license": "ISC",

@@ -11,7 +11,6 @@ export const getTopThree = async () => {
         const result = [];
         const data = await getAll();
         if (!data.type) {
-
             for (const hero of data) {
                 const likes = await getHeroLikes(hero._id);
                 result.push({ ...hero, likes: likes.length });

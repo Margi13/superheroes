@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const logout = () => {
+        console.log('reset user')
         setUser(initialAuthState)
     }
     const isAuth = user?.accessToken ? true : false;

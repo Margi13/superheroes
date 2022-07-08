@@ -31,8 +31,7 @@ const Header = () => {
     let userNavigation = (
         <div id="user" className="nav-container">
             <Link to="/create" href="/create" className="cloud-link user-nav">{navigationTitlesBG.Create}</Link>
-            <Link to="/my-heroes" href="/my-heroes" className="cloud-link user-nav">{navigationTitlesBG.MyHeroes}</Link>
-            <Link to="/my-comics" href="/my-comics" className="cloud-link user-nav">{navigationTitlesBG.MyComics}</Link>
+            <Link to="/profile" href="/profile" className="cloud-link user-nav">{navigationTitlesBG.Profile}</Link>
             <Link to="/logout" href="/logout" className="cloud-link user-nav">{navigationTitlesBG.Logout}</Link>
         </div>
     );

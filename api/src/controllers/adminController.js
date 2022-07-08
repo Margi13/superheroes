@@ -9,7 +9,7 @@ const { ADMIN_ROLE_NAME } = require('../utils/constants');
 
 router.get('/', async (req, res) => {
     try {
-        const role = await roleService.getRoleIdByName(ADMIN_ROLE_NAME);
+        const role = await roleService.getRoleByName(ADMIN_ROLE_NAME);
         const admin = await adminService.getAdmin(role._id);
         if (admin) {
             return res.json({ adminId: admin._id });

@@ -32,12 +32,12 @@ export const request = async (method, url, data, needAuth) => {
 }
 function getToken() {
     try {
-        let userItem = localStorage.getItem('user');
+        const userItem = localStorage.getItem('user');
         if (!userItem) {
             throw new Error('You must be authenticated');
         }
 
-        let userData = JSON.parse(userItem);
+        const userData = JSON.parse(userItem);
         return userData.accessToken;
     }
     catch (error) {
@@ -49,7 +49,7 @@ async function responseHandler(res) {
         return res;
     }
     try {
-        let jsonData = await res.json();
+        const jsonData = await res.json();
         if (res.ok) {
             return jsonData;
         } else {

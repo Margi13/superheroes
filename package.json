@@ -1,0 +1,24 @@
+{
+  "name": "superheroes",
+  "version": "1.0.0",
+  "description": "This site is a place where you can create heroes, who are in Bulgaria for one or another reason.",
+  "main": "app.js",
+  "scripts": {
+    "server":"node ./api/src/server.js",
+    "client":"cd ./client && npm start",
+    "test": "echo \"Error: no test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Margi13/superheroes.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Margi13/superheroes/issues"
+  },
+  "homepage": "https://github.com/Margi13/superheroes#readme",
+  "engines": {
+    "node": "16.x"
+  }
+}

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useAuthContext } from '../../contexts/AuthContext';
-import * as comicsService from '../../services/comicsService';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import * as comicsService from '../../../services/comicsService';
 
 
-import { alertMessages, titles } from '../../common/messagesConstantsBG';
-import MyCard from '../Card/MyCard';
-import './MyComics.css'
+import { alertMessages, titles } from '../../../common/messagesConstantsBG';
+import MyCard from '../../Card/MyCard';
+import '../MyHeroes/MyHeroes.css';
 const MyComics = () => {
     const [comics, setComics] = useState([]);
     const { user } = useAuthContext();

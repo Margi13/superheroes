@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useAuthContext } from '../../contexts/AuthContext';
-import * as superheroService from '../../services/superheroService';
+import { useAuthContext } from '../../../contexts/AuthContext';
+import * as superheroService from '../../../services/superheroService';
 
-
-import { alertMessages, titles } from '../../common/messagesConstantsBG';
-import MyCard from '../Card/MyCard';
+import { alertMessages, titles } from '../../../common/messagesConstantsBG';
+import MyCard from '../../Card/MyCard';
 import './MyHeroes.css'
 const MyHeroes = () => {
     const [superheroes, setSuperheroes] = useState([]);

@@ -17,12 +17,57 @@
     text-transform: uppercase;
     text-align: center;
 }
-.catalog-page>h3 {
+.catalog-page h3 {
     color: #fff;
     font-family: "Agency FB";
     margin-top: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: center;
+}
+.catalog-page .catalog-pn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+}
+.catalog-fl .first-button,
+.catalog-fl .last-button,
+.catalog-pn .prev-button,
+.catalog-pn .next-button {
+    border: 0px;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+}
+.catalog-page .catalog-fl {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 20%;
+    min-width: 300px;
+    
+}
+.catalog-fl .first-button,
+.catalog-fl .last-button {
+    font-size: 18px;
+}
+
+.catalog-pn .prev-button,
+.catalog-pn .next-button,
+.catalog-pn i {
+    font-size: 16px;
+}
+
+.catalog-pn .prev-button,
+.catalog-pn .first-button {
+    padding-right: 0;
+    text-align: right;
+}
+
+.catalog-pn .next-button,
+.catalog-pn .last-button {
+    padding-left: 0;
+    text-align: left;
 }
 
 .no-articles {

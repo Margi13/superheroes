@@ -2,22 +2,31 @@ import { titles } from '../../../common/messagesConstantsBG';
 import '../ReadComics.css';
 
 const FirstAndLast = ({
+    children,
+    className,
     pageIndex,
-    totalPages,
-    onFirst,
-    onLast
+    setPageIndex,
+    totalPages
 }) => {
     const currentPage = Number(pageIndex) + 1
+
+    const onFirstClick = () => {
+        setPageIndex(0);
+    }
+    const onLastClick = () => {
+        setPageIndex(totalPages - 1);
+    }
     return (
         <>
-            <section className="comics-footer">
-                <button className="first-button" onClick={onFirst}>
+            <section className={className}>
+                <button className="first-button" onClick={onFirstClick}>
                     <h1>{"<<"}</h1>
                 </button>
-                <div>
-                    {titles.Page}: {currentPage} / {totalPages}
-                </div>
-                <button className="last-button" onClick={onLast}>
+                    {children
+                        ? children
+                        : <div>{titles.Page}: {currentPage} / {totalPages}</div>
+                    }
+                <button className="last-button" onClick={onLastClick}>
                     <h1>{">>"}</h1>
                 </button>
             </section>

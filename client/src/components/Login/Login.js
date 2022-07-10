@@ -20,14 +20,16 @@ const Login = () => {
         let email = formData.get('email');
         let password = formData.get('password');
         authService.login(email, password)
-            .then((authData) => {
-                login(authData);
+            .then((result) => {
+                if(result.type) {
+                    throw new Error('Error in login')
+                }
+                login(result);
                 addNotification(alertMessages.LoginSuccess, typesColor.success);
                 navigate('/')
             })
             .catch(error => {
                 addNotification(alertMessages.LoginDenied, typesColor.error);
-
                 console.log(error);
             });
 

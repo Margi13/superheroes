@@ -19,10 +19,12 @@ export const AuthProvider = ({ children }) => {
         setUser(initialAuthState)
     }
     const isAuth = user?.accessToken ? true : false;
+    
+    const isAdmin = user?.email === 'admin@abv.bg' ? true : false;
 
     const isGuest = user?.accessToken ? true : false;
     return (
-        <AuthContext.Provider value={{ user, login, logout, isAuth, isGuest }}>
+        <AuthContext.Provider value={{ user, login, logout, isAuth, isGuest, isAdmin }}>
             {children}
         </AuthContext.Provider>
     )

@@ -42,6 +42,7 @@ const ComicsForm = ({
     }
 
     const create = (comicsData, images) => {
+        window.scroll(0,0)
         comicsService.create(comicsData, images)
             .then((result) => {
                 if (result.type) {
@@ -51,31 +52,47 @@ const ComicsForm = ({
                 const data = {
                     images: images, type: 'comics', folderName: result._id
                 }
-                firebaseService.handleMultipleImagesUpload(data, setImages, () => { });
-                const document = {
-                    dataId: result._id,
-                    dataType: "comics"
-                }
-                documentService.createCopyright(document)
-                addNotification(alertMessages.CreateSuccess, typesColor.success);
-                navigate('/');
+                firebaseService.handleMultipleImagesUpload(data, setImages, () => { })
+                    .then(() => {
+                        const document = {
+                            dataId: result._id,
+                            dataType: "comics"
+                        }
+                        documentService.createCopyright(document)
+                        addNotification(alertMessages.CreateSuccess, typesColor.success);
+                        navigate('/');
+                    });
             })
             .catch(error => {
-                addNotification(alertMessages.CreateDenied, typesColor.error);
+                if(error.message.includes("unique")){
+                    addNotification(alertMessages.ComicsUniqueness, typesColor.error);
+                } else {
+                    addNotification(alertMessages.CreateDenied, typesColor.error);
+                }
                 console.log(error);
             });
     }
     const edit = (id, comicsData, images) => {
+        window.scroll(0,0)
         comicsService.update(id, { data: comicsData })
-            .then(() => {
+            .then((result) => {
+                if (result.type) {
+                    console.log(result.message);
+                    throw new Error(result.message);
+                }
                 const data = {
                     images: images, type: 'comics', folderName: id
                 }
-                firebaseService.handleMultipleImagesUpload(data, setImages, () => { });
-                addNotification(alertMessages.EditSuccess, typesColor.success);
-                navigate(`/details/comics/${id}`)
+                firebaseService.handleMultipleImagesUpload(data, setImages, () => { })
+                    .then(() => {
+                        addNotification(alertMessages.EditSuccess, typesColor.success);
+                        navigate(`/details/comics/${id}`)
+                    });
             })
             .catch(error => {
+                if(error.message.includes("unique")){
+                    addNotification(alertMessages.ComicsUniqueness, typesColor.error);
+                }
                 addNotification(alertMessages.EditDenied, typesColor.error);
                 console.log(error);
             })

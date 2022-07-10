@@ -19,7 +19,7 @@ import Reports from './components/Reports';
 import ReadComics from './components/ReadComics';
 import ErrorBoundary from './components/Common/ErrorBoundary';
 import Notification from './components/Common/Notification/index';
-import PrivateRoute from './components/Common/PrivateRoute/index';
+import {PrivateRoute, AdminRoute, UserRoute} from './components/Common/PrivateRoute/PrivateRoute';
 
 function App() {
 
@@ -41,12 +41,12 @@ function App() {
                 <Route path="/catalog/*" element={<Catalog />} />
                 <Route path="/details/*" element={<Details />} />
                 <Route path="/logout" element={<PrivateRoute><Logout /></PrivateRoute>} />
-                <Route path="/profile/*" element={<PrivateRoute><Profile /></PrivateRoute>} />
-                <Route path="/create/*" element={<PrivateRoute><Create /></PrivateRoute>} />
-                <Route path="/edit/*" element={<PrivateRoute><Edit /></PrivateRoute>} />
+                <Route path="/profile/*" element={<UserRoute><Profile /></UserRoute>} />
+                <Route path="/create/*" element={<UserRoute><Create /></UserRoute>} />
+                <Route path="/edit/*" element={<UserRoute><Edit /></UserRoute>} />
                 <Route path="/read/comics/:id" element={<PrivateRoute><ReadComics /></PrivateRoute>} />
-                <Route path="/admin/pending/*" element={<PrivateRoute><Pending /></PrivateRoute>} />
-                <Route path="/admin/reports/*" element={<PrivateRoute><Reports /></PrivateRoute>} />
+                <Route path="/admin/pending/*" element={<AdminRoute><Pending /></AdminRoute>} />
+                <Route path="/admin/reports/*" element={<AdminRoute><Reports /></AdminRoute>} />
                 <Route path="/*" element={<Error />} />
               </Routes>
 

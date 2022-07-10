@@ -1,7 +1,7 @@
 import { storage } from '../firebase';
 import { ref, uploadBytesResumable, getDownloadURL, deleteObject, getBlob } from 'firebase/storage';
 
-export const handleImageUpload = (data, setUrl, setProgress) => {
+export const handleImageUpload = async (data, setUrl, setProgress) => {
     if (!data.image) {
         throw new Error('There was no image uploaded!');
     }
@@ -38,7 +38,7 @@ export const handleImageUpload = (data, setUrl, setProgress) => {
                 setUrl(url);
             });
         });
-    Promise.all([uploadTask])
+    return Promise.all([uploadTask])
         .then(() => console.log("Image uploaded"))
         .catch((err) => console.log(err));
 
@@ -87,7 +87,7 @@ export const handleDocumentUpload = (data, setUrl, setProgress) => {
         .catch((err) => console.log(err));
 
 }
-export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
+export const handleMultipleImagesUpload = async (data, setUrls, setProgress) => {
     const promises = [];
     for (let i = 0; i < data.images.length; i++) {
         const image = data.images[i];
@@ -115,15 +115,18 @@ export const handleMultipleImagesUpload = (data, setUrls, setProgress) => {
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    console.log(`Ready: ${i}/${data.images.length}`)
+                    console.log(`Ready: ${i + 1}/${data.images.length}`)
                     setUrls((prevState) => [...prevState, url])
                 });
             }
         );
     }
 
-    Promise.all(promises)
-        .then(() => console.log("All images uploaded"))
+    return Promise.all(promises)
+        .then((res) => {
+            console.log("All images uploaded")
+            return res;
+        })
         .catch((err) => console.log(err));
 
 }
@@ -141,7 +144,7 @@ export const getImageRefFirebase = (imageName, imagePath) => {
     return getBlob(imageRef);
 
 }
-export const getMultipleImagesFromFirebase = (images, imagePath) => {
+export const getMultipleImagesFromFirebase = async (images, imagePath) => {
     const imageUrl = imagePath ? `images/${imagePath}` : 'images';
     const promises = [];
     images.forEach(imageName => {

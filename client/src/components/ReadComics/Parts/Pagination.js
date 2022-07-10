@@ -38,26 +38,23 @@ const Pagination = ({
             onChangePage(--pageIndex);
         }
     }
-    const goToFirstPage = () => {
-        onChangePage(0);
-    }
-    const goToLastPage = () => {
-        onChangePage(imagesUrl.length - 1);
-    }
     return (
         <>
             <section className="pagination">
-                <PrevAndNext className="comics-view"
+                <PrevAndNext className="comics-pn"
                     onNext={openNextPage}
                     onPrev={openPrevPage}
+                    setPageIndex={onChangePage}
+                    pageIndex={pageIndex}
+                    pageSize={1}
+                    totalItems={imagesUrl.length}
                 >
                     <img src={imagesUrl[pageIndex]} alt="Comics Page" />
                 </PrevAndNext>
-                <FirstAndLast
+                <FirstAndLast className="comics-footer"
                     pageIndex={pageIndex}
+                    setPageIndex={onChangePage}
                     totalPages={imagesUrl.length}
-                    onFirst={goToFirstPage}
-                    onLast={goToLastPage}
                 />
             </section>
         </>

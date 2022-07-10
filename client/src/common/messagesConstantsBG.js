@@ -41,6 +41,8 @@ export const alertMessages = {
     'EditDenied': 'Възникна проблем с редактирането!',
     'CreateSuccess': 'Успешно създадохте!',
     'CreateDenied': 'Възникна проблем със създаването!',
+    'ComicsUniqueness': 'Комикс с това заглавие вече съществува',
+    'HeroUniqueness': 'Герой с този псевдоним вече съществува',
     'DeleteSuccess': 'Успешно изтрихте!',
     'DeleteDenied': 'Възникна проблем с изтриването!',
     'DeleteConfirm': 'Сигурни ли сте, че искате да го изтриете?',

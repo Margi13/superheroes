@@ -43,6 +43,7 @@ const HeroForm = ({
     }
 
     const create = (heroData, image) => {
+        window.scroll(0,0)
         superheroService.create(heroData, image)
             .then((result) => {
                 if (result.type) {
@@ -52,21 +53,30 @@ const HeroForm = ({
                 const data = {
                     image: image, type: 'heroes'
                 }
-                firebaseService.handleImageUpload(data, setImage, () => { });
-                const document = {
-                    dataId: result._id,
-                    dataType: "heroes"
-                }
-                documentService.createCopyright(document);
-                addNotification(alertMessages.CreateSuccess, typesColor.success);
-                navigate('/');
+                firebaseService.handleImageUpload(data, setImage, () => { })
+                    .then(() => {
+
+                        const document = {
+                            dataId: result._id,
+                            dataType: "heroes"
+                        }
+                        documentService.createCopyright(document);
+                        addNotification(alertMessages.CreateSuccess, typesColor.success);
+                        navigate('/');
+                    });
             })
             .catch(error => {
-                addNotification(alertMessages.CreateDenied, typesColor.error);
+                if (error.message.includes("unique")) {
+                    addNotification(alertMessages.HeroUniqueness, typesColor.error);
+                } else {
+
+                    addNotification(alertMessages.CreateDenied, typesColor.error);
+                }
                 console.log(error);
             });
     }
     const edit = (id, heroData, image) => {
+        window.scroll(0,0)
         superheroService.update(id, { data: heroData })
             .then((result) => {
                 if (result.type) {
@@ -78,8 +88,10 @@ const HeroForm = ({
                     image: image, type: 'heroes'
                 }
                 firebaseService.handleImageUpload(data, setImage, () => { })
-                addNotification(alertMessages.EditSuccess, typesColor.success);
-                navigate(`/details/heroes/${id}`);
+                    .then(() => {
+                        addNotification(alertMessages.EditSuccess, typesColor.success);
+                        navigate(`/details/heroes/${id}`);
+                    })
             })
             .catch(error => {
                 addNotification(alertMessages.EditDenied, typesColor.error);

@@ -3,9 +3,15 @@ import * as superheroService from '../../../services/superheroService';
 
 import { titles, alertMessages } from '../../../common/messagesConstantsBG'
 import HeroCard from '../../Card/HeroCard';
-// import '../Catalog.css';
-const HeroesCatalog = () => {
+import PrevAndNext from '../../ReadComics/Parts/PrevAndNext';
+import FirstAndLast from '../../ReadComics/Parts/FirstAndLast';
+import '../Catalog.css';
+const HeroesCatalog = ({
+    pageSize
+}) => {
     const [superheroes, setSuperheroes] = useState([]);
+    const [pagedHeroes, setPagedHeroes] = useState([]);
+    let [pageIndex, setPageIndex] = useState(0);
 
     useEffect(() => {
         superheroService.getAll()
@@ -15,7 +21,9 @@ const HeroesCatalog = () => {
             .catch(error => {
                 console.log(error);
             });
-    }, []);
+        const paged = superheroes.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
+        setPagedHeroes(paged);
+    }, [superheroes, pageIndex, pageSize]);
     const noHeroesElement = (
         <div>
             <p className="no-articles">{alertMessages.NoSuperheroes}</p>
@@ -27,13 +35,26 @@ const HeroesCatalog = () => {
             <h1>{titles.AllSuperheroes}</h1>
             <section>
                 <div className="card-rows">
-                    {superheroes.length > 0
-                        ? superheroes.map(x => <HeroCard key={x._id} hero={x} />)
+                    {pagedHeroes.length > 0
+                        ? pagedHeroes.map(x => <HeroCard key={x._id} hero={x} />)
                         : noHeroesElement
                     }
                 </div>
             </section>
-            <h3 align="center" float="none">Страница 1/1</h3>
+            <FirstAndLast className="catalog-fl"
+                totalPages={Math.ceil(superheroes.length / pageSize)}
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+            >
+                <PrevAndNext className="catalog-pn"
+                    totalItems={superheroes.length}
+                    setPageIndex={setPageIndex}
+                    pageIndex={pageIndex}
+                    pageSize={pageSize}
+                >
+                    <h3>{titles.Page} {pageIndex + 1}/{Math.ceil(superheroes.length / pageSize)}</h3>
+                </PrevAndNext>
+            </FirstAndLast>
         </>
     );
 }

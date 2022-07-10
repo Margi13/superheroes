@@ -126,7 +126,11 @@ router.put('/decline/heroes/:superheroId', isAdmin, async (req, res) => {
         const superhero = await superheroService.getOne(superheroId);
         if (superhero) {
             superhero.status = -1;
-            const report = await reportService.create({ _ownerId: adminId, reportMessage, active: true, _createdOn: new Date() })
+            const report = await reportService.create({ 
+                _ownerId: adminId, 
+                _dataId: superhero._id,
+                reportMessage, active: true, 
+                _createdOn: new Date() })
             superhero.reports.push(report);
             const declined = await adminService.declineHero(superheroId, superhero);
             if (declined) return res.json({ ok: true });
@@ -157,7 +161,11 @@ router.put('/decline/comics/:comicsId', isAdmin, async (req, res) => {
         const comics = await comicsService.getOne(comicsId);
         if (comics) {
             comics.status = -1;
-            const report = await reportService.create({ _ownerId: adminId, reportMessage, active: true, _createdOn: new Date() })
+            const report = await reportService.create({ 
+                _ownerId: adminId, 
+                _dataId: comics._id,
+                reportMessage, active: true, 
+                _createdOn: new Date() })
             comics.reports.push(report);
             const declined = await adminService.declineComics(comicsId, comics);
             if (declined) return res.json({ ok: true });

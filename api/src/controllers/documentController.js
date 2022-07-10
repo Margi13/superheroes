@@ -57,7 +57,18 @@ router.get('/use-right/:id', async (req, res) => {
 router.get('/copyright', async (req, res) => {
     try {
         const { dataId, ownerId, type } = req.query;
-        const copyright = await documentService.getFilteredCopyright(dataId, ownerId, type);
+        let copyright = await documentService.getFilteredCopyright(dataId, ownerId, type);
+        if (!copyright || copyright.length === 0) {
+            const document = await documentService.createCopyright({ dataId: dataId, dataType: type, _userId: ownerId })
+            if (document) {
+                return res.json(document);
+            } else {
+                return res.json({
+                    type: "error",
+                    message: "Cannot create copyright"
+                });
+            }
+        }
         return res.json(copyright[0])
     } catch (error) {
         console.log(error);

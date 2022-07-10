@@ -73,6 +73,7 @@ const HeroDetails = () => {
 					role={role}
 					urlFor="heroes"
 					hasLikes={true}
+					hasDetails={false}
 					hasFunctionalButtons={true}
 					onDelete={helper.deleteClickHandler}
 					onLike={helper.likeButtonClick}

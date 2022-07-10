@@ -7,6 +7,8 @@ export const titles = {
     'Details': 'Детайли',
     'Likes': 'Харесвания',
     'MyHeroes': 'Всички мои герои',
+    'MyComics': 'Всички мои комикси',
+    'MyDocuments': 'Документи за авторство',
     'PendingHeroes': 'Герои, очакващи одобрение',
     'PendingComics': 'Комикси, очакващи одобрение',
     'Login': 'Вход',

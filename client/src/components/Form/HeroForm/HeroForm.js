@@ -2,7 +2,7 @@ import Form from '../Form';
 import { useState } from 'react';
 import { useNavigate, Navigate, useParams } from 'react-router-dom';
 import * as superheroService from '../../../services/superheroService';
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 import * as documentService from '../../../services/documentService';
 import useHeroState from '../../../hooks/useHeroState';
 import { useAuthContext } from '../../../contexts/AuthContext';
@@ -52,7 +52,7 @@ const HeroForm = ({
                 const data = {
                     image: image, type: 'heroes'
                 }
-                imageService.handleImageUpload(data, setImage, () => { });
+                firebaseService.handleImageUpload(data, setImage, () => { });
                 const document = {
                     dataId: result._id,
                     dataType: "heroes"
@@ -77,7 +77,7 @@ const HeroForm = ({
                 const data = {
                     image: image, type: 'heroes'
                 }
-                imageService.handleImageUpload(data, setImage, () => { })
+                firebaseService.handleImageUpload(data, setImage, () => { })
                 addNotification(alertMessages.EditSuccess, typesColor.success);
                 navigate(`/details/heroes/${id}`);
             })

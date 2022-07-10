@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import useComicsState from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 import { titles } from '../../../common/messagesConstantsBG';
@@ -23,7 +23,7 @@ const ComicsDetails = () => {
 
 	useEffect(() => {
 		if (comics.coverPage) {
-			imageService.getImageFromFirebase(comics.coverPage, `comics/${comics._id}`)
+			firebaseService.getImageFromFirebase(comics.coverPage, `comics/${comics._id}`)
 				.then(url => {
 					setImageUrl(url);
 				})

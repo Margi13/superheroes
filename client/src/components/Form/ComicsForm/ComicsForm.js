@@ -2,7 +2,7 @@ import Form from '../Form';
 import { useState } from 'react';
 import { useNavigate, Navigate, useParams } from 'react-router-dom';
 import * as comicsService from '../../../services/comicsService';
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 import * as documentService from '../../../services/documentService';
 import useComicsState from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
@@ -51,7 +51,7 @@ const ComicsForm = ({
                 const data = {
                     images: images, type: 'comics', folderName: result._id
                 }
-                imageService.handleMultipleImagesUpload(data, setImages, () => { });
+                firebaseService.handleMultipleImagesUpload(data, setImages, () => { });
                 const document = {
                     dataId: result._id,
                     dataType: "comics"
@@ -71,7 +71,7 @@ const ComicsForm = ({
                 const data = {
                     images: images, type: 'comics', folderName: id
                 }
-                imageService.handleMultipleImagesUpload(data, setImages, () => { });
+                firebaseService.handleMultipleImagesUpload(data, setImages, () => { });
                 addNotification(alertMessages.EditSuccess, typesColor.success);
                 navigate(`/details/comics/${id}`)
             })

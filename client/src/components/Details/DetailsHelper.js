@@ -2,7 +2,7 @@ import { alertMessages } from '../../common/messagesConstantsBG';
 import * as superheroService from '../../services/superheroService';
 import * as comicsService from '../../services/comicsService';
 import * as likeService from '../../services/likeService';
-import * as imageService from '../../services/imageService';
+import * as firebaseService from '../../services/firebaseService';
 import * as reportService from '../../services/reportService';
 import { useNotificationContext } from '../../contexts/NotificationContext';
 import { useNavigate, Navigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ export const DetailsHelper = (user, data, setData, setShowDeleteDialog, type) =>
 			.then(res => {
 				const imagePath = type === 'comcis' ? `comics/${data.title.split(' ').join('_')}` : 'heroes';
 				const imageUrl = type === 'comics' ? data.coverPage : data.imageUrl;
-				imageService.deleteImageFromFirebase(imageUrl, imagePath)
+				firebaseService.deleteImageFromFirebase(imageUrl, imagePath)
 					.then(res => {
 						addNotification(alertMessages.DeleteSuccess, typesColor.success);
 						navigate('/');

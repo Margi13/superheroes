@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 import * as adminService from '../../../services/adminService';
 import ImageBox from '../ImageBox';
 import StatusBox from '../StatusBox';
@@ -21,7 +21,7 @@ const PendingCard = ({
     useEffect(() => {
         const imageName = type === 'comics' ? data.coverPage : data.imageUrl;
         const imagePath = type === 'comics' ? `comics/${data._id}` : 'heroes';
-        imageService.getImageFromFirebase(imageName, imagePath)
+        firebaseService.getImageFromFirebase(imageName, imagePath)
             .then(url => {
                 setImageUrl(url);
             });

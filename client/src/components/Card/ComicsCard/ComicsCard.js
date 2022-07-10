@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import '../Card.css';
 import { useEffect, useState } from 'react';
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 const ComicsCard = ({
 	comics
 }) => {
 	const [imageUrl, setImageUrl] = useState();
 	useEffect(() => {
-		imageService.getImageFromFirebase(comics.coverPage, `comics/${comics._id}`)
+		firebaseService.getImageFromFirebase(comics.coverPage, `comics/${comics._id}`)
 			.then(url => {
 				setImageUrl(url);
 			});

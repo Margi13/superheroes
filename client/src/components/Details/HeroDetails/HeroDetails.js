@@ -5,7 +5,7 @@ import useHeroState from '../../../hooks/useHeroState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
 import * as likeService from '../../../services/likeService';
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 import { formLabelsBG } from '../../../common/labelsConstatnsBG';
@@ -24,7 +24,7 @@ const HeroDetails = () => {
 
 	useEffect(() => {
 		if (superhero.imageUrl) {
-			imageService.getImageFromFirebase(superhero.imageUrl, 'heroes')
+			firebaseService.getImageFromFirebase(superhero.imageUrl, 'heroes')
 				.then(url => {
 					setImageUrl(url);
 				})

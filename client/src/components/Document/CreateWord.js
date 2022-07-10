@@ -3,7 +3,7 @@ import { buttonLabelsBG } from '../../common/labelsConstatnsBG';
 import * as copyright from '../../documents/copyright';
 import * as documentService from '../../services/documentService';
 
-import { getImageFromFirebase } from '../../services/imageService';
+import { getImageFromFirebase } from '../../services/firebaseService';
 import './Document.css';
 const CreateWord = ({
     data,

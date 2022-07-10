@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 
 import './MyCard.css';
 import ButtonsBox from '../../Card/ButtonsBox';
@@ -16,7 +16,7 @@ const MyCard = ({
     const [imageUrl, setImageUrl] = useState();
     useEffect(() => {
         const imagePath = type === 'comics' ? `comics/${id}` : 'heroes';
-        imageService.getImageFromFirebase(image, imagePath)
+        firebaseService.getImageFromFirebase(image, imagePath)
             .then(url => {
                 setImageUrl(url);
             });

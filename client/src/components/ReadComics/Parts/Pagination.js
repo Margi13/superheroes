@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import * as imageService from '../../../services/imageService';
+import * as firebaseService from '../../../services/firebaseService';
 import PrevAndNext from './PrevAndNext';
 import FirstAndLast from './FirstAndLast';
 import '../ReadComics.css';
@@ -13,7 +13,7 @@ const Pagination = ({
     const [imagesUrl, setImagesUrl] = useState([]);
     useEffect(() => {
         if (urls) {
-            imageService.getMultipleImagesFromFirebase(urls, `comics/${comicsId}`)
+            firebaseService.getMultipleImagesFromFirebase(urls, `comics/${comicsId}`)
                 .then(url => {
                     setImagesUrl(url);
                 })

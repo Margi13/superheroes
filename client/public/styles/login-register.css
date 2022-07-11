@@ -23,7 +23,7 @@
     box-sizing: border-box;
 }
 
-.brand-logo>h1 {
+.brand-logo h1 {
     font-weight: 900;
     font-size: 1.7rem;
     text-align: center;
@@ -57,8 +57,7 @@ input::placeholder {
 }
 
 input[type="password"],
-input[type="number"],
-input[type="email"] {
+input[type="number"] {
     background: #ecf0f3;
     padding: 30px;
     padding-left: 20px;
@@ -71,7 +70,7 @@ input[type="email"] {
 
 .btn.submit {
     margin-top: 30px;
-    background: #8fa9b9;
+    background: rgb(143, 169, 185);
     height: 60px;
     border-radius: 20px;
     color: white;
@@ -79,19 +78,22 @@ input[type="email"] {
     cursor: pointer;
     font-weight: 900;
     transition: 0.5s;
+    margin-bottom: 15px;
 }
 
-.btn.submit:hover {
+#login-page .btn.submit:hover,
+#register-page .btn.submit:hover {
     color: white;
-    background-color: #8fa9b9;
+    background-color: rgb(85, 160, 204);
 }
 
-.container {
+#login-page .container,
+#register-page .container {
     text-align: left;
     margin-top: 0px;
 }
 
-.field>span {
+.field span {
     position: absolute;
     font-size: 18px;
     bottom: 17px;
@@ -101,6 +103,9 @@ input[type="email"] {
     background: rgb(235, 157, 142);
     border-radius: 10px;
     padding: 5px;
+}
+.field { 
+    margin-top: 20px;
 }
 
 .field i {

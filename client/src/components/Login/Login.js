@@ -3,16 +3,19 @@ import * as authService from '../../services/authService';
 
 import { useAuthContext } from '../../contexts/AuthContext'
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
-import {formLabelsBG,buttonLabelsBG,placeholdersBG} from '../../common/labelsConstatnsBG';
-import {titles, alertMessages} from '../../common/messagesConstantsBG';
+import { formLabelsBG, placeholdersBG } from '../../common/labelsConstatnsBG';
+import { titles, alertMessages } from '../../common/messagesConstantsBG';
+import TextField from '../Form/Fields/TextField';
+import PasswordField from '../Form/Fields/PasswordField';
+import Form from '../Form/Form';
 const Login = () => {
     const { login, isAuth } = useAuthContext();
-    const {addNotification} = useNotificationContext();
+    const { addNotification } = useNotificationContext();
     const navigate = useNavigate();
-    if(isAuth){
-        return <Navigate to="/"/>
+    if (isAuth) {
+        return <Navigate to="/" />
     }
-    
+
     const onLoginHandler = (e) => {
         e.preventDefault();
 
@@ -21,7 +24,7 @@ const Login = () => {
         let password = formData.get('password');
         authService.login(email, password)
             .then((result) => {
-                if(result.type) {
+                if (result.type) {
                     throw new Error('Error in login')
                 }
                 login(result);
@@ -40,20 +43,18 @@ const Login = () => {
 
                 <h1>{titles.Login}</h1>
             </div>
-            <form id="login" method="POST" onSubmit={onLoginHandler}>
-                <div className="container">
-
-                    <label htmlFor="email">{formLabelsBG.Email}:</label>
-                    <input type="email" id="email" name="email" placeholder={placeholdersBG.Email} />
-
-                    <label htmlFor="login-pass">{formLabelsBG.Password}:</label>
-                    <input type="password" id="login-password" name="password" />
-                    <input type="submit" className="btn submit" value={buttonLabelsBG.Login} />
-                    <p className="field">
-                        <span>{alertMessages.NoProfileMessage}:<Link to="/register" href="/register"><i className="fas fa-user-plus"></i></Link></span>
-                    </p>
-                </div>
-            </form>
+            <Form type="login" onSubmit={onLoginHandler}>
+                <TextField name="email"
+                    label={formLabelsBG.Email}
+                    placeholder={placeholdersBG.Email}
+                />
+                <PasswordField name="password"
+                    label={formLabelsBG.Password}
+                />
+                <p className="field">
+                    <span>{alertMessages.NoProfileMessage}:<Link to="/register" href="/register"><i className="fas fa-user-plus"></i></Link></span>
+                </p>
+            </Form>
         </section>
     );
 }

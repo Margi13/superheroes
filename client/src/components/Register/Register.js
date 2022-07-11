@@ -7,6 +7,9 @@ import { formLabelsBG, buttonLabelsBG, placeholdersBG } from '../../common/label
 import { titles, alertMessages, validationMessages } from '../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 import { ChangeHandlers } from '../Form/Validation/UserValidationHelper';
+import Form from '../Form/Form';
+import TextField from '../Form/Fields/TextField';
+import PasswordField from '../Form/Fields/PasswordField';
 
 const initialErrorState = { email: null, password: null, rePassword: null };
 
@@ -16,8 +19,8 @@ const Register = () => {
     const { addNotification } = useNotificationContext();
     const [errors, setErrors] = useState(initialErrorState);
     const handlers = ChangeHandlers(setErrors);
-    if(isAuth){
-        return <Navigate to="/"/>
+    if (isAuth) {
+        return <Navigate to="/" />
     }
     const registerSubmitHandler = (e) => {
         e.preventDefault();
@@ -49,32 +52,30 @@ const Register = () => {
             <div className="brand-logo">
                 <h1>{titles.Register}</h1>
             </div>
-            <form id="register" method="POST" onSubmit={registerSubmitHandler}>
-                <div className="container">
-
-                    <label htmlFor="email">{formLabelsBG.Email}:</label>
-                    <input type="email" id="email" name="email"
+            <Form type="register" onSubmit={registerSubmitHandler}>
+                <>
+                    <TextField name="email"
+                        label={formLabelsBG.Email}
                         placeholder={placeholdersBG.Email}
-                        onBlur={handlers.emailChangeHandler}
-                        className={errors.email ? 'error' : 'no-error'} />
-                    <span className={errors.email ? 'show error' : 'hide no-error'}>{errors.email}</span>
+                        changeHandler={handlers.emailChangeHandler}
+                        errorMessage={errors.email}
+                    />
 
-                    <label htmlFor="pass">{formLabelsBG.Password}:</label>
-                    <input type="password" name="password" id="register-password"
-                        onBlur={handlers.passwordChangeHandler}
-                        className={errors.password ? 'error' : 'no-error'} />
-                    <span className={errors.password ? 'show error' : 'hide no-error'}>{errors.password}</span>
+                    <PasswordField name="password"
+                        label={formLabelsBG.Password}
+                        changeHandler={handlers.passwordChangeHandler}
+                        errorMessage={errors.password}
+                    />
 
-                    <label htmlFor="con-pass">{formLabelsBG.RepeatPassword}:</label>
-                    <input type="password" name="rePassword" id="rePassword" />
-
-                    <input className="btn submit" type="submit" value={buttonLabelsBG.Register} />
+                    <PasswordField name="rePassword"
+                        label={formLabelsBG.RepeatPassword}
+                    />
 
                     <p className="field">
                         <span>{alertMessages.HasProfileMessage}: <Link to="/login" href="/login"><i className="fas fa-sign-in-alt"></i></Link></span>
                     </p>
-                </div>
-            </form>
+                </>
+            </Form>
         </section>
     );
 }

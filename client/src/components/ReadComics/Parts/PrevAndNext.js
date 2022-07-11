@@ -10,7 +10,7 @@ const PrevAndNext = ({
     className
 }) => {
     const openNextPage = () => {
-        if (totalItems === (pageSize * (pageIndex + 1))) {
+        if (totalItems < (pageSize * (pageIndex + 1))) {
             setPageIndex(pageIndex);
         } else {
             setPageIndex(pageIndex + 1);

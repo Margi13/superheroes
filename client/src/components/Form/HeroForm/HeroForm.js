@@ -4,7 +4,7 @@ import { useNavigate, Navigate, useParams } from 'react-router-dom';
 import * as superheroService from '../../../services/superheroService';
 import * as firebaseService from '../../../services/firebaseService';
 import * as documentService from '../../../services/documentService';
-import useHeroState from '../../../hooks/useHeroState';
+import { useOneHeroState } from '../../../hooks/useHeroState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
 import { formLabelsBG, placeholdersBG } from '../../../common/labelsConstatnsBG';
@@ -27,7 +27,7 @@ const HeroForm = ({
     const { user } = useAuthContext();
     const [image, setImage] = useState({ image: null, url: '' });
     const [errors, setErrors] = useState(initialErrorState);
-    const [superhero] = useHeroState(id);
+    const [superhero] = useOneHeroState(id);
 
     if (superhero._ownerId && user._id !== superhero._ownerId) {
         return <Navigate to="/" />
@@ -43,7 +43,7 @@ const HeroForm = ({
     }
 
     const create = (heroData, image) => {
-        window.scroll(0,0)
+        window.scroll(0, 0)
         superheroService.create(heroData, image)
             .then((result) => {
                 if (result.type) {
@@ -76,7 +76,7 @@ const HeroForm = ({
             });
     }
     const edit = (id, heroData, image) => {
-        window.scroll(0,0)
+        window.scroll(0, 0)
         superheroService.update(id, { data: heroData })
             .then((result) => {
                 if (result.type) {

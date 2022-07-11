@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import useComicsState from '../../../hooks/useComicsState';
+import { useOneComicsState } from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
 import * as firebaseService from '../../../services/firebaseService';
@@ -16,7 +16,7 @@ import ImageBox from '../../Card/ImageBox';
 const ComicsDetails = () => {
 	const { user } = useAuthContext();
 	const { id } = useParams();
-	const [comics, setComics] = useComicsState(id);
+	const [comics, setComics] = useOneComicsState(id);
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 	const [imageUrl, setImageUrl] = useState('');
 	const helper = DetailsHelper(user, comics, setComics, setShowDeleteDialog, 'comics');

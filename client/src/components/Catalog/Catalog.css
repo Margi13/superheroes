@@ -24,7 +24,7 @@
     margin-bottom: 10px;
     text-align: center;
 }
-.catalog-page .catalog-pn {
+.catalog-pn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,7 +39,7 @@
     cursor: pointer;
     padding: 0;
 }
-.catalog-page .catalog-fl {
+.catalog-fl {
     display: flex;
     justify-content: center;
     align-items: center;

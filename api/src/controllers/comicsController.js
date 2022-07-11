@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
             return res.json([]);
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -33,6 +34,7 @@ router.get('/:comicsId', async (req, res) => {
             return res.json({});
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -63,6 +65,7 @@ router.put('/:comicsId', isAuth, async (req, res) => {
             return res.json({ ok: false });
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -79,6 +82,7 @@ router.delete('/:comicsId', isAuth, async (req, res) => {
             return res.json({ ok: false });
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -122,6 +126,7 @@ router.post('/', isAuth, async (req, res) => {
             });
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message

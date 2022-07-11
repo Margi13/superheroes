@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import useHeroState from '../../../hooks/useHeroState';
+import { useOneHeroState } from '../../../hooks/useHeroState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
 import * as likeService from '../../../services/likeService';
@@ -17,7 +17,7 @@ import ImageBox from '../../Card/ImageBox';
 const HeroDetails = () => {
 	const { user } = useAuthContext();
 	const { id } = useParams();
-	const [superhero, setSuperhero] = useHeroState(id);
+	const [superhero, setSuperhero] = useOneHeroState(id);
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 	const [imageUrl, setImageUrl] = useState('');
 	const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog, 'heroes');
@@ -52,7 +52,7 @@ const HeroDetails = () => {
 			<div className="info-section">
 
 				<div className="hero-header">
-					<ImageBox className="hero-img" imageUrl={imageUrl}/>
+					<ImageBox className="hero-img" imageUrl={imageUrl} />
 					{/* if names are equal => we write it only one time */}
 					<div className="info-contaner">
 						{superhero.heroName === superhero.personName

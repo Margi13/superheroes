@@ -14,7 +14,11 @@ const FirstAndLast = ({
         setPageIndex(0);
     }
     const onLastClick = () => {
-        setPageIndex(totalPages - 1);
+        if(totalPages <= 1) {
+            setPageIndex(1);
+        } else {
+            setPageIndex(totalPages - 1);
+        }
     }
     return (
         <>
@@ -24,7 +28,7 @@ const FirstAndLast = ({
                 </button>
                     {children
                         ? children
-                        : <div>{titles.Page}: {currentPage} / {totalPages}</div>
+                        : <div>{titles.Page}: {currentPage} / {totalPages || 1}</div>
                     }
                 <button className="last-button" onClick={onLastClick}>
                     <h1>{">>"}</h1>

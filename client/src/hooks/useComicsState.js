@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import * as comicsService from '../services/comicsService';
+import * as adminService from '../services/adminService';
 
-const useComicsState = (id) => {
+export const useOneComicsState = (id) => {
     const [comics, setComics] = useState({});
 
     useEffect(() => {
@@ -14,4 +15,40 @@ const useComicsState = (id) => {
     return [comics, setComics];
 }
 
-export default useComicsState;
+export const useAllComicsState = () => {
+    const [comics, setComics] = useState([]);
+
+    useEffect(() => {
+        comicsService.getAll()
+            .then(res => {
+                setComics(res);
+            });
+    }, [setComics]);
+
+    return [comics, setComics];
+}
+
+export const useMyComicsState = (ownerId) => {
+    const [comics, setComics] = useState([]);
+
+    useEffect(() => {
+        comicsService.getOwn(ownerId)
+            .then(res => {
+                setComics(res);
+            });
+    }, [ownerId, setComics]);
+
+    return [comics, setComics];
+}
+export const usePendingComicsState = (ownerId) => {
+    const [comics, setComics] = useState([]);
+
+    useEffect(() => {
+        adminService.getAllPendingComics(ownerId)
+            .then(res => {
+                setComics(res);
+            });
+    }, [ownerId, setComics]);
+
+    return [comics, setComics];
+}

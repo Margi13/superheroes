@@ -1,6 +1,6 @@
 
 import { Link } from 'react-router-dom';
-import useComicsState from '../../hooks/useComicsState';
+import { useOneComicsState } from '../../hooks/useComicsState';
 import * as reportService from '../../services/reportService';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 import { alertMessages } from '../../common/messagesConstantsBG';
@@ -10,7 +10,7 @@ const ReportRow = ({
     data,
     toReload
 }) => {
-    const [comics] = useComicsState(data._dataId);
+    const [comics] = useOneComicsState(data._dataId);
     const { addNotification } = useNotificationContext();
     const ignoreReport = () => {
         reportService.ignoreReport(data._id)

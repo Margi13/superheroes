@@ -45,7 +45,7 @@ const Reports = () => {
                 onChangePage={setPageIndex}
                 toReload={setToReload}
             >
-                <span>Страница {pageIndex + 1}/{Math.ceil(reports.length / 10)}</span>
+                <span>Страница {pageIndex + 1}/{Math.ceil(reports.length / 10) || 1}</span>
             </Table>
         </section>
     )

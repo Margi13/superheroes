@@ -1,34 +1,22 @@
 import { useEffect, useState } from 'react';
-import * as superheroService from '../../../services/superheroService';
 
-import { titles, alertMessages } from '../../../common/messagesConstantsBG'
+import { titles } from '../../../common/messagesConstantsBG'
 import HeroCard from '../../Card/HeroCard';
 import PrevAndNext from '../../ReadComics/Parts/PrevAndNext';
 import FirstAndLast from '../../ReadComics/Parts/FirstAndLast';
 import '../Catalog.css';
+import { useAllHeroesState } from '../../../hooks/useHeroState';
 const HeroesCatalog = ({
     pageSize
 }) => {
-    const [superheroes, setSuperheroes] = useState([]);
+    const [superheroes] = useAllHeroesState();
     const [pagedHeroes, setPagedHeroes] = useState([]);
     let [pageIndex, setPageIndex] = useState(0);
 
     useEffect(() => {
-        superheroService.getAll()
-            .then(data => {
-                setSuperheroes(data);
-            })
-            .catch(error => {
-                console.log(error);
-            });
         const paged = superheroes.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
         setPagedHeroes(paged);
     }, [superheroes, pageIndex, pageSize]);
-    const noHeroesElement = (
-        <div>
-            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
-        </div>
-    );
 
     return (
         <>
@@ -37,7 +25,7 @@ const HeroesCatalog = ({
                 <div className="card-rows">
                     {pagedHeroes.length > 0
                         ? pagedHeroes.map(x => <HeroCard key={x._id} hero={x} />)
-                        : noHeroesElement
+                        : ''
                     }
                 </div>
             </section>
@@ -52,7 +40,7 @@ const HeroesCatalog = ({
                     pageIndex={pageIndex}
                     pageSize={pageSize}
                 >
-                    <h3>{titles.Page} {pageIndex + 1}/{Math.ceil(superheroes.length / pageSize)}</h3>
+                    <h3>{titles.Page} {pageIndex + 1}/{Math.ceil(superheroes.length / pageSize) || 1}</h3>
                 </PrevAndNext>
             </FirstAndLast>
         </>

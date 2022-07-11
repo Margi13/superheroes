@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 // import { useAuthContext } from '../../contexts/AuthContext';
 
-import useComicsState from '../../hooks/useComicsState';
+import { useOneComicsState } from '../../hooks/useComicsState';
 // import * as adminService from '../../services/adminService';
 
 import ComicsHeader from './Parts/ComicsHeader';
@@ -15,7 +15,7 @@ const ReadComics = () => {
 	const { id } = useParams();
 	// const { user } = useAuthContext()
 	// const [isAdmin, setIsAdmin] = useState(false);
-	const [comics, setComics] = useComicsState(id);
+	const [comics, setComics] = useOneComicsState(id);
 	const [page, setPage] = useState(0);
 	// useEffect(() => {
 	// 	adminService.getAdminId()

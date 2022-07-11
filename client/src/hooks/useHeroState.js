@@ -1,15 +1,16 @@
 import { useState, useEffect } from 'react';
 import * as superheroService from '../services/superheroService';
+import * as adminService from '../services/adminService';
 
-const useHeroState = (id) => {
+export const useOneHeroState = (id) => {
     const [superhero, setSuperhero] = useState({});
 
     useEffect(() => {
         if (id) {
             superheroService.getOne(id)
-            .then(res => {
-                setSuperhero(res);
-            });
+                .then(res => {
+                    setSuperhero(res);
+                });
         } else {
             setSuperhero({});
         }
@@ -18,4 +19,41 @@ const useHeroState = (id) => {
     return [superhero, setSuperhero]
 }
 
-export default useHeroState;
+export const useAllHeroesState = () => {
+    const [superheroes, setSuperhero] = useState([]);
+
+    useEffect(() => {
+        superheroService.getAll()
+            .then(res => {
+                setSuperhero(res);
+            });
+    }, [setSuperhero]);
+
+    return [superheroes, setSuperhero]
+}
+
+export const useMyHeroesState = (ownerId) => {
+    const [superheroes, setSuperhero] = useState([]);
+
+    useEffect(() => {
+        superheroService.getOwn(ownerId)
+            .then(res => {
+                setSuperhero(res);
+            });
+    }, [ownerId, setSuperhero]);
+
+    return [superheroes, setSuperhero]
+}
+
+export const usePendingHeroesState = () => {
+    const [superheroes, setSuperhero] = useState([]);
+
+    useEffect(() => {
+        adminService.getAllPendingHeroes()
+            .then(res => {
+                setSuperhero(res);
+            });
+    }, [setSuperhero]);
+
+    return [superheroes, setSuperhero]
+}

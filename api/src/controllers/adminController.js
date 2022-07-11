@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
             });
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -36,6 +37,7 @@ router.get('/pending/heroes', async (req, res) => {
             return res.json([]);
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -52,6 +54,7 @@ router.get('/pending/comics', async (req, res) => {
             return res.json([]);
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -82,6 +85,7 @@ router.put('/approve/heroes/:superheroId', isAdmin, async (req, res) => {
             });
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -112,6 +116,7 @@ router.put('/approve/comics/:comicsId', isAdmin, async (req, res) => {
             });
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -147,6 +152,7 @@ router.put('/decline/heroes/:superheroId', isAdmin, async (req, res) => {
             });
         }
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message
@@ -178,6 +184,7 @@ router.put('/decline/comics/:comicsId', isAdmin, async (req, res) => {
         }
         else throw new Error('Cannot find this comics!');
     } catch (error) {
+        console.log(error.message)
         return res.json({
             type: 'error',
             message: error.message

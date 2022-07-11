@@ -4,7 +4,7 @@ import { useNavigate, Navigate, useParams } from 'react-router-dom';
 import * as comicsService from '../../../services/comicsService';
 import * as firebaseService from '../../../services/firebaseService';
 import * as documentService from '../../../services/documentService';
-import useComicsState from '../../../hooks/useComicsState';
+import { useOneComicsState } from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
 
 import { formLabelsBG, placeholdersBG } from '../../../common/labelsConstatnsBG';
@@ -26,7 +26,7 @@ const ComicsForm = ({
     const { user } = useAuthContext();
     const [images, setImages] = useState({ images: null, urls: '' });
     const [errors, setErrors] = useState(initialErrorState);
-    const [comics] = useComicsState(id);
+    const [comics] = useOneComicsState(id);
 
     if (comics._ownerId && user._id !== comics._ownerId) {
         return <Navigate to="/" />
@@ -42,7 +42,7 @@ const ComicsForm = ({
     }
 
     const create = (comicsData, images) => {
-        window.scroll(0,0)
+        window.scroll(0, 0)
         comicsService.create(comicsData, images)
             .then((result) => {
                 if (result.type) {
@@ -64,7 +64,7 @@ const ComicsForm = ({
                     });
             })
             .catch(error => {
-                if(error.message.includes("unique")){
+                if (error.message.includes("unique")) {
                     addNotification(alertMessages.ComicsUniqueness, typesColor.error);
                 } else {
                     addNotification(alertMessages.CreateDenied, typesColor.error);
@@ -73,7 +73,7 @@ const ComicsForm = ({
             });
     }
     const edit = (id, comicsData, images) => {
-        window.scroll(0,0)
+        window.scroll(0, 0)
         comicsService.update(id, { data: comicsData })
             .then((result) => {
                 if (result.type) {
@@ -90,7 +90,7 @@ const ComicsForm = ({
                     });
             })
             .catch(error => {
-                if(error.message.includes("unique")){
+                if (error.message.includes("unique")) {
                     addNotification(alertMessages.ComicsUniqueness, typesColor.error);
                 }
                 addNotification(alertMessages.EditDenied, typesColor.error);

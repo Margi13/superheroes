@@ -1,54 +1,35 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import * as adminService from '../../../services/adminService';
 
 import { titles } from '../../../common/messagesConstantsBG';
 
-import { alertMessages } from '../../../common/messagesConstantsBG';
 import PendingCard from '../../Card/PendingCard';
+import PrevAndNext from '../../ReadComics/Parts/PrevAndNext';
+import FirstAndLast from '../../ReadComics/Parts/FirstAndLast';
+import '../../Catalog/Catalog.css';
+import { usePendingComicsState } from '../../../hooks/useComicsState';
 
 const PendingComics = ({
-    isAdmin,
-    loggedUser
+    pageSize
 }) => {
-    const navigate = useNavigate();
-    const [comics, setComics] = useState([]);
+    const [comics] = usePendingComicsState();
+    const [pagedComics, setPagedComics] = useState([]);
+    let [pageIndex, setPageIndex] = useState(0);
     useEffect(() => {
-        if (isAdmin) {
-            adminService.getAllPendingComics()
-                .then(data => {
-                    if (!data.type) {
-                        setComics(data);
+        const paged = comics.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
+        setPagedComics(paged);
 
-                    } else {
-                        throw new Error(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.log('Error:', error);
-                });
-        }
-        else {
-            navigate('/');
-        }
-    }, [isAdmin, navigate]);
-    const noComicsElement = (
-        <div>
-            <p className="no-articles">{alertMessages.NoComics}</p>
-        </div>
-    );
+    }, [comics, pageIndex, pageSize]);
+
     return (
         <>
             <h1>{titles.PendingComics}</h1>
             <div className="heroes-container">
-                {comics.length > 0
-                    ? comics.map(x =>
+                {pagedComics.length > 0
+                    ? pagedComics.map(x =>
                         <PendingCard
                             key={x._id}
                             type="comics"
                             data={x}
-                            isAdmin={isAdmin}
-                            user={loggedUser}
                         >
                             <h2>{x.title}</h2>
                             <p className="description">
@@ -56,13 +37,23 @@ const PendingComics = ({
                             </p>
 
                         </PendingCard>)
-                    : noComicsElement
+                    : ''
                 }
             </div>
-            {comics.length > 0
-                ? <h3 align="center" float="none">Страница 1/1</h3>
-                : <></>
-            }
+            <FirstAndLast className="catalog-fl"
+                totalPages={Math.ceil(comics.length / pageSize)}
+                pageIndex={pageIndex}
+                setPageIndex={setPageIndex}
+            >
+                <PrevAndNext className="catalog-pn"
+                    totalItems={comics.length}
+                    setPageIndex={setPageIndex}
+                    pageIndex={pageIndex}
+                    pageSize={pageSize}
+                >
+                    <h3>{titles.Page} {pageIndex + 1}/{Math.ceil(comics.length / pageSize) || 1}</h3>
+                </PrevAndNext>
+            </FirstAndLast>
         </>
     );
 }

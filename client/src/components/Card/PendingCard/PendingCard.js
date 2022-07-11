@@ -6,18 +6,18 @@ import ImageBox from '../ImageBox';
 import StatusBox from '../StatusBox';
 import ButtonsBox from '../ButtonsBox';
 import CreateWord from '../../Document/CreateWord';
+import { useAuthContext } from '../../../contexts/AuthContext';
 import './PendingCard.css'
 
 const PendingCard = ({
     children,
     type,
-    data,
-    isAdmin,
-    user
+    data
 }) => {
     const navigate = useNavigate();
     const [imageUrl, setImageUrl] = useState();
     const [enableApprove, setEnableApprove] = useState(false);
+    const { user } = useAuthContext();
     useEffect(() => {
         const imageName = type === 'comics' ? data.coverPage : data.imageUrl;
         const imagePath = type === 'comics' ? `comics/${data._id}` : 'heroes';
@@ -25,37 +25,36 @@ const PendingCard = ({
             .then(url => {
                 setImageUrl(url);
             });
-    }, [data, data._id, type, setImageUrl, enableApprove])
-    const approveClickHandler = () => {
-        if (isAdmin) {
+    }, [data, type, enableApprove]);
 
-            adminService.approve(data._id, data, type)
-                .then(result => {
-                    if (result.ok) {
-                        navigate(`/admin/pending`);
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                });
-        }
+    const approveClickHandler = () => {
+        adminService.approve(data._id, data, type)
+            .then(result => {
+                if (result.type) {
+                    throw new Error(result.message);
+                }
+                navigate(`/admin/pending`);
+            })
+            .catch(error => {
+                console.log(error)
+            });
     }
+
     const declineClickHandler = () => {
-        if (isAdmin) {
-            const body = {
-                adminId: user._id,
-                reportMessage: 'Не отговаря на стандартите'
-            }
-            adminService.decline(data._id, body, type)
-                .then(result => {
-                    if (result.ok) {
-                        navigate(`/admin/pending`);
-                    }
-                })
-                .catch(error => {
-                    console.log(error)
-                });
+        const body = {
+            adminId: user._id,
+            reportMessage: 'Не отговаря на стандартите'
         }
+        adminService.decline(data._id, body, type)
+            .then(result => {
+                if (result.type) {
+                    throw new Error(result.message);
+                }
+                navigate(`/admin/pending`);
+            })
+            .catch(error => {
+                console.log(error)
+            });
     }
     return (
         <div className="heroes-container admin-card">
@@ -71,13 +70,13 @@ const PendingCard = ({
                         </div>
 
                         <div align="right">
-                            <CreateWord data={data} dataType={type} type="copyright" onCreate={ ()=> setEnableApprove(true) } />
+                            <CreateWord data={data} dataType={type} type="copyright" onCreate={() => setEnableApprove(true)} />
                         </div>
                         <ButtonsBox
                             id={data._id}
                             hasDetails={true}
                             urlFor={type}
-                            role={{ isAdmin: isAdmin }}
+                            role={{ isAdmin: true }}
                             hasFunctionalButtons={true}
                             enableApprove={enableApprove}
                             onApprove={approveClickHandler}

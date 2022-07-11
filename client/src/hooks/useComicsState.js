@@ -34,7 +34,8 @@ export const useMyComicsState = (ownerId) => {
     useEffect(() => {
         comicsService.getOwn(ownerId)
             .then(res => {
-                setComics(res);
+                const result = res.sort((a,b) => a.status - b.status);
+                setComics(result);
             });
     }, [ownerId, setComics]);
 

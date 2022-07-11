@@ -1,46 +1,29 @@
 import { Link } from 'react-router-dom';
 import { useAuthContext } from '../../contexts/AuthContext';
 import { navigationTitlesBG } from '../../common/labelsConstatnsBG';
-import * as adminService from '../../services/adminService';
 import './Header.css';
-import { useEffect, useState } from 'react/cjs/react.development';
 
 const Header = () => {
-    const { user } = useAuthContext();
-    const [isAdmin, setIsAdmin] = useState(false);
-    useEffect(() => {
-        adminService.getAdminId()
-            .then(result => {
-                if (result.adminId) {
-                    if (result.adminId === user._id) {
-                        setIsAdmin(true);
-                    }
-                    else {
-                        setIsAdmin(false);
-                    }
-                }
-            });
-    }, [user._id,setIsAdmin]);
+    const { user, isAdmin } = useAuthContext();
 
-    let guestNavigation = (
+    const guestNavigation = (
         <div id="guest" className="nav-container">
             <Link to="/login" href="/login" className="cloud-link guest-nav">{navigationTitlesBG.Login}</Link>
             <Link to="/register" href="/register" className="cloud-link guest-nav">{navigationTitlesBG.Register}</Link>
         </div>
     );
-    let userNavigation = (
+    const userNavigation = (
         <div id="user" className="nav-container">
             <Link to="/create" href="/create" className="cloud-link user-nav">{navigationTitlesBG.Create}</Link>
             <Link to="/profile" href="/profile" className="cloud-link user-nav">{navigationTitlesBG.Profile}</Link>
             <Link to="/logout" href="/logout" className="cloud-link user-nav">{navigationTitlesBG.Logout}</Link>
         </div>
     );
-    let adminNavigation = (
+    const adminNavigation = (
         <div id="admin" className='nav-container'>
             <Link to="/admin/pending" href="/pending" className="cloud-link admin-nav">{navigationTitlesBG.Pending}</Link>
             <Link to="/admin/reports" href="/reports" className="cloud-link admin-nav">{navigationTitlesBG.Reports}</Link>
             <Link to="/logout" href="/logout" className="cloud-link admin-nav">{navigationTitlesBG.Logout}</Link>
-
         </div>
     );
     return (
@@ -58,7 +41,7 @@ const Header = () => {
                 </div>
                 {isAdmin
                     ? adminNavigation
-                    : user.email
+                    : user.accessToken
                         ? userNavigation
                         : guestNavigation
 

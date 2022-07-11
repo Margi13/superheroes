@@ -25,10 +25,8 @@ function App() {
 
   return (
     <ErrorBoundary>
-
       <AuthProvider>
         <NotificationProvider>
-
           <div id="box">
             <Header />
             <Notification />

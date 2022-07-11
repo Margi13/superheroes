@@ -14,8 +14,6 @@ const FirstAndLast = ({
         setPageIndex(0);
     }
     const onLastClick = () => {
-        console.log(totalPages)
-        console.log(pageIndex)
         if(totalPages <= 1) {
             setPageIndex(0);
         } else {

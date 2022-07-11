@@ -38,7 +38,8 @@ export const useMyHeroesState = (ownerId) => {
     useEffect(() => {
         superheroService.getOwn(ownerId)
             .then(res => {
-                setSuperhero(res);
+                const result = res.sort((a,b) => a.status - b.status);
+                setSuperhero(result);
             });
     }, [ownerId, setSuperhero]);
 

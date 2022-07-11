@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import Error from '../Error';
 
 class ErrorBoundary extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class ErrorBoundary extends Component {
         if (this.state.error) {
 
             return (
-                <h1>Страницата, която търсите, не съществува!</h1>
+                <Error />
             );
         } else {
             return this.props.children;

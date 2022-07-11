@@ -1,30 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../../contexts/AuthContext';
-import * as adminService from '../../services/adminService';
 import * as reportService from '../../services/reportService';
 import './Reports.css'
 import Table from '../Table/Table';
 
 const Reports = () => {
     const navigate = useNavigate();
-    const [isAdmin, setIsAdmin] = useState(false);
     const [toReload, setToReload] = useState(false);
     const [reports, setReports] = useState([]);
     const [pageIndex, setPageIndex] = useState(0);
 
     const { user } = useAuthContext();
     useEffect(() => {
-        adminService.getAdminId()
-            .then(result => {
-                if (result.adminId === user._id) {
-                    setIsAdmin(true);
-                }
-                else {
-                    setIsAdmin(false);
-                    navigate('/');
-                }
-            });
         reportService.getAllReports()
             .then(result => {
                 result = result.sort((a, b) => new Date(b._createdOn) - new Date(a._createdOn))

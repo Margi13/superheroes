@@ -11,27 +11,10 @@ import ComicsDescription from './Parts/ComicsDescription';
 import './ReadComics.css';
 
 const ReadComics = () => {
-	// const navigate = useNavigate();
 	const { id } = useParams();
-	// const { user } = useAuthContext()
-	// const [isAdmin, setIsAdmin] = useState(false);
+
 	const [comics, setComics] = useOneComicsState(id);
 	const [page, setPage] = useState(0);
-	// useEffect(() => {
-	// 	adminService.getAdminId()
-	// 		.then(result => {
-	// 			if (result.adminId === user._id) {
-	// 				setIsAdmin(true);
-	// 			}
-	// 			else {
-	// 				setIsAdmin(false);
-	// 				if (!user || (comics._ownerId !== user._id && comics.status !== 1)) {
-	// 					console.log(user, comics._ownerId === user._id, comics.status)
-	// 					navigate('/')
-	// 				}
-	// 			}
-	// 		});
-	// }, [isAdmin, comics.status, comics._ownerId, user._id, user, navigate]);
 
 	return (
 		<section className="read-container">

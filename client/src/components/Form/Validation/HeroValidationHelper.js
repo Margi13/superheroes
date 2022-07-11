@@ -14,7 +14,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
         let currentName = e.target.value;
         if (currentName === '') {
             setErrors(state => ({ ...state, personName: validationMessages.requiredMessage }));
-        } else if (currentName.length < 3 || currentName.length > 30) {
+        } else if (currentName.length < 4 || currentName.length > 30) {
             setErrors(state => ({ ...state, personName: validationMessages.PersonNameLength }));
         } else {
             setErrors(state => ({ ...state, personName: null }));
@@ -25,7 +25,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
         let currentName = e.target.value;
         if (currentName === '') {
             setErrors(state => ({ ...state, heroName: validationMessages.requiredMessage }));
-        } else if (currentName.length < 3 || currentName.length > 30) {
+        } else if (currentName.length < 2 || currentName.length > 30) {
             setErrors(state => ({ ...state, heroName: validationMessages.HeroNameLength }));
         } else {
             setErrors(state => ({ ...state, heroName: null }));

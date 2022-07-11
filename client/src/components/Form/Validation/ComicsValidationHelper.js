@@ -14,7 +14,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
         let currentTitle = e.target.value;
         if (currentTitle === '') {
             setErrors(state => ({ ...state, title: validationMessages.requiredMessage }));
-        } else if (currentTitle.length < 3 || currentTitle.length > 30) {
+        } else if (currentTitle.length < 2 || currentTitle.length > 30) {
             setErrors(state => ({ ...state, title: validationMessages.TitleLength }));
         } else {
             setErrors(state => ({ ...state, title: null }));

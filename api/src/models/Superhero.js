@@ -14,11 +14,14 @@ const superheroSchema = new mongoose.Schema({
     },
     kind: {
         type: String,
-        required: true
+        required: true,
+        minLength: [2, 'The kind should be at least 2 characters long'],
+        maxLength: [15, 'The kind should be maximum 15 characters long']
     },
     age: {
         type: Number,
-        required: true
+        required: true,
+        min: 1
     },
     imageUrl: {
         type: String,

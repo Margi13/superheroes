@@ -1,11 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useOneHeroState } from '../../../hooks/useHeroState';
+import { useOneHeroWithPicState } from '../../../hooks/useHeroState';
 import { useAuthContext } from '../../../contexts/AuthContext';
-
-import * as likeService from '../../../services/likeService';
-import * as firebaseService from '../../../services/firebaseService';
 
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 import { formLabelsBG } from '../../../common/labelsConstatnsBG';
@@ -17,30 +14,10 @@ import ImageBox from '../../Card/ImageBox';
 const HeroDetails = () => {
 	const { user } = useAuthContext();
 	const { id } = useParams();
-	const [superhero, setSuperhero] = useOneHeroState(id);
+	const [superhero, setSuperhero, imageUrl] = useOneHeroWithPicState(id);
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-	const [imageUrl, setImageUrl] = useState('');
 	const helper = DetailsHelper(user, superhero, setSuperhero, setShowDeleteDialog, 'heroes');
 
-	useEffect(() => {
-		if (superhero.imageUrl) {
-			firebaseService.getImageFromFirebase(superhero.imageUrl, 'heroes')
-				.then(url => {
-					setImageUrl(url);
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
-		likeService.getHeroLikes(id)
-			.then((likes) => {
-				setSuperhero(state => ({ ...state, likes }))
-
-			})
-			.catch(error => {
-				console.log(error);
-			});
-	}, [id, setSuperhero, superhero.imageUrl, setImageUrl])
 	const role = {
 		isGuest: user._id ? user._id.length <= 0 : true,
 		isOwner: user._id === superhero._ownerId ? true : false

@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-import * as firebaseService from '../../../services/firebaseService';
-
 import './MyCard.css';
-import ButtonsBox from '../../Card/ButtonsBox';
-import ImageBox from '../../Card/ImageBox';
+import ButtonsBox from '../ButtonsBox';
+import ImageBox from '../ImageBox';
 import StatusBox from '../StatusBox';
+import { useImageState } from '../../../hooks/useFirebaseState';
 
 const MyCard = ({
     children,
@@ -13,14 +11,7 @@ const MyCard = ({
     type,
     image
 }) => {
-    const [imageUrl, setImageUrl] = useState();
-    useEffect(() => {
-        const imagePath = type === 'comics' ? `comics/${id}` : 'heroes';
-        firebaseService.getImageFromFirebase(image, imagePath)
-            .then(url => {
-                setImageUrl(url);
-            });
-    }, [image, type, id]);
+    const [imageUrl] = useImageState(id, image, type);
 
     return (
         <div className="my-card">

@@ -17,7 +17,6 @@ const PendingComics = ({
     useEffect(() => {
         const paged = comics.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
         setPagedComics(paged);
-
     }, [comics, pageIndex, pageSize]);
 
     return (

@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useOneComicsState } from '../../../hooks/useComicsState';
+import { useOneComicsWithPicState } from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
-
-import * as firebaseService from '../../../services/firebaseService';
 
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 import { titles } from '../../../common/messagesConstantsBG';
@@ -16,23 +14,9 @@ import ImageBox from '../../Card/ImageBox';
 const ComicsDetails = () => {
 	const { user } = useAuthContext();
 	const { id } = useParams();
-	const [comics, setComics] = useOneComicsState(id);
+	const [comics, setComics, imageUrl] = useOneComicsWithPicState(id);
 	const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-	const [imageUrl, setImageUrl] = useState('');
 	const helper = DetailsHelper(user, comics, setComics, setShowDeleteDialog, 'comics');
-
-	useEffect(() => {
-		if (comics.coverPage) {
-			firebaseService.getImageFromFirebase(comics.coverPage, `comics/${comics._id}`)
-				.then(url => {
-					setImageUrl(url);
-				})
-				.catch(error => {
-					console.log(error);
-				});
-		}
-
-	}, [comics.coverPage, comics._id, setImageUrl])
 
 	const role = {
 		isGuest: user._id ? user._id.length <= 0 : true,

@@ -1,17 +1,11 @@
 import { Link } from 'react-router-dom';
 import '../Card.css';
-import { useEffect, useState } from 'react';
-import * as firebaseService from '../../../services/firebaseService';
+import { useImageState } from '../../../hooks/useFirebaseState';
 const HeroCard = ({
 	hero
 }) => {
-	const [imageUrl, setImageUrl] = useState();
-	useEffect(() => {
-		firebaseService.getImageFromFirebase(hero.imageUrl, 'heroes')
-			.then(url => {
-				setImageUrl(url);
-			});
-	}, [hero.imageUrl, setImageUrl])
+	const [imageUrl] = useImageState(hero._id, hero.imageUrl, 'heroes');
+
 	return (
 		<div className="heroes-card card">
 			<Link to={"/details/heroes/" + hero._id} href="/details/heroes" className="btn card-details-btn">

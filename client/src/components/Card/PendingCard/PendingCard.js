@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as firebaseService from '../../../services/firebaseService';
 import * as adminService from '../../../services/adminService';
 import ImageBox from '../ImageBox';
 import StatusBox from '../StatusBox';
@@ -8,6 +7,7 @@ import ButtonsBox from '../ButtonsBox';
 import CreateWord from '../../Document/CreateWord';
 import { useAuthContext } from '../../../contexts/AuthContext';
 import './PendingCard.css'
+import { useImageState } from '../../../hooks/useFirebaseState';
 
 const PendingCard = ({
     children,
@@ -15,17 +15,10 @@ const PendingCard = ({
     data
 }) => {
     const navigate = useNavigate();
-    const [imageUrl, setImageUrl] = useState();
+    const image = type === 'comics' ? data.coverPage : data.imageUrl;
+    const [imageUrl] = useImageState(data._id, image, type);
     const [enableApprove, setEnableApprove] = useState(false);
     const { user } = useAuthContext();
-    useEffect(() => {
-        const imageName = type === 'comics' ? data.coverPage : data.imageUrl;
-        const imagePath = type === 'comics' ? `comics/${data._id}` : 'heroes';
-        firebaseService.getImageFromFirebase(imageName, imagePath)
-            .then(url => {
-                setImageUrl(url);
-            });
-    }, [data, type, enableApprove]);
 
     const approveClickHandler = () => {
         adminService.approve(data._id, data, type)

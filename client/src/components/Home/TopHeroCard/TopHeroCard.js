@@ -1,18 +1,12 @@
 import { Link } from 'react-router-dom';
 import './TopHeroCard.css';
 import { buttonLabelsBG } from '../../../common/labelsConstatnsBG'
-import { useEffect, useState } from 'react';
-import * as firebaseService from '../../../services/firebaseService';
+import { useImageState } from '../../../hooks/useFirebaseState';
 const TopHeroCard = ({
     hero
 }) => {
-    const [imageUrl, setImageUrl ] = useState();
-    useEffect(()=>{
-        firebaseService.getImageFromFirebase(hero.imageUrl, 'heroes')
-        .then(url=>{
-            setImageUrl(url);
-        });
-    },[hero.imageUrl])
+    const [imageUrl] = useImageState(hero._id, hero.imageUrl, 'heroes');
+
     return (
         <div className="hero-card">
             <h3>{hero.heroName}</h3>

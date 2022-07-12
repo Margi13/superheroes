@@ -1,30 +1,10 @@
-import { useState, useEffect } from 'react';
 import './Home.css'
 import TopHeroCard from './TopHeroCard';
 
-import * as superheroService from '../../services/superheroService';
-import { titles, alertMessages } from '../../common/messagesConstantsBG';
-import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
+import { titles } from '../../common/messagesConstantsBG';
+import { useTopHeroesState } from '../../hooks/useHeroState';
 const Home = () => {
-    const [superheroes, setSuperheroes] = useState();
-    const { addNotification } = useNotificationContext();
-
-    useEffect(() => {
-        superheroService.getTopThree()
-            .then(topHeroes => {
-                
-                setSuperheroes(topHeroes);
-            })
-            .catch(error => {
-                addNotification(alertMessages.SomethingWentWrong, typesColor.error);
-                console.log(error);
-            });
-    }, [addNotification]);
-    const noHeroesElement = (
-        <div>
-            <p className="no-articles">{alertMessages.NoSuperheroes}</p>
-        </div>
-    );
+    const [superheroes] = useTopHeroesState();
 
     return (
         <section className="comics-world">
@@ -39,7 +19,7 @@ const Home = () => {
                 <div className="top-cards">
                     {superheroes
                         ? superheroes.map(x => <TopHeroCard key={x._id} hero={x} />)
-                        : noHeroesElement
+                        : ''
                     }
                 </div>
             </div>

@@ -39,3 +39,5 @@ exports.login = async ({ email, password }) => {
 		throw new Error('Invalid username or password!');
 	}
 }
+
+exports.getUser = (id) => User.findById(id);

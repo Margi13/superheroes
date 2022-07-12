@@ -3,14 +3,9 @@ const ImagesBulkUpload = ({
     label,
     errorMessage,
     placeholder,
-    type,
     changeHandler,
-    setImages,
-    images
 }) => {
     //Should upload images from here
-    //Should get images for Edit from here
-    //All functionalities with these images should be here - uploadHelper.js
     return (
         <>
             <label htmlFor={name}>{label}:</label>

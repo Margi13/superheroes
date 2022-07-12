@@ -34,13 +34,6 @@ const ComicsForm = ({
 
     const handlers = ChangeHandlers(setErrors, setImages);
 
-    const imageHandler = (e) => {
-        if (e.target.files) {
-            const files = e.target.files;
-            setImages(() => ({ files }));
-        }
-    }
-
     const create = (comicsData, images) => {
         window.scroll(0, 0)
         comicsService.create(comicsData, images)
@@ -143,7 +136,7 @@ const ComicsForm = ({
                     defaultValue={comics.imagesUrl}
                     placeholder={placeholdersBG.Image}
                     errorMessage={errors.images}
-                    changeHandler={imageHandler}
+                    changeHandler={handlers.imagesHandler}
                 />
                 <TextareaField name="description"
                     label={formLabelsBG.Description}

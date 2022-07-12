@@ -1,13 +1,23 @@
 import { validationMessages } from '../../../common/messagesConstantsBG';
 export const ChangeHandlers = (setErrors, setImage) => {
+    const validFileExtensions = ["jpg", "jpeg", "bmp", "gif", "png"];
     const imageHandler = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const image = e.target.files[0];
 
-        if (e.target.files[0]) {
-            console.log(e.target.files[0])
-            const img = e.target.files[0]
-            setImage(() => ({ img }));
+            let size = image.size / 1024 / 1024;
+            const nameParts = image.name.split('.');
+
+            if (!validFileExtensions.includes(nameParts[nameParts.length - 1].toLowerCase())) {
+                setErrors(state => ({ ...state, image: validationMessages.ImagesFormat }))
+            } else if (size > 2) {
+                setErrors(state => ({ ...state, image: validationMessages.ImageSize }));
+            } else {
+                setErrors(state => ({ ...state, image: null }));
+                setImage(() => ({ ...image }));
+            }
         } else {
-            setErrors(state => ({ ...state, image: validationMessages.requiredMessage }))
+            setErrors(state => ({ ...state, images: validationMessages.requiredMessage }))
         }
     }
     const personNameChangeHandler = (e) => {

@@ -6,7 +6,7 @@ export const ChangeHandlers = (setErrors) => {
         let emailRegex = /[a-z].+@[a-zA-Z]+\.[a-zA-Z]+$/;
         if (currentEmail === '') {
             setErrors(state => ({ ...state, email: validationMessages.requiredMessage }));
-        } else if (emailRegex.test(currentEmail)) {
+        } else if (!emailRegex.test(currentEmail)) {
             console.log(currentEmail)
             setErrors(state => ({ ...state, email: validationMessages.EmailRegex }));
         } else {
@@ -15,10 +15,10 @@ export const ChangeHandlers = (setErrors) => {
     }
     const passwordChangeHandler = (e) => {
         let currentPassword = e.target.value;
-        let passwordRegex = /[^A-Za-z0-9]+/;
+        let passwordRegex = /[a-zA-Z0-9]+/;
         if (currentPassword === '') {
             setErrors(state => ({ ...state, password: validationMessages.requiredMessage }));
-        } else if (passwordRegex.test(currentPassword)) {
+        } else if (!passwordRegex.test(currentPassword)) {
             setErrors(state => ({ ...state, password: validationMessages.PasswordSymbols }));
         } else if (currentPassword.length < 4 || currentPassword.length > 50) {
             setErrors(state => ({ ...state, password: validationMessages.PasswordLength }));

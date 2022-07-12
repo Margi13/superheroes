@@ -3,7 +3,7 @@ import { useNavigate, Navigate } from 'react-router'
 import { Link } from 'react-router-dom';
 import * as authService from '../../services/authService';
 import { useAuthContext } from '../../contexts/AuthContext';
-import { formLabelsBG, buttonLabelsBG, placeholdersBG } from '../../common/labelsConstatnsBG';
+import { formLabelsBG, placeholdersBG } from '../../common/labelsConstatnsBG';
 import { titles, alertMessages, validationMessages } from '../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../contexts/NotificationContext';
 import { ChangeHandlers } from '../Form/Validation/UserValidationHelper';

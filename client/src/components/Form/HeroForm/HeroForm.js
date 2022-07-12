@@ -35,13 +35,6 @@ const HeroForm = ({
 
     const handlers = ChangeHandlers(setErrors, setImage);
 
-    const imageHandler = (e) => {
-        if (e.target.files[0]) {
-            const file = e.target.files[0]
-            setImage(() => ({ file }));
-        }
-    }
-
     const create = (heroData, image) => {
         window.scroll(0, 0)
         superheroService.create(heroData, image)
@@ -163,7 +156,7 @@ const HeroForm = ({
                     defaultValue={superhero.imageUrl}
                     placeholder={placeholdersBG.Image}
                     errorMessage={errors.image}
-                    changeHandler={imageHandler}
+                    changeHandler={handlers.imageHandler}
                 />
                 <TextareaField name="story"
                     label={formLabelsBG.Story}

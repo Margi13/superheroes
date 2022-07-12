@@ -1,11 +1,30 @@
 import { validationMessages } from '../../../common/messagesConstantsBG';
 export const ChangeHandlers = (setErrors, setImage) => {
+    const validFileExtensions = ["jpg", "jpeg", "bmp", "gif", "png"];
     const imagesHandler = (e) => {
+        if (e.target.files && e.target.files.length > 0) {
+            const images = e.target.files;
 
-        if (e.target.files) {
-            console.log(e.target.files)
-            const images = e.target.files
-            setImage(() => ({ ...images }));
+            let size = 0;
+            let isValid = true;
+            for (const img of Object.values(images)) {
+                const nameParts = img.name.split('.')
+                if (!validFileExtensions.includes(nameParts[nameParts.length - 1].toLowerCase())) {
+                    isValid = false;
+                    break;
+                }
+                size += img.size
+            }
+            size = size / 1024 / 1024;
+
+            if (!isValid) {
+                setErrors(state => ({ ...state, images: validationMessages.ImagesFormat }))
+            } else if (size > 100) {
+                setErrors(state => ({ ...state, images: validationMessages.ComicsSize }));
+            } else {
+                setErrors(state => ({ ...state, images: null }));
+                setImage(() => ({ ...images }));
+            }
         } else {
             setErrors(state => ({ ...state, images: validationMessages.requiredMessage }))
         }

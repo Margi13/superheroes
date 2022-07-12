@@ -1,5 +1,5 @@
 const Copyright = require('../models/CopyrightDocument')
-const UseRight = require('../models/UseRightDocument')
+// const UseRight = require('../models/UseRightDocument')
 
 // Copyrights
 exports.getAllCopyrights = () => Copyright.find();

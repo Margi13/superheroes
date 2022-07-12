@@ -38,6 +38,7 @@ const PendingCard = ({
             .catch(error => {
                 console.log(error)
             });
+        
     }
 
     const declineClickHandler = () => {

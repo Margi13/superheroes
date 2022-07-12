@@ -8,6 +8,7 @@ exports.getFilteredCopyright = (dataId, ownerId) => Copyright.find({ dataId: dat
 exports.getOneCopyright = (documentId) => Copyright.findById(documentId);
 
 exports.createCopyright = (documentData) => Copyright.create(documentData);
+exports.updateCopyright = (documentId, documentData) => Copyright.findByIdAndUpdate(documentId, documentData, { new: true });
 exports.deleteCopyright = (documentId) => Copyright.findByIdAndDelete(documentId);
 
 // Use rights

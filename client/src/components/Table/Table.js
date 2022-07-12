@@ -26,9 +26,9 @@ const Table = ({
             <table>
                 <thead>
                     <tr>
-                        <th>{columns[0]}</th>
-                        <th>{columns[1]}</th>
-                        <th>{columns[2]}</th>
+                        {
+                            columns.map((col, index) => <th key={index}>{col}</th>)
+                        }
                         <th></th>
                     </tr>
                 </thead>

@@ -25,7 +25,9 @@ const DocumentRow = ({
     return (
         <tr>
             <td className="date-cell">{(new Date(data._createdOn)).toLocaleDateString('bg-BG')}</td>
-            <td className="message-cell">{data.dataType}</td>
+            <td className="date-cell">{data._updatedOn ? (new Date(data._updatedOn)).toLocaleDateString('bg-BG') : 'Не е публикуван'}</td>
+            <td className="data-cell">Документ за авторство</td>
+            <td className="data-cell">{data.dataType === 'comics' ? 'Комикс' : 'Герой'}</td>
             {
                 data.dataType === 'comcis'
                     ? <td className="link-cell"><Link to={`/details/comics/${comics._id}`}>{comics.title}</Link> </td>

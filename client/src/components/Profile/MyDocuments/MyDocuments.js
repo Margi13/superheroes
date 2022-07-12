@@ -17,13 +17,13 @@ const MyDocuments = () => {
     }, [toReload]);
 
     return (
-        <section className="admin-reports-page">
+        <section className="admin-reports-page my-page">
             <h1>{titles.MyDocuments}</h1>
             <Table
                 data={documents}
-                pageSize={1}
+                pageSize={10}
                 toReload={setToReload}
-                columns={['Дата', 'За', 'Име']}
+                columns={['Дата на създаване', 'Дата на публикуване', 'Тип','За', 'Име']}
                 rows={'document'}
             >
             </Table>

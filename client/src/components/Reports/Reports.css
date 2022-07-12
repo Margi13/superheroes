@@ -47,6 +47,11 @@ td {
     max-width: 50%;
     padding-left: 10px;
 }
+.data-cell {
+    width: 120px;
+    max-width: 20%;
+    text-align: center;
+}
 .link-cell {
     max-width: 30%;
     text-align: center;
@@ -93,10 +98,11 @@ td {
     padding-left: 0;
     text-align: left;
 }
+
 .table-pagination {
     text-align: center;
 }
+
 .table-pagination i{
     font-size: 14px;
-
 }

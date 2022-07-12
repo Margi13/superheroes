@@ -24,8 +24,8 @@ const CreateWord = ({
     }, [type, setButtonLabel]);
 
     const create = async () => {
-        const imageUrl = dataType === 'comics' ? data.coverPage : data.imageUrl
-        const imagePath = dataType === 'comics' ? `comics/${data._id}` : 'heroes'
+        const imageUrl = dataType === 'comics' ? data.coverPage : data.imageUrl;
+        const imagePath = dataType === 'comics' ? `comics/${data._id}` : 'heroes';
 
         const image = await getImageFromFirebase(imageUrl, imagePath)
         switch (type) {

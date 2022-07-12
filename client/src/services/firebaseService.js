@@ -135,8 +135,13 @@ export const getImageFromFirebase = (imageName, imagePath) => {
     const imageRef = ref(storage, `${imageUrl}/${imageName}`);
 
     return getDownloadURL(imageRef);
-
 }
+export const getDocumentFromFirebase = (document) => {
+    const imageRef = ref(storage, `documents/${document._userId}/copyright/${document.dataType}_${document.dataId}`);
+
+    return getDownloadURL(imageRef);
+}
+
 export const getImageRefFirebase = (imageName, imagePath) => {
     const imageUrl = imagePath ? `images/${imagePath}` : 'images';
     const imageRef = ref(storage, `${imageUrl}/${imageName}`);
@@ -149,6 +154,17 @@ export const getMultipleImagesFromFirebase = async (images, imagePath) => {
     const promises = [];
     images.forEach(imageName => {
         const imageRef = ref(storage, `${imageUrl}/${imageName}`);
+        promises.push(getDownloadURL(imageRef));
+    })
+
+    return Promise.all(promises)
+        .then((res) => { return res })
+        .catch((err) => console.log(err));
+}
+export const getMultipleDocumentsFromFirebase = async (docs) => {
+    const promises = [];
+    docs.forEach(doc => {
+        const imageRef = ref(storage, `documents/${doc._userId}/${doc.dataType}_${doc._id}`);
         promises.push(getDownloadURL(imageRef));
     })
 

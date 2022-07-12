@@ -33,7 +33,8 @@ const CreateWord = ({
                 const document = await documentService.getFilteredCopyright(data._id, data._ownerId, dataType);
                 const doc = copyright.generateCopyrightDocument(data, document, image, dataType);
                 onCreate();
-                documentService.saveDocumentToFile(doc, `${dataType}_${data._id}`, 'copyright', document._docOwnerId);
+
+                documentService.saveDocumentToFile(doc, `${dataType}_${data._id}`, 'copyright', document._userId);
                 break;
             }
             default: {

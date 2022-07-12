@@ -112,7 +112,6 @@ router.post('/', isAuth, async (req, res) => {
         });
     }
     //TODO:
-    //Find if there is comics with given title and throw error if there is
     //Find in FE if image extension is .png, .jpg, .jpeg and throw error if not
     //FE - Animation while waiting images from firebase.
     try {

@@ -4,12 +4,12 @@ import { useAuthContext } from '../../contexts/AuthContext';
 import * as reportService from '../../services/reportService';
 import './Reports.css'
 import Table from '../Table/Table';
+import { titles } from '../../common/messagesConstantsBG';
 
 const Reports = () => {
     const navigate = useNavigate();
     const [toReload, setToReload] = useState(false);
     const [reports, setReports] = useState([]);
-    const [pageIndex, setPageIndex] = useState(0);
 
     const { user } = useAuthContext();
     useEffect(() => {
@@ -25,15 +25,14 @@ const Reports = () => {
 
     return (
         <section className="admin-reports-page">
-            <h1>Сигнализирани комикси</h1>
+            <h1>{titles.Reports}</h1>
             <Table
                 data={reports}
-                pageIndex={pageIndex}
                 pageSize={10}
-                onChangePage={setPageIndex}
                 toReload={setToReload}
+                columns={['Дата', 'Съобщение', 'За герой/комикс']}
+                rows={'report'}
             >
-                <span>Страница {pageIndex + 1}/{Math.ceil(reports.length / 10) || 1}</span>
             </Table>
         </section>
     )

@@ -13,6 +13,22 @@ router.get('/copyright/list', async (req, res) => {
         })
     }
 });
+router.get('/copyright/own', async (req, res) => {
+    const userId = req.query.ownerId;
+    try {
+        if (userId) {
+            const copyrights = await documentService.getOwnCopyrights(userId);
+            return res.json(copyrights)
+        } else {
+            throw new Error('User is not authenticated')
+        }
+    } catch (error) {
+        return res.json({
+            type: 'error',
+            message: error.message
+        })
+    }
+});
 router.get('/use-right/list', async (req, res) => {
     const response = req.query.response;
     try {

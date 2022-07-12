@@ -9,6 +9,7 @@ export const titles = {
     'MyHeroes': 'Всички мои герои',
     'MyComics': 'Всички мои комикси',
     'MyDocuments': 'Документи за авторство',
+    'Reports': 'Подадени сигнали',
     'PendingHeroes': 'Герои, очакващи одобрение',
     'PendingComics': 'Комикси, очакващи одобрение',
     'Login': 'Вход',
@@ -56,7 +57,8 @@ export const alertMessages = {
     'ReportOwnComicsDenied': 'Не е позволено да сигнализираш свой комикс',
     'ReportOwnHeroDenied': 'Не е позволено да сигнализираш свой герой',
     'LikeOwnComicsDenied': 'Не е позволено да харесаш свой комикс',
-    'LikeOwnHeroDenied': 'Не е позволено да харесаш свой герой'
+    'LikeOwnHeroDenied': 'Не е позволено да харесаш свой герой',
+    'DownloadDocumentDenied': 'Възникна проблем със свалянето на документа'
 }
 
 export const validationMessages = {

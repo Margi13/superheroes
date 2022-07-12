@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import MyHeroes from './MyHeroes';
 import MyComics from './MyComics';
 import { buttonLabelsBG } from '../../common/labelsConstatnsBG';
+import MyDocuments from './MyDocuments';
 
 const Profile = () => {
     return (
@@ -13,9 +14,9 @@ const Profile = () => {
                 <Link to="/profile/my-docs" className="button" href="/profile/my-docs">{buttonLabelsBG.Documents}</Link>
             </div>
             <Routes>
-                <Route path="/my-heroes" element={<MyHeroes pageSize={15}/>} />
-                <Route path="/my-comics" element={<MyComics pageSize={15}/>} />
-                <Route path="/my-docs" element={<></>} />
+                <Route path="/my-heroes" element={<MyHeroes pageSize={15} />} />
+                <Route path="/my-comics" element={<MyComics pageSize={15} />} />
+                <Route path="/my-docs" element={<MyDocuments />} />
             </Routes>
         </>
 

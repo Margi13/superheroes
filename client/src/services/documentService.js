@@ -9,15 +9,26 @@ export const saveDocumentToFile = (doc, fileName, type, userId) => {
     // Create a Blob object from Packer containing the Document instance and the mimeType
     Packer.toBlob(doc).then((blob) => {
         const docblob = blob.slice(0, blob.size, mimeType)
-        console.log(type)
         firebaseService.handleDocumentUpload({ file: { doc: docblob, name: fileName }, folderName: type, _ownerId: userId }, () => { }, () => { })
 
         // Save the file using saveAs from the file-saver package
         saveAs(docblob, fileName);
     })
 }
+export const downloadDocument = async (document, fileName) => {
+    return await firebaseService.getDocumentFromFirebase(document);
+    // Create a mime type that will associate the new file with Microsoft Word
+    // const mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    // // Create a Blob object from Packer containing the Document instance and the mimeType
+    // return Packer.toBlob(doc).then((blob) => {
+    //     console.log(blob)
+    //     const docblob = blob.slice(0, blob.size, mimeType)
+    //     saveAs(docblob, fileName);
+    // })
+}
 
 export const getAllCopyright = () => request.get(`${copyrightUrl}/list`);
+export const getOwnCopyrights = (ownerId) => request.get(`${copyrightUrl}/own?ownerId=${ownerId}`);
 export const getOneCopyright = (documentId) => request.get(`${copyrightUrl}/${documentId}`);
 export const getFilteredCopyright = (dataId, ownerId, dataType) => request.get(`${copyrightUrl}?dataId=${dataId}&ownerId=${ownerId}&type=${dataType}`);
 

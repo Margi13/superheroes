@@ -14,7 +14,7 @@ const MyHeroes = ({
     const { user } = useAuthContext();
     const [superheroes] = useMyHeroesState(user._id);
     const [pagedHeroes, setPagedHeroes] = useState([]);
-    let [pageIndex, setPageIndex] = useState(0);
+    const [pageIndex, setPageIndex] = useState(0);
     useEffect(() => {
         const paged = superheroes.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize)
         setPagedHeroes(paged);

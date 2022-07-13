@@ -132,7 +132,7 @@ const ComicsForm = ({
                     changeHandler={handlers.genreChangeHandler}
                 />
                 <ImagesBulkUpload name="imagesUrl"
-                    label={formLabelsBG.CoverPage}
+                    label={formLabelsBG.Images}
                     defaultValue={comics.imagesUrl}
                     placeholder={placeholdersBG.Image}
                     errorMessage={errors.images}

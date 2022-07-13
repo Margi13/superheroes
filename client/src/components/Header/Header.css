@@ -1,66 +1,32 @@
 .logo-container {
-    height: 175px;
+    height: 30%;
 }
 
 .logo {
-    height: inherit;
-}
-
-header {
-    display: flex;
-    margin: 0px
-}
-
-header nav {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    display: flex;
-    justify-content: space-between;
-    flex-basis: 70%;
-    height: 160px;
-}
-
-header nav div {
-    display: flex;
-    justify-content: flex-end;
-    margin: 0px;
-    flex-basis: 27%;
-}
-
-nav a {
-    margin: 5px 0;
-}
-
-nav a:hover {
-    cursor: pointer;
-    color: rgb(82, 133, 139);
-    font-weight: bolder;
-}
-
-.home {
-    font-family: Georgia, 'Times New Roman', Times, serif;
     height: 200px;
 }
 
-.home:hover {
-    color: rgb(82, 133, 139);
+.cloud-link {
+    height: 50%;
 }
 
-.all-nav {
-    padding-top: 25%;
-    background-size: contain;
+.cloud-img {
+    height: 90%;
 }
 
-.user-nav {
-    padding-top: 25%;
-    background-size: contain;
+@media screen and (max-width: 950px){    
+    /* For tablets: */
+    .logo {
+        height: 150px;
+        transition: 1s;
+    }
+    
 }
-
-.guest-nav {
-    padding-top: 25%;
-    background-size: contain;
-}
-
-.admin-nav {
-    padding-top: 25%;
-    background-size: contain;
+@media screen and (min-width: 950px){    
+    /* For tablets: */
+    .logo {
+        height: 200px;
+        transition: 1s;
+    }
+    
 }

@@ -13,7 +13,7 @@ export const titles = {
     'PendingHeroes': 'Герои, очакващи одобрение',
     'PendingComics': 'Комикси, очакващи одобрение',
     'Login': 'Вход',
-    'Register': 'Нов профил',
+    'Register': 'Нов',
     'Welcome': 'Добре дошли в комиксовия свят на България!',
     'Author': 'Автор',
     'Title': 'Заглавие',

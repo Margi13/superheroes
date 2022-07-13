@@ -2,22 +2,6 @@ const router = require('express').Router();
 const { isGuest, isAuth } = require('../middlewares/authMiddleware');
 const userService = require('../services/userService');
 
-router.get('/:id', isAuth, async (req, res) => {
-	const id = req.params.id;
-	try {
-		const userData = await userService.getUser(id)
-		if(!user) {
-			throw new Error('There is no user with given id.')
-		}
-		res.status(200).json(userData);
-
-	} catch (error) {
-		res.status(400).json({
-			type: 'error',
-			message: error.message
-		})
-	}
-})
 router.post('/register', async (req, res) => {
 	let { email, password } = req.body;
 	try {
@@ -57,5 +41,21 @@ router.post('/login', async (req, res) => {
 
 router.get('/logout', isAuth, (req, res) => {
 	res.status(200).json({ ok: true });
+})
+router.get('/:id', isAuth, async (req, res) => {
+	const id = req.params.id;
+	try {
+		const userData = await userService.getUser(id)
+		if(!user) {
+			throw new Error('There is no user with given id.')
+		}
+		res.status(200).json(userData);
+
+	} catch (error) {
+		res.status(400).json({
+			type: 'error',
+			message: error.message
+		})
+	}
 })
 module.exports = router;

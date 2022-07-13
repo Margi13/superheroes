@@ -3,7 +3,6 @@ import '../ReadComics.css';
 import { useEffect, useState } from 'react';
 
 const ComicsHeader = ({
-    title,
     data,
 }) => {
     const [username, setUsername] = useState('')

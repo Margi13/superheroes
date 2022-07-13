@@ -49,7 +49,7 @@ const Pagination = ({
                     pageSize={1}
                     totalItems={imagesUrl.length}
                 >
-                    <img src={imagesUrl[pageIndex]} alt="Comics Page" />
+                    <img className="disable-rc" src={imagesUrl[pageIndex]} alt="Comics Page" />
                 </PrevAndNext>
                 <FirstAndLast className="comics-footer"
                     pageIndex={pageIndex}

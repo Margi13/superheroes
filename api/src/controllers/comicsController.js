@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
 router.get('/:comicsId', async (req, res) => {
     try {
         const comicsId = req.params.comicsId;
-        const comics = await comicsService.getOne(comicsId);
+        const populate = req.query.populate === 'true';
+        const comics = await comicsService.getOne(comicsId, populate);
         if (comics) {
             return res.json(comics);
         } else {
@@ -46,7 +47,6 @@ router.put('/:comicsId', isAuth, async (req, res) => {
     const { data, status } = req.body;
     data.status = status ? status : 0;
     data.coverPage = data.coverPage ? data.coverPage : data.imagesUrl[0];
-    data._updatedOn = Number(status) === 0 ? new Date() : undefined;
     trimData(data);
     try {
         if (!status) {

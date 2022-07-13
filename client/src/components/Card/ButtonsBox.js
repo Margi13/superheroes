@@ -71,17 +71,12 @@ const ButtonsBox = ({
                 : <></>
             }
             {hasFunctionalButtons
-                ? isDocument
-                    ? (role.isOwner
+                ? role.isAdmin
+                    ? approveButtons
+                    : (role.isOwner
                         ? ownerButtons
-                        : approveButtons
+                        : <></>
                     )
-                    : role.isAdmin
-                        ? approveButtons
-                        : (role.isOwner
-                            ? ownerButtons
-                            : <></>
-                        )
                 : ''
             }
             {hasDetails

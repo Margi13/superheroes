@@ -52,6 +52,9 @@ export const useDownloadDocumentState = (id) => {
                 .then(doc => {
                     setDocumentUrl(doc);
                 })
+                .catch(() => {
+                    setDocumentUrl('')
+                })
             });
     }, [id, setDocumentUrl]);
 

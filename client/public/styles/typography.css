@@ -70,3 +70,6 @@ a {
 .no-error{
     color: inherit;
 }
+.disable-rc {
+    pointer-events: none;
+}

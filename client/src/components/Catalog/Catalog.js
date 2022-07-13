@@ -7,8 +7,8 @@ const Catalog = () => {
     return (
         <section className="catalog-page">
             <Routes>
-                <Route path="/heroes" element={<HeroesCatalog pageSize={15} />} />
-                <Route path="/comics" element={<ComicsCatalog pageSize={15} />} />
+                <Route path="/heroes" element={<HeroesCatalog pageSize={10} />} />
+                <Route path="/comics" element={<ComicsCatalog pageSize={10} />} />
             </Routes>
         </section>
     );

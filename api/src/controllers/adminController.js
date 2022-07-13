@@ -70,6 +70,7 @@ router.put('/approve/heroes/:superheroId', isAdmin, async (req, res) => {
         if (!superhero) {
             throw new Error('Cannot find this superhero!')
         }
+        superhero._updatedOn = Number(superhero.status) === 0 ? new Date() : undefined;
         superhero.status = 1;
         superhero.reports = [];
         const approved = await adminService.approveHero(superheroId, superhero);
@@ -96,6 +97,7 @@ router.put('/approve/comics/:comicsId', isAdmin, async (req, res) => {
         if (!comics) {
             throw new Error('Cannot find this comics!')
         }
+        comics._updatedOn = Number(comics.status) === 0 ? new Date() : undefined;
         comics.status = 1;
         comics.reports = [];
         const approved = await adminService.approveComics(comicsId, comics);

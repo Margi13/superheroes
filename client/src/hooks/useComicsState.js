@@ -3,16 +3,16 @@ import * as comicsService from '../services/comicsService';
 import * as adminService from '../services/adminService';
 import * as firebaseService from '../services/firebaseService';
 
-export const useOneComicsState = (id) => {
+export const useOneComicsState = (id, populate) => {
     const [comics, setComics] = useState({});
     const [imageUrl, setImageUrl] = useState('');
 
     useEffect(() => {
-        comicsService.getOne(id)
+        comicsService.getOne(id, populate)
             .then(res => {
                 setComics(res);
             });
-    }, [id, setComics]);
+    }, [id, setComics, populate]);
 
     return [comics, setComics, imageUrl, setImageUrl]
 }
@@ -21,7 +21,7 @@ export const useOneComicsWithPicState = (id) => {
     const [imageUrl, setImageUrl] = useState('');
 
     useEffect(() => {
-        comicsService.getOne(id)
+        comicsService.getOne(id, false)
             .then(res => {
                 const imagePath = `comics/${res._id}`;
                 firebaseService.getImageFromFirebase(res.coverPage, imagePath)

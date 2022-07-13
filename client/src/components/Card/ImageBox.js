@@ -4,7 +4,7 @@ const ImageBox = ({
     className
 }) => {
     return (
-        <img className={className} src={imageUrl || '/images/avatar-grooth.png'} alt={altText || ""} />
+        <img className={`${className} disable-rc`} src={imageUrl || '/images/avatar-grooth.png'} alt={altText || ""} />
     )
 }
 

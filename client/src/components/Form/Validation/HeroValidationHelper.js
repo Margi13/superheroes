@@ -3,10 +3,10 @@ export const ChangeHandlers = (setErrors, setImage) => {
     const validFileExtensions = ["jpg", "jpeg", "bmp", "gif", "png"];
     const imageHandler = (e) => {
         if (e.target.files && e.target.files.length > 0) {
-            const image = e.target.files[0];
+            const file = e.target.files[0];
 
-            let size = image.size / 1024 / 1024;
-            const nameParts = image.name.split('.');
+            const size = file.size / 1024 / 1024;
+            const nameParts = file.name.split('.');
 
             if (!validFileExtensions.includes(nameParts[nameParts.length - 1].toLowerCase())) {
                 setErrors(state => ({ ...state, image: validationMessages.ImagesFormat }))
@@ -14,14 +14,14 @@ export const ChangeHandlers = (setErrors, setImage) => {
                 setErrors(state => ({ ...state, image: validationMessages.ImageSize }));
             } else {
                 setErrors(state => ({ ...state, image: null }));
-                setImage(() => ({ ...image }));
+                setImage(() => ({ file }));
             }
         } else {
             setErrors(state => ({ ...state, images: validationMessages.requiredMessage }))
         }
     }
     const personNameChangeHandler = (e) => {
-        let currentName = e.target.value;
+        const currentName = e.target.value;
         if (currentName === '') {
             setErrors(state => ({ ...state, personName: validationMessages.requiredMessage }));
         } else if (currentName.length < 4 || currentName.length > 30) {
@@ -32,7 +32,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
     }
 
     const heroNameChangeHandler = (e) => {
-        let currentName = e.target.value;
+        const currentName = e.target.value;
         if (currentName === '') {
             setErrors(state => ({ ...state, heroName: validationMessages.requiredMessage }));
         } else if (currentName.length < 2 || currentName.length > 30) {
@@ -43,7 +43,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
         }
     }
     const kindChangeHandler = (e) => {
-        let currentKind = e.target.value;
+        const currentKind = e.target.value;
         if (currentKind === '') {
             setErrors(state => ({ ...state, kind: validationMessages.requiredMessage }));
         } else if (currentKind.length < 2 || currentKind.length > 15) {
@@ -54,7 +54,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
         }
     }
     const ageChangeHandler = (e) => {
-        let currentAge = Number(e.target.value);
+        const currentAge = Number(e.target.value);
         if (currentAge <= 0) {
             setErrors(state => ({ ...state, age: validationMessages.AgeRange }));
         } else {
@@ -63,7 +63,7 @@ export const ChangeHandlers = (setErrors, setImage) => {
         }
     }
     const storyChangeHandler = (e) => {
-        let currentStory = e.target.value;
+        const currentStory = e.target.value;
         if (currentStory === '') {
             setErrors(state => ({ ...state, story: validationMessages.requiredMessage }));
         } else if (currentStory.length < 10) {

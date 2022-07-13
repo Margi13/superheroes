@@ -115,8 +115,7 @@ export const handleMultipleImagesUpload = async (data, setUrls, setProgress) => 
             },
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    console.log(`Ready: ${i + 1}/${data.images.length}`)
-                    setUrls((prevState) => [...prevState, url])
+                    console.log(url)
                 });
             }
         );

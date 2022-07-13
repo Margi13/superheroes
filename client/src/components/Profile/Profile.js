@@ -14,8 +14,8 @@ const Profile = () => {
                 <Link to="/profile/my-docs" className="button" href="/profile/my-docs">{buttonLabelsBG.Documents}</Link>
             </div>
             <Routes>
-                <Route path="/my-heroes" element={<MyHeroes pageSize={15} />} />
-                <Route path="/my-comics" element={<MyComics pageSize={15} />} />
+                <Route path="/my-heroes" element={<MyHeroes pageSize={5} />} />
+                <Route path="/my-comics" element={<MyComics pageSize={5} />} />
                 <Route path="/my-docs" element={<MyDocuments />} />
             </Routes>
         </>

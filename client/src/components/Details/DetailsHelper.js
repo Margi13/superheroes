@@ -21,7 +21,7 @@ export const DetailsHelper = (user, data, setData, setShowDeleteDialog, type) =>
 		}
 		service.remove(data._id)
 			.then(res => {
-				const imagePath = type === 'comcis' ? `comics/${data.title.split(' ').join('_')}` : 'heroes';
+				const imagePath = type === 'comics' ? `comics/${data._id}` : 'heroes';
 				const imageUrl = type === 'comics' ? data.coverPage : data.imageUrl;
 				firebaseService.deleteImageFromFirebase(imageUrl, imagePath)
 					.then(res => {

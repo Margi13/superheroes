@@ -13,8 +13,8 @@ const Pending = () => {
                 <Link to="/admin/pending/comics" className="button" href="/admin/pending/comics">{buttonLabelsBG.Comics}</Link>
             </div>
             <Routes>
-                <Route path="/heroes" element={<PendingHeroes pageSize={15} />} />
-                <Route path="/comics" element={<PendingComics pageSize={15} />} />
+                <Route path="/heroes" element={<PendingHeroes pageSize={5} />} />
+                <Route path="/comics" element={<PendingComics pageSize={5} />} />
             </Routes>
         </section>
     )

@@ -3,7 +3,7 @@ import { comicsUrl } from '../common/urlConstants';
 
 export const getAll = () => request.get(`${comicsUrl}`);
 
-export const getOne = (comicsId) => request.get(`${comicsUrl}/${comicsId}`);
+export const getOne = (comicsId, populate) => request.get(`${comicsUrl}/${comicsId}?populate=${populate}`);
 
 export const getOwn = (ownerId) => {
     const query = encodeURIComponent(`_ownerId="${ownerId}"`);

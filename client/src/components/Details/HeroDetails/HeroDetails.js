@@ -39,7 +39,7 @@ const HeroDetails = () => {
 						<span className="age">{superhero.age} {formLabelsBG.Age.toLocaleLowerCase()}</span>
 						<span className="kind">{superhero.kind || 'Човек'}</span>
 
-						<p className="description">
+						<p className="description" align="justify">
 							{superhero.story}
 						</p>
 					</div>

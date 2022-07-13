@@ -6,7 +6,6 @@ const TextField = ({
     defaultValue,
     changeHandler
 }) => {
-
     return (
         <>
             <label htmlFor={name}>{label}</label>

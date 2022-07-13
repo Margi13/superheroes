@@ -46,7 +46,8 @@ const HeroForm = ({
                 const data = {
                     image: image, type: 'heroes'
                 }
-                firebaseService.handleImageUpload(data, setImage, () => { })
+                console.log(image)
+                firebaseService.handleImageUpload(data, () => { }, () => { })
                     .then(() => {
 
                         const document = {
@@ -73,14 +74,12 @@ const HeroForm = ({
         superheroService.update(id, { data: heroData })
             .then((result) => {
                 if (result.type) {
-                    console.log(result.message)
                     throw new Error(result.message);
                 }
-                console.log('On edit:')
                 const data = {
                     image: image, type: 'heroes'
                 }
-                firebaseService.handleImageUpload(data, setImage, () => { })
+                firebaseService.handleImageUpload(data, () => { }, () => { })
                     .then(() => {
                         addNotification(alertMessages.EditSuccess, typesColor.success);
                         navigate(`/details/heroes/${id}`);
@@ -92,6 +91,7 @@ const HeroForm = ({
             })
     }
     const checkForError = (heroData) => {
+        console.log(heroData)
         if (heroData.personName === '' || heroData.heroName === '' || heroData.kind === '' || !heroData.age || heroData.image === '' || heroData.story === '') {
             addNotification(alertMessages.EnteredNoData, typesColor.error);
             return 0;

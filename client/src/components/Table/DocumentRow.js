@@ -13,7 +13,6 @@ const DocumentRow = ({
     const [comics] = useOneComicsState(data.dataId);
     const [hero] = useOneHeroState(data.dataId);
     const [documentUrl] = useDownloadDocumentState(data._id)
-
     const { addNotification } = useNotificationContext();
     const downloadDocument = () => {
         if (documentUrl) {
@@ -29,14 +28,18 @@ const DocumentRow = ({
             <td className="data-cell">Документ за авторство</td>
             <td className="data-cell">{data.dataType === 'comics' ? 'Комикс' : 'Герой'}</td>
             {
-                data.dataType === 'comcis'
+                data.dataType === 'comics'
                     ? <td className="link-cell"><Link to={`/details/comics/${comics._id}`}>{comics.title}</Link> </td>
                     : <td className="link-cell"><Link to={`/details/heroes/${hero._id}`}>{hero.heroName}</Link> </td>
             }
-
             <td align="right">
-                <button onClick={downloadDocument} className="button-cell" download><i className="fa fa-solid fa-download"></i></button>
+                {
+                    data._updatedOn
+                        ? <button onClick={downloadDocument} className={`button-cell ${data._updatedOn === undefined ? 'disabled' : ''}`} disabled={data._updatedOn === undefined} download><i className="fa fa-solid fa-download"></i></button>
+                        : ''
+                }
             </td>
+
         </tr>
     )
 }

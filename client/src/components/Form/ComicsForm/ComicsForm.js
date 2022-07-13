@@ -6,7 +6,6 @@ import * as firebaseService from '../../../services/firebaseService';
 import * as documentService from '../../../services/documentService';
 import { useOneComicsState } from '../../../hooks/useComicsState';
 import { useAuthContext } from '../../../contexts/AuthContext';
-
 import { formLabelsBG, placeholdersBG } from '../../../common/labelsConstatnsBG';
 import { alertMessages } from '../../../common/messagesConstantsBG';
 import { typesColor, useNotificationContext } from '../../../contexts/NotificationContext';
@@ -26,12 +25,11 @@ const ComicsForm = ({
     const { user } = useAuthContext();
     const [images, setImages] = useState({ images: null, urls: '' });
     const [errors, setErrors] = useState(initialErrorState);
-    const [comics] = useOneComicsState(id);
+    const [comics] = useOneComicsState(id, false);
 
     if (comics._ownerId && user._id !== comics._ownerId) {
         return <Navigate to="/" />
     }
-
     const handlers = ChangeHandlers(setErrors, setImages);
 
     const create = (comicsData, images) => {
@@ -39,13 +37,12 @@ const ComicsForm = ({
         comicsService.create(comicsData, images)
             .then((result) => {
                 if (result.type) {
-                    console.log(result.message);
                     throw new Error(result.message);
                 }
                 const data = {
                     images: images, type: 'comics', folderName: result._id
                 }
-                firebaseService.handleMultipleImagesUpload(data, setImages, () => { })
+                firebaseService.handleMultipleImagesUpload(data, () => { }, () => { })
                     .then(() => {
                         const document = {
                             dataId: result._id,
@@ -76,7 +73,7 @@ const ComicsForm = ({
                 const data = {
                     images: images, type: 'comics', folderName: id
                 }
-                firebaseService.handleMultipleImagesUpload(data, setImages, () => { })
+                firebaseService.handleMultipleImagesUpload(data, () => { }, () => { })
                     .then(() => {
                         addNotification(alertMessages.EditSuccess, typesColor.success);
                         navigate(`/details/comics/${id}`)

@@ -10,12 +10,12 @@ import './ReadComics.css';
 
 const ReadComics = () => {
 	const { id } = useParams();
-	const [comics, setComics] = useOneComicsState(id);
+	const [comics, setComics] = useOneComicsState(id, true);
 	const [page, setPage] = useState(0);
 
 	return (
 		<section className="read-container">
-			<ComicsHeader title={comics.title} data={comics} author={comics._ownerId} />
+			<ComicsHeader data={comics} />
 			<Pagination comicsId={comics._id} urls={comics.imagesUrl} pageIndex={page} onChangePage={setPage} />
 			<hr />
 			<ComicsDescription comics={comics} setComics={setComics} />

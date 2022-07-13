@@ -10,6 +10,7 @@ import { DetailsHelper } from '../DetailsHelper';
 import '../Details.css';
 import ButtonsBox from '../../Card/ButtonsBox';
 import ImageBox from '../../Card/ImageBox';
+import { formLabelsBG } from '../../../common/labelsConstatnsBG';
 
 const ComicsDetails = () => {
 	const { user } = useAuthContext();
@@ -20,7 +21,7 @@ const ComicsDetails = () => {
 
 	const role = {
 		isGuest: user._id ? user._id.length <= 0 : true,
-		isOwner: user._id && (user._id === comics._ownerId) ? true : false
+		isOwner: user._id === comics._ownerId ? true : false
 	};
 	return (
 		<section className="hero-details">
@@ -32,7 +33,9 @@ const ComicsDetails = () => {
 
 					<div className="info-contaner">
 						<h1>{comics.title}</h1>
-						<p className="description">
+						<span className="age">{formLabelsBG.Genre}:</span>
+						<span className="kind">{comics.genre || 'Няма'}</span>
+						<p className="description" align="justify">
 							{comics.description}
 						</p>
 					</div>
